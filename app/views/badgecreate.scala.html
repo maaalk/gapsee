@@ -1,0 +1,16 @@
+@(badgeForm : Form[Badge])
+@import helper._
+@main("Badge Form"){
+
+  <h1> Create Badge </h1>
+  @helper.form(action = helper.CSRF(routes.BadgeController.save())){
+    @helper.inputText(badgeForm("id"))
+    @helper.inputText(badgeForm("name"))
+    @helper.inputText(badgeForm("description"))
+    @helper.inputText(badgeForm("category"))
+    @helper.inputText(badgeForm("points"))
+  
+    <input type="submit" value="Create Badge">
+  }
+}
+

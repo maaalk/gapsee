@@ -1,0 +1,194 @@
+@(badges: Set[Badge])
+
+
+
+@main("Badge List") {
+
+<div class="row">
+    <div class="card-panel">
+        <div class="card-title"><h4>Software Engineering</h4></div>
+        <div class="row">
+            <div class="col s6 m2">
+                <div class="card-panel">
+                    <img src="@routes.Assets.versioned("images/trophy.png")" alt="trophy" style="max-width: 60px;max-height: 50px; margin-left: auto; margin-right: auto;">
+                    <p>35/50 Troféus</p>
+                </div>
+            </div>
+            <div class="col s6 m6">
+                <div class="card-panel">
+                    <span>Progresso</span>
+                    <div class="progress">
+                        <div class="determinate" style="width: 70%">Progresso</div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+    <ul class="collapsible accordion">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">expand_more</i>Level 1</div>
+            <div class="collapsible-body">
+                <div class="row">
+                    <div class="col m2">
+                        <p>Date 1</p>
+                    </div>
+                    <div class="col s12 m5">
+                        @for(badge <- badges){
+
+
+                        <div    @if(badge.getPoints==1){
+                                class="card horizontal orange lighten-4"
+                                }
+                                @if(badge.getPoints==2){
+                                class="card horizontal grey lighten-4"
+                                }
+                                @if(badge.getPoints==3){
+                                class="card horizontal yellow lighten-4"}>
+                            <div class="card-stacked">
+                                <div class="container">
+                                    <div class="card-image">
+                                        <img src="@routes.Assets.versioned("images/trophy.png")" alt="trophy" style="max-width: 120px;max-height: 100px; margin-left: auto; margin-right: auto;">
+                                    </div>
+                                    <div class="card-title">@badge.getName</div>
+                                </div>
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content" style="text-overflow: ellipsis">@badge.getDescription</div>
+                                <div class="card-action">
+                                    <a href="@routes.BadgeController.edit(badge.getId)">Edit</a>
+                                    <a href="@routes.BadgeController.destroy(badge.getId)">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                    <div class="col s12 m5">
+                        @for(badge <- badges){
+
+
+                        <div    @if(badge.getPoints==1){
+                                class="card horizontal orange lighten-4"
+                                }
+                                @if(badge.getPoints==2){
+                                class="card horizontal grey lighten-4"
+                                }
+                                @if(badge.getPoints==3){
+                                class="card horizontal yellow lighten-4"}>
+                            <div class="card-stacked">
+                                <div class="container">
+                                    <div class="card-image">
+                                        <img src="@routes.Assets.versioned("images/trophy.png")" alt="trophy" style="max-width: 120px;max-height: 100px; margin-left: auto; margin-right: auto;">
+                                    </div>
+                                    <div class="card-title">@badge.getName</div>
+                                </div>
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content" style="text-overflow: ellipsis">@badge.getDescription</div>
+                                <div class="card-action">
+                                    <a href="@routes.BadgeController.edit(badge.getId)">Edit</a>
+                                    <a href="@routes.BadgeController.destroy(badge.getId)">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m2">
+                        <p>Date 2</p>
+                    </div>
+                    <div class="col s12 m5">
+                        @for(badge <- badges){
+
+
+                        <div    @if(badge.getPoints==1){
+                                class="card horizontal orange lighten-4"
+                                }
+                                @if(badge.getPoints==2){
+                                class="card horizontal grey lighten-4"
+                                }
+                                @if(badge.getPoints==3){
+                                class="card horizontal yellow lighten-4"}>
+                            <div class="card-stacked">
+                                <div class="container">
+                                    <div class="card-image">
+                                        <img src="@routes.Assets.versioned("images/trophy.png")" alt="trophy" style="max-width: 120px;max-height: 100px; margin-left: auto; margin-right: auto;">
+                                    </div>
+                                    <div class="card-title">@badge.getName</div>
+                                </div>
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content" style="text-overflow: ellipsis">@badge.getDescription</div>
+                                <div class="card-action">
+                                    <a href="@routes.BadgeController.edit(badge.getId)">Edit</a>
+                                    <a href="@routes.BadgeController.destroy(badge.getId)">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">expand_more</i>Level 2</div>
+            <div class="collapsible-body">
+                <div class="row">
+                    <div class="col s12 m5">
+                        @for(badge <- badges){
+
+
+                        <div    @if(badge.getPoints==1){
+                                class="card horizontal orange lighten-4"
+                                }
+                                @if(badge.getPoints==2){
+                                class="card horizontal grey lighten-4"
+                                }
+                                @if(badge.getPoints==3){
+                                class="card horizontal yellow lighten-4"}>
+                            <div class="card-stacked">
+                                <div class="container">
+                                    <div class="card-image">
+                                        <img src="@routes.Assets.versioned("images/trophy.png")" alt="trophy" style="max-width: 120px;max-height: 100px; margin-left: auto; margin-right: auto;">
+                                    </div>
+                                    <div class="card-title">@badge.getName</div>
+                                </div>
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content" style="text-overflow: ellipsis">@badge.getDescription</div>
+                                <div class="card-action">
+                                    <a href="@routes.BadgeController.edit(badge.getId)">Edit</a>
+                                    <a href="@routes.BadgeController.destroy(badge.getId)">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </li>
+
+    </ul>
+
+
+
+</div>
+
+
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script>
+         $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+    </script>
+}
