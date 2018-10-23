@@ -34,12 +34,20 @@ public class Badge{
 
     static{
         badges = new HashSet<>();
-        Badge badge1= new Badge(1, "Trofeu 1", "Lorem ipsum dolor sit amet", "Requirements", 1);
-        Badge badge2= new Badge(2,"Trofeu 2", "Lorem ipsum dolor sit amet", "ProjMngmt", 2);
-        Badge badge3= new Badge(3,"Trofeu 3", "Lorem ipsum dolor sit amet", "Verification", 3);
+        Badge badge1= new Badge(1, "Definir e seguir políticas de uso do Git no leia-me do projeto (mínimo: estrutura de pastas e regras de commit)", "Lorem ipsum dolor sit amet", "CM", 1);
+        Badge badge2= new Badge(2,"Garantir que todas as funcionalidades tenham pelo menos um commit (atômico) e que este seja rastreável.", "Lorem ipsum dolor sit amet", "CM", 3);
+        Badge badge3= new Badge(3,"Usar a funcionalidade de \"Tag\" e \"Release\" para documentar a baseline do sistema", "Lorem ipsum dolor sit amet", "Verification", 2);
+        Badge badge4= new Badge(4,"Documentar a estrutura de alto nível do sistema (ex: Diagrama de Componentes)", "Lorem ipsum dolor sit amet", "Projeto e Modelagem", 1);
+        Badge badge5= new Badge(5,"Documentar código com comentários", "Lorem ipsum dolor sit amet", "Implementação e Construção", 2 );
+        Badge badge6= new Badge(6,"Construir software coerente com requisitos e design", "Lorem ipsum dolor sit amet", "Implementação e Construção", 3);
+
         badges.add(badge1);
         badges.add(badge2);
         badges.add(badge3);
+        badges.add(badge4);
+        badges.add(badge5);
+        badges.add(badge6);
+
     }
 
     public static Set<Badge> allBadges(){
