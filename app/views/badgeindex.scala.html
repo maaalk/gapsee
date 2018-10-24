@@ -3,6 +3,8 @@
 
 @main("Badge List") {
     <!--cabeçalho do curso-->
+
+
 <div class="row">
     <div class="card-panel">
         <div class="card-title"><h4>Software Engineering</h4></div>
@@ -38,77 +40,86 @@
                     <div class="col m2">
                         <p>Date 1</p>
                     </div>
-                    <!--Trophy Card with float button-->
+                    <!--Trophy Card-->
                     <div class="col s12 m5 l4 xl3">
                         @for(badge <- badges){
+
                         <div    @if(badge.getPoints==1){
-                                class="card horizontal orange lighten-4"
+                                class="card horizontal orange lighten-4 hoverable"
                                 }
                                 @if(badge.getPoints==2){
-                                class="card horizontal grey lighten-4"
+                                class="card horizontal grey lighten-4 hoverable"
                                 }
                                 @if(badge.getPoints==3){
-                                class="card horizontal yellow lighten-4"}>
+                                class="card horizontal yellow lighten-4 hoverable" }>
 
-                            <div class="card-image valign-wrapper ">
+                                <a href="@routes.BadgeController.show(badge.getId)" class="card-image valign-wrapper ">
+                                    <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; min-height: 25px;  width:auto;"/>
+                                </a>
+
+
+                            <a href="@routes.BadgeController.show(badge.getId)" class="card-stacked black-text">
+                                <div class="card-content ">
+                                    <p>@badge.getName</p>
+                                </div>
+                            </a>
+
+
+                        </div>
+                        }
+                    </div>
+                    <!--Trophy Card-->
+                    <div class="col s12 m5 l4 xl3">
+                        @for(badge <- badges){
+
+                        <div    @if(badge.getPoints==1){
+                                class="card horizontal orange lighten-4 hoverable"
+                                }
+                                @if(badge.getPoints==2){
+                                class="card horizontal grey lighten-4 hoverable"
+                                }
+                                @if(badge.getPoints==3){
+                                class="card horizontal yellow lighten-4 hoverable" }>
+
+                            <a href="@routes.BadgeController.show(badge.getId)" class="card-image valign-wrapper ">
                                 <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; min-height: 25px;  width:auto;"/>
-                            </div>
-                            <div class="card-stacked">
+                            </a>
+
+
+                            <a href="@routes.BadgeController.show(badge.getId)" class="card-stacked black-text">
                                 <div class="card-content ">
                                     <p>@badge.getName</p>
                                 </div>
-                            </div>
-                            <a class="btn-floating halfway-fab waves-effect waves-light red" href="@routes.BadgeController.show(badge.getId)"><i class="material-icons">add</i></a>
+                            </a>
+
 
                         </div>
                         }
                     </div>
-                    <!--Trophy Card with float button-->
+                    <!--Trophy Card-->
                     <div class="col s12 m5 l4 xl3">
                         @for(badge <- badges){
+
                         <div    @if(badge.getPoints==1){
-                                class="card horizontal orange lighten-4"
+                                class="card horizontal orange lighten-4 hoverable"
                                 }
                                 @if(badge.getPoints==2){
-                                class="card horizontal grey lighten-4"
+                                class="card horizontal grey lighten-4 hoverable"
                                 }
                                 @if(badge.getPoints==3){
-                                class="card horizontal yellow lighten-4"}>
+                                class="card horizontal yellow lighten-4 hoverable" }>
 
-                            <div class="card-image valign-wrapper ">
-                                <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; width:auto;"/>
-                            </div>
-                            <div class="card-stacked">
+                            <a href="@routes.BadgeController.show(badge.getId)" class="card-image valign-wrapper ">
+                                <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; min-height: 25px;  width:auto;"/>
+                            </a>
+
+
+                            <a href="@routes.BadgeController.show(badge.getId)" class="card-stacked black-text">
                                 <div class="card-content ">
                                     <p>@badge.getName</p>
                                 </div>
-                            </div>
-                            <a class="btn-floating halfway-fab waves-effect waves-light red" href="@routes.BadgeController.show(badge.getId)"><i class="material-icons">add</i></a>
+                            </a>
 
-                        </div>
-                        }
-                    </div>
-                    <!--Trophy Card with float button-->
-                    <div class="col s12 m5 l4 xl3">
-                        @for(badge <- badges){
-                        <div    @if(badge.getPoints==1){
-                                class="card horizontal orange lighten-4"
-                                }
-                                @if(badge.getPoints==2){
-                                class="card horizontal grey lighten-4"
-                                }
-                                @if(badge.getPoints==3){
-                                class="card horizontal yellow lighten-4"}>
-
-                            <div class="card-image valign-wrapper ">
-                                <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; width:auto;"/>
-                            </div>
-                            <div class="card-stacked">
-                                <div class="card-content ">
-                                    <p>@badge.getName</p>
-                                </div>
-                            </div>
-                            <a class="btn-floating halfway-fab waves-effect waves-light red" href="@routes.BadgeController.show(badge.getId)"><i class="material-icons">add</i></a>
 
                         </div>
                         }
