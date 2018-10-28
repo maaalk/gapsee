@@ -5,8 +5,13 @@ import java.util.Set;
 import java.util.HashSet;
 import io.ebean.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Badge extends Model{
 
+    @Id
     private Integer id;
     private String name;
     private String description;
@@ -14,7 +19,9 @@ public class Badge extends Model{
     private String date;
     private Integer points;
 
-    public Badge(){
+    public static Finder<Integer, Badge> find = new Finder<>(Badge.class);
+
+   /* public Badge(){
 
     }
 
@@ -71,7 +78,7 @@ public class Badge extends Model{
     public static boolean remove(Badge badge) {
         return badges.remove(badge);
     }
-
+*/
     public Integer getId() {
         return this.id;
     }

@@ -6,6 +6,7 @@ import views.html.*;
 import models.Badge;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.inject.Inject;
@@ -16,7 +17,7 @@ public class BadgeController extends Controller {
     FormFactory formFactory;
 
     public Result index(){
-        Set<Badge> badges = Badge.allBadges();
+        List<Badge> badges = Badge.find.all();
         Set<String> categories = new TreeSet<String>();
         Set<String> dates = new TreeSet<String>();
         for(Badge badge:badges){
@@ -36,12 +37,12 @@ public class BadgeController extends Controller {
     public Result save(){
         Form<Badge> badgeForm = formFactory.form(Badge.class).bindFromRequest();
         Badge badge = badgeForm.get();
-        Badge.add(badge);
+        badge.save();
         return redirect(routes.BadgeController.index());
     }
 
     public Result edit(Integer id){
-        Badge badge = Badge.findById(id);
+        Badge badge = Badge.find.byId(id);
         if (badge==null){
             return notFound("Badge not found");
         }
@@ -51,7 +52,7 @@ public class BadgeController extends Controller {
 
     public Result update(){
         Badge badge = formFactory.form(Badge.class).bindFromRequest().get();
-        Badge oldBadge = Badge.findById(badge.getId());
+        Badge oldBadge = Badge.find.byId(badge.getId());
         if (oldBadge == null){
             return notFound("Badge not found");
         }
@@ -59,13 +60,14 @@ public class BadgeController extends Controller {
         oldBadge.setPoints(badge.getPoints());
         oldBadge.setName(badge.getName());
         oldBadge.setDescription(badge.getDescription());
+        oldBadge.update();
         return redirect(routes.BadgeController.index());
 
 
     }
 
     public Result show(Integer id){
-        Badge badge = Badge.findById(id);
+        Badge badge = Badge.find.byId(id);
         if (badge==null){
             return notFound("Badge not found");
         }
@@ -74,11 +76,11 @@ public class BadgeController extends Controller {
 
 
     public Result destroy(Integer id){
-        Badge badge = Badge.findById(id);
+        Badge badge = Badge.find.byId(id);
         if (badge==null){
             return notFound("Badge not found");
         }
-        Badge.remove(badge);
+        badge.delete();
         return redirect(routes.BadgeController.index());
     }
 
