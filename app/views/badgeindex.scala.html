@@ -1,286 +1,194 @@
-@(badges: Set[Badge])
+@(badges: Set[Badge], categories: Set[String], dates: Set[String])
 
+@import tags.trophycard
+@import tags.trophiesbydate
 
 @main("Badge List") {
     <!--cabeçalho do curso-->
-
-
-<div class="row">
-    <div class="card-panel">
-        <div class="card-title"><h4>Software Engineering</h4></div>
-        <div class="row">
-            <div class="col s6 m2">
-                <div class="card-panel">
-                    <img src="@routes.Assets.versioned("images/trophy.png")" alt="trophy" style="max-width: 60px;max-height: 50px; margin-left: auto; margin-right: auto;">
-                    <p>0/@badges.size() Troféus</p>
-                </div>
-            </div>
-            <div class="col s6 m6">
-                <div class="card-panel">
-                    <span>Progresso</span>
-                    <div class="progress">
-                        <div class="determinate" style="width: 70%">Progresso</div>
+    <div class="row">
+        <div class="card-panel">
+            <div class="card-title"><h4>Software Engineering</h4></div>
+            <div class="row">
+                <div class="col s6 m2">
+                    <div class="card-panel">
+                        <img src="@routes.Assets.versioned("images/trophy.png")" alt="trophy" style="max-width: 60px;max-height: 50px; margin-left: auto; margin-right: auto;">
+                        <p>0/@badges.size() Troféus</p>
                     </div>
                 </div>
+                <div class="col s6 m6">
+                    <div class="card-panel">
+                        <span>Progresso</span>
+                        <div class="progress">
+                            <div class="determinate" style="width: 70%">Progresso</div>
+                        </div>
+                    </div>
 
 
+                </div>
             </div>
         </div>
+
     </div>
 
-</div>
-
-<!--Níveis-->
-<div class="row">
-    <ul class="collapsible accordion">
-        <li> <!--class="active"-->
-            <div class="collapsible-header"><i class="material-icons">expand_more</i>Level 1</div>
-            <div class="collapsible-body">
-                <div class="row">
-                    <div class="col m2">
-                        <p>Date 1</p>
-                    </div>
-                    <!--Trophy Card-->
-                    <div class="col s12 m5 l4 xl3">
-                        @for(badge <- badges){
-
-                        <div    @if(badge.getPoints==1){
-                                class="card horizontal orange lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==2){
-                                class="card horizontal grey lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==3){
-                                class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" }>
-
-                                <a href="#modal1" class="card-image valign-wrapper  modal-trigger ">
-                                    <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; min-height: 25px;  width:auto;"/>
-                                </a>
-
-
-                            <a href="#modal1" class="card-stacked black-text modal-trigger">
-                                <div class="card-content ">
-                                    <p>@badge.getName</p>
-                                </div>
-                            </a>
+    <div class="btn" id="filterGold">Gold</div>
+    <div class="btn" id="filterSilver">Silver</div>
+    <div class="btn" id="filterBronze">Bronze</div>
 
 
 
+    <!--Níveis-->
+    <div class="row">
+        <ul class="collapsible accordion">
+            <li class="active">
+                <div class="collapsible-header"><i class="material-icons">expand_more</i>Level 1</div>
+                <div class="collapsible-body">
 
+                    @*Container for dates with categoris*@
+                    <div class="row">
+                        @*Date*@
+                        <div class="col m1">
+                            <p>Date 1</p>
                         </div>
 
-                        <div id="modal1" class="modal">
-                            <div class="modal-content">
-                                <h4>@badge.getName</h4>
-                                <p style="font-weight: bold">Category:</p>
-                                <p>@badge.getCategory</p>
+                        @*Container for trophy list*@
+
+                        <div class="col m10">
+                        @for(category<-categories) {
+                            <div class="col s12 m6 l4 xl3">
+                                <p style="text-align: center">@category</p>
+
+                                    <!--Trophy Card-->
+                                @for(badge <- badges) {
+                                    @if(badge.getCategory == category) {
+                                        <div @if(badge.getPoints == 1) {
+                                            class="card horizontal orange lighten-4 hoverable waves-effect waves-light"
+                                        }
+                                            @if(badge.getPoints == 2) {
+                                                class="card horizontal grey lighten-4 hoverable waves-effect waves-light"
+                                            }
+                                            @if(badge.getPoints == 3) {
+                                                class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" }>
+                                            <a href="#modal1" class="card-image valign-wrapper  modal-trigger ">
+                                                <img src="@routes.Assets.versioned("images/emptytrophy.png")" style="max-height: 40px;
+                                                    min-height: 30px;
+                                                    min-width: 20px;
+                                                    height: auto;
+                                                    width: auto;"/>
+                                            </a>
+                                            <a href="#modal1" class="card-stacked black-text modal-trigger">
+                                                <div class="card-content ">
+                                                    <p>@badge.getName</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        @*end of card*@
+
+                                        @*Modal*@
+                                        <div id="modal1" class="modal">
+                                            <div class="modal-content">
+                                                <h4>@badge.getName</h4>
+                                                <p>Category: @badge.getCategory</p>
+                                                <p>Description: @badge.getDescription</p>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+                                                    Close</a>
+                                            </div>
+                                        </div>
+                                        @*end of modal*@
+                                    }
+                                }
                             </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-                            </div>
-                        </div>
                         }
+                        </div>
+
+
                     </div>
-                    <!--Trophy Card-->
-                    <div class="col s12 m5 l4 xl3">
-                        @for(badge <- badges){
-
-                        <div    @if(badge.getPoints==1){
-                                class="card horizontal orange lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==2){
-                                class="card horizontal grey lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==3){
-                                class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" }>
-
-                            <a href="#modal1" class="card-image valign-wrapper  modal-trigger ">
-                                <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; min-height: 25px;  width:auto;"/>
-                            </a>
-
-
-                            <a href="#modal1" class="card-stacked black-text modal-trigger">
-                                <div class="card-content ">
-                                    <p>@badge.getName</p>
-                                </div>
-                            </a>
-
-
-
+                    @*Container for dates without categories*@
+                    <div class="row">
+                        @*Date*@
+                        <div class="col m1">
+                            <p>Date 1</p>
+                        </div>
+                        @*Container for trophy list*@
+                        <div class="col m10">
+                                <!--Trophy Card-->
+                            <div class="col s12 m6 l4 xl3">
+                            @for(badge <- badges){
+                               @trophycard(badge)
+                            }
+                            </div>
+                                <!--Trophy Card-->
+                            <div class="col s12 m6 l4 xl3">
+                            @for(badge <- badges){
+                                @trophycard(badge)
+                            }
+                            </div>
+                                <!--Trophy Card-->
+                            <div class="col s12 m6 l4 xl3">
+                            @for(badge <- badges){
+                                @trophycard(badge)
+                            }
+                            </div>
+                                <!--Trophy Card-->
+                            <div class="col s12 m6 l4 xl3">
+                            @for(badge <- badges){
+                                @trophycard(badge)
+                            }
+                            </div>
 
                         </div>
-
-                        <div id="modal1" class="modal">
-                            <div class="modal-content">
-                                <h4>@badge.getName</h4>
-                                <p style="font-weight: bold">Category:</p>
-                                <p>@badge.getCategory</p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-                            </div>
-                        </div>
-                        }
-                    </div>
-                    <!--Trophy Card-->
-                    <div class="col s12 m5 l4 xl3">
-                        @for(badge <- badges){
-
-                        <div    @if(badge.getPoints==1){
-                                class="card horizontal orange lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==2){
-                                class="card horizontal grey lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==3){
-                                class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" }>
-
-                            <a href="#modal1" class="card-image valign-wrapper  modal-trigger ">
-                                <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; min-height: 25px;  width:auto;"/>
-                            </a>
-
-
-                            <a href="#modal1" class="card-stacked black-text modal-trigger">
-                                <div class="card-content ">
-                                    <p>@badge.getName</p>
-                                </div>
-                            </a>
-
-
-
-
-                        </div>
-
-                        <div id="modal1" class="modal">
-                            <div class="modal-content">
-                                <h4>@badge.getName</h4>
-                                <p style="font-weight: bold">Category:</p>
-                                <p>@badge.getCategory</p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-                            </div>
-                        </div>
-                        }
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col m2">
-                        <p>Date 2</p>
-                    </div>
-                    <!--Trophy Card-->
-                    <div class="col s12 m5 l4 xl3">
-                        @for(badge <- badges){
-
-                        <div    @if(badge.getPoints==1){
-                                class="card horizontal orange lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==2){
-                                class="card horizontal grey lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==3){
-                                class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" }>
-
-                            <a href="#modal1" class="card-image valign-wrapper  modal-trigger ">
-                                <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; min-height: 25px;  width:auto;"/>
-                            </a>
-
-
-                            <a href="#modal1" class="card-stacked black-text modal-trigger">
-                                <div class="card-content ">
-                                    <p>@badge.getName</p>
-                                </div>
-                            </a>
-
-
-
-
-                        </div>
-
-                        <div id="modal1" class="modal">
-                            <div class="modal-content">
-                                <h4>@badge.getName</h4>
-                                <p style="font-weight: bold">Category:</p>
-                                <p>@badge.getCategory</p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-                            </div>
-                        </div>
-                        }
-                    </div>
-
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="collapsible-header"><i class="material-icons">expand_more</i>Level 2</div>
-            <div class="collapsible-body">
-                <div class="row">
-                    <!--Trophy Card-->
-                    <div class="col s12 m5 l4 xl3">
-                        @for(badge <- badges){
-
-                        <div    @if(badge.getPoints==1){
-                                class="card horizontal orange lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==2){
-                                class="card horizontal grey lighten-4 hoverable waves-effect waves-light"
-                                }
-                                @if(badge.getPoints==3){
-                                class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" }>
-
-                            <a href="#modal1" class="card-image valign-wrapper  modal-trigger ">
-                                <img src="@routes.Assets.versioned("images/emptytrophy.png")"  style="max-height: 50px; min-height: 25px;  width:auto;"/>
-                            </a>
-
-
-                            <a href="#modal1" class="card-stacked black-text modal-trigger">
-                                <div class="card-content ">
-                                    <p>@badge.getName</p>
-                                </div>
-                            </a>
-
-
-
-
-                        </div>
-
-                        <div id="modal1" class="modal">
-                            <div class="modal-content">
-                                <h4>@badge.getName</h4>
-                                <p style="font-weight: bold">Category:</p>
-                                <p>@badge.getCategory</p>
-                            </div>
-                            <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-                            </div>
-                        </div>
-                        }
                     </div>
                 </div>
-            </div>
-        </li>
+            </li>
+            <li>
+                <div class="collapsible-header"><i class="material-icons">expand_more</i>Level 2</div>
+                <div class="collapsible-body">
+                    @for(date<- dates){
+                        @trophiesbydate(badges,date,categories)
+                    }
 
-    </ul>
+                </div>
+            </li>
+
+        </ul>
 
 
 
-</div>
+    </div>
 
 
 
-<script
-        src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     <script>
-         $(document).ready(function(){
-    $('.collapsible').collapsible();
-  });
-  $(document).ready(function(){
-    $('.modal').modal();
-  });
+            $(document).ready(function(){
+                $('.collapsible').collapsible();
+            });
+            $(document).ready(function(){
+                $('.modal').modal();
+            });
+            $(document).ready(function(){
+                $("#filterGold").click(function () {
+                    $(".yellow").toggle();
+                });
+            });
+            $(document).ready(function(){
+                $("#filterSilver").click(function () {
+                    $(".grey").toggle();
+                });
+            });
+            $(document).ready(function(){
+                $("#filterBronze").click(function () {
+                    $(".orange").toggle();
+                });
+            });
+            $(document).ready(function () {
+                $(".course-category-CM").hide();
+            })
+
     </script>
 }

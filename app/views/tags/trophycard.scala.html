@@ -1,0 +1,41 @@
+
+@(badge: Badge)
+<div class="trophycard">
+    <div @if(badge.getPoints == 1) {
+        class="card horizontal orange lighten-4 hoverable waves-effect waves-light" data-category="@badge.getCategory" data-date="@badge.getDate"
+    }
+    @if(badge.getPoints == 2) {
+        class="card horizontal grey lighten-4 hoverable waves-effect waves-light" data-category="@badge.getCategory" data-date="@badge.getDate"
+    }
+    @if(badge.getPoints == 3) {
+        class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" data-category="@badge.getCategory" data-date="@badge.getDate"}>
+    <a href="#modal1" class="card-image valign-wrapper  modal-trigger ">
+        <img src="@routes.Assets.versioned("images/emptytrophy.png")" style="max-height: 40px;
+            min-height: 30px;
+            min-width: 20px;
+            height: auto;
+            width: auto;"/>
+    </a>
+    <a href="#modal1" class="card-stacked black-text modal-trigger">
+        <div class="card-content ">
+            <p>@badge.getName</p>
+        </div>
+    </a>
+    </div>
+
+    @*Modal*@
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>@badge.getName</h4>
+            <p>Category: @badge.getCategory</p>
+            <p>Description: @badge.getDescription</p>
+
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">
+                Close</a>
+        </div>
+    </div>
+</div>
+
+@*end of modal*@

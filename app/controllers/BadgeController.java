@@ -4,7 +4,10 @@ import play.data.FormFactory;
 import play.mvc.*;
 import views.html.*;
 import models.Badge;
+
+import java.util.ArrayList;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.inject.Inject;
 
 public class BadgeController extends Controller {
@@ -14,7 +17,15 @@ public class BadgeController extends Controller {
 
     public Result index(){
         Set<Badge> badges = Badge.allBadges();
-        return ok(badgeindex.render(badges));
+        Set<String> categories = new TreeSet<String>();
+        Set<String> dates = new TreeSet<String>();
+        for(Badge badge:badges){
+            categories.add(badge.getCategory());
+        }
+        for(Badge badge:badges){
+            dates.add(badge.getDate());
+        }
+        return ok(badgeindex.render(badges, categories, dates));
     }
 
     public Result create(){
