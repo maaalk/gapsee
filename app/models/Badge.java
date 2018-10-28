@@ -7,6 +7,7 @@ import io.ebean.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Badge extends Model{
