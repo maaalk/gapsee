@@ -1,13 +1,10 @@
 package models;
 
-import java.util.Date;
-import java.util.Set;
-import java.util.HashSet;
 import io.ebean.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
 import play.data.validation.*;
 
 @Entity
@@ -20,10 +17,10 @@ public class Badge extends Model{
     @Constraints.Required
     private String description;
     @Constraints.Required
-    private String category;
-    private String date;
+    private String topic;
+    private String finalDate;
     @Constraints.Required
-    private Integer points;
+    private Integer tier;
 
     public static Finder<Integer, Badge> find = new Finder<>(Badge.class);
 
@@ -52,27 +49,27 @@ public class Badge extends Model{
         this.description = description;
     }
 
-    public String getCategory() {
-        return this.category;
+    public String getTopic() {
+        return this.topic;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
-    public Integer getPoints() {
-        return this.points;
+    public Integer getTier() {
+        return this.tier;
     }
 
-    public void setPoints(Integer points) {
-        this.points = points;
+    public void setTier(Integer tier) {
+        this.tier = tier;
     }
 
-    public String getDate() {
-        return date;
+    public String getFinalDate() {
+        return finalDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setFinalDate(String finalDate) {
+        this.finalDate = finalDate;
     }
 }

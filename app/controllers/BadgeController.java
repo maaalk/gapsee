@@ -6,7 +6,6 @@ import views.html.*;
 import models.Badge;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -22,10 +21,10 @@ public class BadgeController extends Controller {
         Set<String> categories = new TreeSet<String>();
         Set<String> dates = new TreeSet<String>();
         for(Badge badge:badges){
-            categories.add(badge.getCategory());
+            categories.add(badge.getTopic());
         }
         for(Badge badge:badges){
-            dates.add(badge.getDate());
+            dates.add(badge.getFinalDate());
         }
         return ok(badgeindex.render(badges, categories, dates));
     }
@@ -57,8 +56,8 @@ public class BadgeController extends Controller {
         if (oldBadge == null){
             return notFound("Badge not found");
         }
-        oldBadge.setCategory(badge.getCategory());
-        oldBadge.setPoints(badge.getPoints());
+        oldBadge.setTopic(badge.getTopic());
+        oldBadge.setTier(badge.getTier());
         oldBadge.setName(badge.getName());
         oldBadge.setDescription(badge.getDescription());
         oldBadge.update();

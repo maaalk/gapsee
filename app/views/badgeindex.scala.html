@@ -53,20 +53,20 @@
                         @*Container for trophy list*@
 
                         <div class="col m10">
-                        @for(category<-categories) {
+                        @for(topic<-categories) {
                             <div class="col s12 m6 l4 xl3">
-                                <p style="text-align: center">@category</p>
+                                <p style="text-align: center">@topic</p>
 
                                     <!--Trophy Card-->
                                 @for(badge <- badges) {
-                                    @if(badge.getCategory == category) {
-                                        <div @if(badge.getPoints == 1) {
+                                    @if(badge.getTopic == topic) {
+                                        <div @if(badge.getTier == 1) {
                                             class="card horizontal orange lighten-4 hoverable waves-effect waves-light"
                                         }
-                                            @if(badge.getPoints == 2) {
+                                            @if(badge.getTier == 2) {
                                                 class="card horizontal grey lighten-4 hoverable waves-effect waves-light"
                                             }
-                                            @if(badge.getPoints == 3) {
+                                            @if(badge.getTier == 3) {
                                                 class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" }>
                                             <a href="#modal1" class="card-image valign-wrapper  modal-trigger ">
                                                 <img src="@routes.Assets.versioned("images/emptytrophy.png")" style="max-height: 40px;
@@ -87,7 +87,7 @@
                                         <div id="modal1" class="modal">
                                             <div class="modal-content">
                                                 <h4>@badge.getName</h4>
-                                                <p>Category: @badge.getCategory</p>
+                                                <p>Category: @badge.getTopic</p>
                                                 <p>Description: @badge.getDescription</p>
 
                                             </div>
@@ -145,8 +145,8 @@
             <li>
                 <div class="collapsible-header"><i class="material-icons">expand_more</i>Level 2</div>
                 <div class="collapsible-body">
-                    @for(date<- dates){
-                        @trophiesbydate(badges,date,categories)
+                    @for(finalDate<- dates){
+                        @trophiesbydate(badges,finalDate,categories)
                     }
 
                 </div>
@@ -171,7 +171,7 @@
             $(document).ready(function(){
                 $('.modal').modal({
                     ready: function (modal, trigger) {
-                        modal.find('input[name="nom"]').val(trigger.data('date'))
+                        modal.find('input[name="nom"]').val(trigger.data('finalDate'))
                     }
                 });
             });
@@ -191,7 +191,7 @@
                 });
             });
            /* $(document).ready(function () {
-                $(".course-category-CM").hide();
+                $(".course-topic-CM").hide();
             })*/
 
     </script>

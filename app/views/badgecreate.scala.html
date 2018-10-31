@@ -13,13 +13,13 @@
     @helper.inputText(badgeForm("name"),'class -> "input-field")
 
     @helper.inputText(badgeForm("description"))
-    @helper.inputText(badgeForm("category"))
-    @helper.select(badgeForm("points"),Seq(
+    @helper.inputText(badgeForm("topic"))
+    @helper.select(badgeForm("tier"),Seq(
     "1" -> "Bronze",
     "2" -> "Silver",
     "3" -> "Gold"
    ))
-    @helper.inputText(badgeForm("date"))
+    @helper.inputText(badgeForm("finalDate"))
 
     <button class="waves-effect waves-light btn cyan" type="submit" value="Create Badge"> Create Badge
       <i class="material-icons left">save</i>

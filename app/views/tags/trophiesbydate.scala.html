@@ -1,17 +1,17 @@
-@(badges:List[Badge], date:String, categories: Set[String])
+@(badges:List[Badge], finalDate:String, categories: Set[String])
     @import tags.trophycard
 
 
     <div>
-        <div class="row trophies-@date">
+        <div class="row trophies-@finalDate">
             @*Date*@
         <div class="col m1">
-            <p>@date</p>
+            <p>@finalDate</p>
         </div>
         <div class="col m10">
             <div class="col s12 m6 l4 xl3">
             @for(badge<-badges){
-                @if(badge.getDate==date){
+                @if(badge.getFinalDate==finalDate){
                     @trophycard(badge)
                 }
             }
@@ -29,7 +29,7 @@
 
         <script>
     $(document).ready(function () {
-        $(".trophies-@date").find(".trophycard>[data-date!='@date']").hide()
+        $(".trophies-@finalDate").find(".trophycard>[data-finalDate!='@finalDate']").hide()
     })
 
 </script>

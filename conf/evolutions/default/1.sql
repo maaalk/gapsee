@@ -7,9 +7,9 @@ create table badge (
   id                            integer auto_increment not null,
   name                          varchar(255),
   description                   varchar(255),
-  category                      varchar(255),
-  date                          varchar(255),
-  points                        integer,
+  topic                         varchar(255),
+  final_date                    varchar(255),
+  tier                          integer,
   constraint pk_badge primary key (id)
 );
 
