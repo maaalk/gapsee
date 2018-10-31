@@ -1,15 +1,29 @@
 package models;
 
-import java.util.Date;
+import io.ebean.Finder;
+import io.ebean.Model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Level {
+@Entity
+public class Level  extends Model {
 
+    @Id
     private Integer id;
-    private Date finalDate;
+    private String finalDate;
     private String levelName;
     private String bossFightName;
+    @OneToMany
     private List<Badge> badgeList;
+    @ManyToOne
+    private Course course;
+
+    public static Finder<Integer, Level> find = new Finder<>(Level.class);
 
     public Integer getId() {
         return id;
@@ -19,11 +33,11 @@ public class Level {
         this.id = id;
     }
 
-    public Date getFinalDate() {
+    public String getFinalDate() {
         return finalDate;
     }
 
-    public void setFinalDate(Date finalDate) {
+    public void setFinalDate(String finalDate) {
         this.finalDate = finalDate;
     }
 
@@ -50,4 +64,47 @@ public class Level {
     public void setBadgeList(List<Badge> badgeList) {
         this.badgeList = badgeList;
     }
+
+    public void addBadge(Badge badge) {
+        if(this.badgeList.contains(badge)){
+            return;
+        }
+        else {
+            this.badgeList.add(badge);
+        }
+
+    }
+
+    public List<String> allDates(){
+        List<String> levelDates = Badge.find.query()
+                .setDistinct(true)
+                .select("finalDate")
+                .where().eq("LEVEL_ID",this.getId())
+                .orderBy("finalDate")
+                .findSingleAttributeList();
+        return levelDates;
+    }
+
+    public List<String> allTopics(){
+        List<String> levelTopics = Badge.find.query()
+                .setDistinct(true)
+                .select("topic")
+                .where().eq("LEVEL_ID",this.getId())
+                .orderBy("TOPIC")
+                .findSingleAttributeList();
+        return levelTopics;
+    }
+
+    public List<String> topicsByDate(String date){
+        List<String> levelTopics = Badge.find.query()
+                .setDistinct(true)
+                .select("topic")
+                .where().eq("LEVEL_ID",this.getId())
+                .where().eq("finalDate",date)
+                .orderBy("TOPIC")
+                .findSingleAttributeList();
+        return levelTopics;
+    }
+
+
 }

@@ -4,6 +4,8 @@ import io.ebean.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import play.data.validation.*;
 
@@ -21,6 +23,8 @@ public class Badge extends Model{
     private String finalDate;
     @Constraints.Required
     private Integer tier;
+    @ManyToOne
+    private Level level;
 
     public static Finder<Integer, Badge> find = new Finder<>(Badge.class);
 
@@ -71,5 +75,13 @@ public class Badge extends Model{
 
     public void setFinalDate(String finalDate) {
         this.finalDate = finalDate;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
     }
 }

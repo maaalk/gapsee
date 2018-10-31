@@ -1,4 +1,5 @@
 package controllers;
+import models.Level;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
@@ -17,7 +18,8 @@ public class BadgeController extends Controller {
     FormFactory formFactory;
 
     public Result index(){
-        List<Badge> badges = Badge.find.all();
+        List<Level> levelList = Level.find.all();
+        List<Badge> badges  = Badge.find.all();
         Set<String> categories = new TreeSet<String>();
         Set<String> dates = new TreeSet<String>();
         for(Badge badge:badges){
@@ -26,7 +28,7 @@ public class BadgeController extends Controller {
         for(Badge badge:badges){
             dates.add(badge.getFinalDate());
         }
-        return ok(badgeindex.render(badges, categories, dates));
+        return ok(badgeindex.render(levelList, categories, dates));
     }
 
     public Result create(){
