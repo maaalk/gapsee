@@ -19,16 +19,7 @@ public class BadgeController extends Controller {
 
     public Result index(){
         List<Level> levelList = Level.find.all();
-        List<Badge> badges  = Badge.find.all();
-        Set<String> categories = new TreeSet<String>();
-        Set<String> dates = new TreeSet<String>();
-        for(Badge badge:badges){
-            categories.add(badge.getTopic());
-        }
-        for(Badge badge:badges){
-            dates.add(badge.getFinalDate());
-        }
-        return ok(badgeindex.render(levelList, categories, dates));
+        return ok(badgeindex.render(levelList));
     }
 
     public Result create(){
