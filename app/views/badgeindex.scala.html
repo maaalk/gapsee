@@ -169,7 +169,11 @@
                 $('.collapsible').collapsible();
             });
             $(document).ready(function(){
-                $('.modal').modal();
+                $('.modal').modal({
+                    ready: function (modal, trigger) {
+                        modal.find('input[name="nom"]').val(trigger.data('date'))
+                    }
+                });
             });
             $(document).ready(function(){
                 $("#filterGold").click(function () {
@@ -186,9 +190,9 @@
                     $(".orange").toggle();
                 });
             });
-            $(document).ready(function () {
+           /* $(document).ready(function () {
                 $(".course-category-CM").hide();
-            })
+            })*/
 
     </script>
 }

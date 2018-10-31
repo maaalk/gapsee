@@ -5,6 +5,7 @@ import play.mvc.*;
 import views.html.*;
 import models.Badge;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -82,6 +83,20 @@ public class BadgeController extends Controller {
         }
         badge.delete();
         return redirect(routes.BadgeController.index());
+    }
+
+    public Result upload() {
+        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> evidence = body.getFile("evidence");
+        if (evidence != null) {
+            String fileName = evidence.getFilename();
+            String contentType = evidence.getContentType();
+            File file = evidence.getFile();
+            return ok("File uploaded");
+        } else {
+            flash("error", "Missing file");
+            return badRequest();
+        }
     }
 
 

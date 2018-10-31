@@ -5,7 +5,7 @@
         class="card horizontal orange lighten-4 hoverable waves-effect waves-light" data-category="@badge.getCategory" data-date="@badge.getDate"
     }
     @if(badge.getPoints == 2) {
-        class="card horizontal grey lighten-4 hoverable waves-effect waves-light" data-category="@badge.getCategory" data-date="@badge.getDate"
+        class="card horizontal grey lighten-4 hoverable waves-effect waves-light" data-id="@badge.getId" data-category="@badge.getCategory" data-date="@badge.getDate"
     }
     @if(badge.getPoints == 3) {
         class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" data-category="@badge.getCategory" data-date="@badge.getDate"}>
@@ -26,9 +26,10 @@
     @*Modal*@
     <div id="modal1" class="modal">
         <div class="modal-content">
-            <h4>@badge.getName</h4>
+            <h4 data-name="nome">@badge.getName</h4>
             <p>Category: @badge.getCategory</p>
             <p>Description: @badge.getDescription</p>
+            <input type="text" name="nom">
 
         </div>
         <div class="modal-footer">

@@ -10,6 +10,7 @@ GET     /badges/:id                 controllers.BadgeController.show(id : Intege
 GET     /badges/edit/:id            controllers.BadgeController.edit(id : Integer)
 POST    /badges/edit                controllers.BadgeController.update()
 POST    /badges/create              controllers.BadgeController.save()
+POST    /badges/submit              controllers.BadgeController.upload()
 GET     /badges/delete/:id          controllers.BadgeController.destroy(id : Integer)
 
 # Map static resources from the /public folder to the /assets URL path
