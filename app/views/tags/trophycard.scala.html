@@ -10,11 +10,9 @@
     @if(badge.getTier == 3) {
         class="card horizontal yellow lighten-4 hoverable waves-effect waves-light" data-topic="@badge.getTopic" data-finalDate="@badge.getFinalDate"}>
     <a href="@routes.BadgeController.show(badge.getId)" class="card-image valign-wrapper  modal-trigger ">
-        <img src="@routes.Assets.versioned("images/emptytrophy.png")" style="max-height: 40px;
-            min-height: 30px;
-            min-width: 20px;
-            height: auto;
-            width: auto;"/>
+        <img src="@routes.Assets.versioned("images/emptytrophy.png")" style="height: 40px;
+            min-width: 30px;
+            object-fit: contain"/>
     </a>
     <a href="@routes.BadgeController.show(badge.getId)" class="card-stacked black-text modal-trigger">
         <div class="card-content ">

@@ -36,7 +36,7 @@
             <ul class="right hide-on-med-and-down">
                 <li><a href="@routes.HomeController.index()">Home</a> </li>
                 <li><a href="@routes.BadgeController.index()">Badges</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="@routes.CourseController.index()">Courses</a></li>
                 <li>
                     <a href="#" class="btn-floating cyan z-depth-0">
                         <i class="material-icons">notifications</i>
@@ -63,6 +63,7 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
     <script src="@routes.Assets.versioned("materialize/js/materialize.js")"></script>
+    <script src="@routes.Assets.versioned("/js/custom.js")"></script>
     <script>
         $(document).ready(function(){
             $('.sidenav').sidenav();
@@ -70,6 +71,7 @@
         $(document).ready(function(){
             $('.modal').modal();
         })
+
     </script>
 </body>
 </html>

@@ -8,8 +8,7 @@ import models.Badge;
 
 import java.io.File;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+
 import javax.inject.Inject;
 
 public class BadgeController extends Controller {
@@ -71,10 +70,12 @@ public class BadgeController extends Controller {
     public Result destroy(Integer id){
         Badge badge = Badge.find.byId(id);
         if (badge==null){
-            return notFound("Badge not found");
+            flash("danger", "Book not Found");
+            return notFound();
         }
         badge.delete();
-        return redirect(routes.BadgeController.index());
+        flash("success","Book deleted successfully!");
+        return ok();
     }
 
     public Result upload() {
