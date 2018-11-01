@@ -11,7 +11,6 @@
   @helper.form(action = helper.CSRF(routes.BadgeController.save())){
     <div class="col s12 m6">
     @helper.inputText(badgeForm("name"),'class -> "input-field")
-
     @helper.inputText(badgeForm("description"))
     @helper.inputText(badgeForm("topic"))
     @helper.select(badgeForm("tier"),Seq(

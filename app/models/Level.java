@@ -75,7 +75,7 @@ public class Level  extends Model {
 
     }
 
-    public List<String> allDates(){
+   /* public List<String> allDates(){
         List<String> levelDates = Badge.find.query()
                 .setDistinct(true)
                 .select("finalDate")
@@ -83,9 +83,9 @@ public class Level  extends Model {
                 .orderBy("finalDate")
                 .findSingleAttributeList();
         return levelDates;
-    }
+    }*/
 
-    public List<String> allTopics(){
+   /* public List<String> allTopics(){
         List<String> levelTopics = Badge.find.query()
                 .setDistinct(true)
                 .select("topic")
@@ -93,18 +93,30 @@ public class Level  extends Model {
                 .orderBy("TOPIC")
                 .findSingleAttributeList();
         return levelTopics;
+    }*/
+
+
+    public List<String> allDates(){
+        List<String> listDates = new ArrayList<String>();
+        for (Badge badge:this.badgeList){
+            if(!listDates.contains(badge.getFinalDate())){
+                listDates.add(badge.getFinalDate());
+            }
+        }
+        return listDates;
     }
 
     public List<String> topicsByDate(String date){
-        List<String> levelTopics = Badge.find.query()
-                .setDistinct(true)
-                .select("topic")
-                .where().eq("LEVEL_ID",this.getId())
-                .where().eq("finalDate",date)
-                .orderBy("TOPIC")
-                .findSingleAttributeList();
-        return levelTopics;
+        List<String> listTopics = new ArrayList<String>();
+        for (Badge badge:this.badgeList){
+            if( (!listTopics.contains(badge.getTopic())) && (badge.getFinalDate()==date) ){
+                listTopics.add(badge.getTopic());
+            }
+        }
+        return listTopics;
     }
+
+
 
 
 }
