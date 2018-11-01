@@ -107,9 +107,9 @@ public class Level  extends Model {
     }
 
     public List<String> topicsByDate(String date){
-        List<String> listTopics = new ArrayList<String>();
+        List<String> listTopics = new ArrayList<>();
         for (Badge badge:this.badgeList){
-            if( (!listTopics.contains(badge.getTopic())) && (badge.getFinalDate()==date) ){
+            if((date.contentEquals(badge.getFinalDate()))&&(!listTopics.contains(badge.getTopic())) ){
                 listTopics.add(badge.getTopic());
             }
         }
