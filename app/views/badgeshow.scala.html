@@ -2,13 +2,33 @@
 @(badge: Badge)
 
 @main("Details"){
+    <div class="container">
+        <div class="row">
+            <p><b>Task #@badge.getId</b></p>
+            <div class="col s3 m2">
+                @if(badge.getTier==1){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt1.png")" >
+                }
+                @if(badge.getTier==2){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt2.png")">
+                    }
+                @if(badge.getTier==3){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt3.png")" >
+                    }
 
-    <h4>@badge.getName</h4>
-    <p>Description: @badge.getDescription</p>
-    <p>Topic: @badge.getTopic</p>
-    <p>Deadline: @badge.getFinalDate</p>
-    <p>Trophy Tier: @badge.getTier</p>
-    <p>Level: @badge.getLevel.getLevelName</p>
+            </div>
+            <div class="col s9 m10">
+                <p style="font-style: italic">@badge.getName</p>
+            </div>
+
+        </div>
+
+
+        <p><b>Description:</b> @badge.getDescription</p>
+        <p><b>Topic:</b> @badge.getTopic</p>
+        <p><b>Deadline:</b> @badge.getFinalDate</p>
+        <p><b>Level:</b> @badge.getLevel.getLevelName</p>
+    </div>
 
 
 }

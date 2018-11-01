@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -103,6 +104,7 @@ public class Level  extends Model {
                 listDates.add(badge.getFinalDate());
             }
         }
+        Collections.sort(listDates);
         return listDates;
     }
 
