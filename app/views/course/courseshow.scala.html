@@ -35,15 +35,19 @@
         <ul class="collapsible accordion">
             @for(level<-levelList){
                 <li class="">
-                    <div class="collapsible-header"><i class="material-icons">expand_more</i>@level.getLevelName</div>
+                    <div class="collapsible-header">
+                        <i class="material-icons">expand_more</i>@level.getLevelName
+                    </div>
                     <div class="collapsible-body">
+
                         <div class="row">
                             @for(date<-level.allDates){
-                                <div class="row valign-wrapper">
-                                    <div class="col m1 ">
-                                        <p>@date</p>
+                                <div class="row">
+                                    <div class="col s12 m1">
+
+                                        <p class="center-align right grey-text darken-3"> <i class="material-icons tiny">av_timer</i><b><i>   @date</i></b></p>
                                     </div>
-                                    <div class="col m10">
+                                    <div class="col s12 m10">
                                         @for(topic<-level.topicsByDate(date)){
                                             <div class="col s12 m6 l4 xl3">
                                                 <p class="center">@topic</p>
@@ -60,9 +64,6 @@
                                 </div>
                                 <div class="divider"></div>
                             }
-
-
-
                         </div>
 
                     </div>

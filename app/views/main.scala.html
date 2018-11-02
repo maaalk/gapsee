@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@title</title>
 
     <link rel="icon" href="@routes.Assets.versioned("images/iconegapsee.png")">
@@ -28,15 +29,14 @@
     <!--Navigation Bar-->
     <nav class="nav-wraper cyan" >
         <div class="container">
-            @*<a href="#" class="brand-logo">GaPSEE</a>*@
-            <img src="@routes.Assets.versioned("images/gapseelogotrans.png")" style="max-height: 56px">
+            <a href="@routes.HomeController.index()" class="brand-logo"><img src="@routes.Assets.versioned("images/gapseelogotrans.png")" style="max-height: 56px"></a>
+            @*<img src="@routes.Assets.versioned("images/gapseelogotrans.png")" style="max-height: 56px">*@
             <a href="#" class="sidenav-trigger" data-target="mobile-links">
                 <i class="material-icons">menu</i>
             </a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="@routes.HomeController.index()">Home</a> </li>
-                <li><a href="@routes.BadgeController.index()">Badges</a></li>
                 <li><a href="@routes.CourseController.index()">Courses</a></li>
+                <li><a href="@routes.BadgeController.index()">Badges</a></li>
                 <li>
                     <a href="#" class="btn-floating cyan z-depth-0">
                         <i class="material-icons">notifications</i>
@@ -47,9 +47,8 @@
         </div>
     </nav>
     <ul class="sidenav" id="mobile-links">
-        <li><a href="@routes.HomeController.index()">Home</a> </li>
+        <li><a href="@routes.CourseController.index()">Courses</a></li>
         <li><a href="@routes.BadgeController.index()">Badges</a></li>
-        <li><a href="#">Contact</a></li>
         <li><a href="#">Login</a></li>
     </ul>
 
