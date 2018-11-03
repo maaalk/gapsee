@@ -30,13 +30,6 @@
         <p><b>Level:</b> @badge.getLevel.getLevelName</p>
     </div>
 
-    <a class="btn red waves-effect waves-light" href="@routes.BadgeController.destroy(badge.getId)">
-        <i class="material-icons right">Delete</i>
-    </a>
 
-    <button class="btn-large red waves-effect waves-light" onclick="sendDeleteRequest(
-        '@routes.BadgeController.destroy(badge.getId)',
-            '@routes.BadgeController.index()'
-    )">Delete Req</button>
 
 }
