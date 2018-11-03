@@ -1,4 +1,5 @@
 package controllers;
+import models.Evidence;
 import models.Level;
 import play.data.Form;
 import play.data.FormFactory;
@@ -7,6 +8,7 @@ import views.html.*;
 import models.Badge;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -63,7 +65,13 @@ public class BadgeController extends Controller {
         if (badge==null){
             return notFound("Badge not found");
         }
-        return ok(badgeshow.render(badge));
+        List<Evidence> evidenceList = Evidence.find.query()
+                .orderById(true)
+                .select("*")
+                .where().eq("BADGE_ID",badge.getId())
+                .findList();
+        Collections.reverse(evidenceList);
+        return ok(badgeshow.render(badge, evidenceList));
     }
 
 
@@ -78,19 +86,7 @@ public class BadgeController extends Controller {
         return ok();
     }
 
-    public Result upload() {
-        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
-        Http.MultipartFormData.FilePart<File> evidence = body.getFile("evidence");
-        if (evidence != null) {
-            String fileName = evidence.getFilename();
-            String contentType = evidence.getContentType();
-            File file = evidence.getFile();
-            return ok("File uploaded");
-        } else {
-            flash("error", "Missing file");
-            return badRequest();
-        }
-    }
+
 
 
 

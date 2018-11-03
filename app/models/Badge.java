@@ -2,12 +2,11 @@ package models;
 
 import io.ebean.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import play.data.validation.*;
+
+import java.util.List;
 
 @Entity
 public class Badge extends Model{

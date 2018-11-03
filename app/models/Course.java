@@ -19,7 +19,7 @@ public class Course extends Model {
     public static Finder<Integer, Course> find = new Finder<>(Course.class);
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
