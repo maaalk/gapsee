@@ -13,6 +13,9 @@ import views.html.evidence.evidencenew;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 public class EvidenceController extends Controller {
@@ -30,6 +33,8 @@ public class EvidenceController extends Controller {
         Form<Evidence> evidenceForm = formFactory.form(Evidence.class).bindFromRequest();
         Evidence evidence = evidenceForm.get();
         evidence.setBadge(Badge.find.byId(badgeId));
+        Calendar calendar = Calendar.getInstance();
+        evidence.setDate(calendar.getTime());
         evidence.save();
         return redirect(routes.BadgeController.show(evidence.getBadge().getId()));
     }

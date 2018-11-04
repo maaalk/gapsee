@@ -22,8 +22,9 @@ create table course (
 
 create table evidence (
   id                            integer auto_increment not null,
-  description                   varchar(255),
-  feedback                      varchar(255),
+  description                   TEXT,
+  feedback                      TEXT,
+  date                          timestamp,
   badge_id                      integer,
   constraint pk_evidence primary key (id)
 );

@@ -3,18 +3,25 @@ package models;
 import io.ebean.Finder;
 import io.ebean.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.xml.soap.Text;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 public class Evidence extends Model {
 
     @Id
     private Integer id;
+    @Column(columnDefinition = "TEXT")
     private String description;
+    @Column(columnDefinition = "TEXT")
     private String feedback;
+    private Date date;
     @ManyToOne
     private Badge badge;
 
@@ -53,4 +60,18 @@ public class Evidence extends Model {
     public void setBadge(Badge badge) {
         this.badge = badge;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String showDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(this.date);
+    };
+
 }

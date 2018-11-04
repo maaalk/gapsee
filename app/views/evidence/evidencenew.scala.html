@@ -35,8 +35,12 @@
     <div class="row">
     @helper.form(action = helper.CSRF(routes.EvidenceController.save(badge.getId))){
         <div class="col s12 m6">
-            @helper.inputText(evidenceForm("description"),'class -> "input-field")
-            @helper.inputText(evidenceForm("feedback"))
+            @helper.textarea(evidenceForm("description"),'class -> "input-field materialize-textarea",'placeholder -> "Justificativa aqui",
+                'rows -> 5,
+                'cols -> 5)
+            @helper.textarea(evidenceForm("feedback"),'class -> "input-field materialize-textarea",'placeholder -> "Justificativa aqui",
+                'rows -> 5,
+                'cols -> 5)
              <button class="waves-effect waves-light btn cyan" type="submit" value="New Evidence"> Submit Evidence
                 <i class="material-icons left">save</i>
             </button>
