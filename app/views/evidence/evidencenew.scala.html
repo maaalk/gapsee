@@ -38,7 +38,7 @@
     <div class="row">
     @form(action = routes.EvidenceController.save(badge.getId),'enctype -> "multipart/form-data"){
         <div class="col s12 m6">
-
+            @*File Attachment*@
             <div class="file-field input-field">
                 <div class="btn cyan">
                     <i class="material-icons left">attach_file</i>
@@ -63,13 +63,13 @@
                 <label for="textarea2">Feedback</label>
             </div>
 
-            <br/>
-
             <button class="waves-effect waves-light btn yellow darken-4" type="submit" value="New Evidence"> Submit Evidence
                 <i class="material-icons left">save</i>
             </button>
 
         </div>
-}
+    }
     </div>
+
+            <br/>
 }

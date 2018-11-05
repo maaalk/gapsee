@@ -38,31 +38,30 @@
             <div class="divider"></div>
 
             <br/>
+            @*Evidence*@
             <div class="row">
                 <div class="col s8 ">
                     <div class="card">
                         <div class="container">
                             <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@evidence.showDate()</i></b></p>
                             <p><b>Evidence: </b> <a href="file:///D:\workspace\@evidence.getFileName" download="@evidence.getFileName">@evidence.getFileName</a></p>
-
                             <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
                             <p></p>
                         </div>
-
-
-
                         <br/>
-
-
                     </div>
                 </div>
             </div>
+            @*Feedback*@
             <div class="row">
-                <div class="col s8 offset-s4"><div class="card"><b>Feedback:</b><br/><i>@evidence.getFeedback</i></div>
+                <div class="col s8 offset-s4">
+                    <div class="card">
+                        <b>Feedback:</b>
+                        <br/>
+                        <i>@evidence.getFeedback</i>
+                    </div>
+                </div>
             </div>
-
-
-
             <div class="row"></div>
         }
     </div>
