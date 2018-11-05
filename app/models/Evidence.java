@@ -4,9 +4,9 @@ import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.*;
-import javax.xml.soap.Text;
+
 import java.io.File;
-import java.sql.Blob;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
