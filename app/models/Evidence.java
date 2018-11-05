@@ -3,12 +3,10 @@ package models;
 import io.ebean.Finder;
 import io.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.xml.soap.Text;
 import java.io.File;
+import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -22,8 +20,12 @@ public class Evidence extends Model {
     @Column(columnDefinition = "TEXT")
     private String feedback;
     private Date date;
+    private String fileName;
+    private String filePath;
     @ManyToOne
     private Badge badge;
+
+
 
 
     public static Finder<Integer, Evidence> find = new Finder<>(Evidence.class);
@@ -69,9 +71,29 @@ public class Evidence extends Model {
         this.date = date;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     public String showDate(){
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(this.date);
     };
+
+    public void saveFile(File file, String fileNameme){
+        return;
+    }
 
 }

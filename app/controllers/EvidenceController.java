@@ -1,18 +1,25 @@
 package controllers;
 
 import io.ebean.enhance.common.SysoutMessageOutput;
+import io.ebean.migration.util.IOUtils;
 import models.Badge;
 import models.Evidence;
+
+import org.h2.store.fs.FileUtils;
 import play.api.mvc.MultipartFormData;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
+
 import views.html.evidence.evidencenew;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,15 +36,50 @@ public class EvidenceController extends Controller {
         return ok(evidencenew.render(evidenceForm,badge));
     }
 
-    public Result save(Integer badgeId){
+    public Result save(Integer badgeId) throws IOException {
         Form<Evidence> evidenceForm = formFactory.form(Evidence.class).bindFromRequest();
-        Evidence evidence = evidenceForm.get();
-        evidence.setBadge(Badge.find.byId(badgeId));
-        Calendar calendar = Calendar.getInstance();
-        evidence.setDate(calendar.getTime());
-        evidence.save();
-        return redirect(routes.BadgeController.show(evidence.getBadge().getId()));
+        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> evidenceFile = body.getFile("evidenceFile");
+        if (evidenceFile != null) {
+            Evidence evidence = evidenceForm.get();
+            evidence.setBadge(Badge.find.byId(badgeId));
+            Calendar calendar = Calendar.getInstance();
+            evidence.setDate(calendar.getTime());
+           evidence.setFileName(evidenceFile.getFilename());
+            evidence.setFilePath(evidenceFile.getContentType());
+           File file = evidenceFile.getFile();
+//trasnformar file em byte[]
+            FileInputStream fileInputStream = new FileInputStream(file);
+            long byteLength = file.length(); // byte count of the file-content
+            byte[] filecontent = new byte[(int) byteLength];
+            fileInputStream.read(filecontent, 0, (int) byteLength);
+
+            Files.write(Paths.get("D:\\workspace\\"+evidenceFile.getFilename()),filecontent );
+            evidence.save();
+            flash("success","Evidence Saved");
+            return redirect(routes.BadgeController.show(evidence.getBadge().getId()));
+        }else {
+            flash("error", "Missing file");
+            return badRequest();
+        }
     }
+
+
+    public Result upload() {
+        Form<Evidence> evidenceForm = formFactory.form(Evidence.class).bindFromRequest();
+        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
+        if (picture != null) {
+            Evidence evidence = evidenceForm.get();
+
+            evidence.save();
+            return ok("File uploaded");
+        } else {
+            flash("error", "Missing file");
+            return badRequest();
+        }
+    }
+
 
 
 }

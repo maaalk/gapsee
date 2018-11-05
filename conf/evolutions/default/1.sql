@@ -25,6 +25,8 @@ create table evidence (
   description                   TEXT,
   feedback                      TEXT,
   date                          timestamp,
+  file_name                     varchar(255),
+  file_path                     varchar(255),
   badge_id                      integer,
   constraint pk_evidence primary key (id)
 );

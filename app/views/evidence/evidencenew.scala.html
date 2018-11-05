@@ -1,6 +1,9 @@
 @import views.html.helper.form
 @(evidenceForm:Form[Evidence],badge:Badge)
 
+
+
+
 @main("New Evidence "){
 <div class="container">
     <div class="row">
@@ -33,19 +36,40 @@
 
 
     <div class="row">
-    @helper.form(action = helper.CSRF(routes.EvidenceController.save(badge.getId))){
+    @form(action = routes.EvidenceController.save(badge.getId),'enctype -> "multipart/form-data"){
         <div class="col s12 m6">
-            @helper.textarea(evidenceForm("description"),'class -> "input-field materialize-textarea",'placeholder -> "Justificativa aqui",
-                'rows -> 5,
-                'cols -> 5)
-            @helper.textarea(evidenceForm("feedback"),'class -> "input-field materialize-textarea",'placeholder -> "Justificativa aqui",
-                'rows -> 5,
-                'cols -> 5)
-             <button class="waves-effect waves-light btn cyan" type="submit" value="New Evidence"> Submit Evidence
+
+            <div class="file-field input-field">
+                <div class="btn cyan">
+                    <i class="material-icons left">attach_file</i>
+                    <span>File</span>
+                    <input type="file" name="evidenceFile">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+
+            <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea" name="description"></textarea>
+                <label for="textarea1">Justificativa</label>
+            </div>
+
+
+
+            <br/>
+            <div class="input-field col s12">
+                <textarea id="textarea2" class="materialize-textarea" name="feedback"></textarea>
+                <label for="textarea2">Feedback</label>
+            </div>
+
+            <br/>
+
+            <button class="waves-effect waves-light btn yellow darken-4" type="submit" value="New Evidence"> Submit Evidence
                 <i class="material-icons left">save</i>
             </button>
-        </div>
-    </div>
-}
 
+        </div>
+}
+    </div>
 }
