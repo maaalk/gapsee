@@ -13,6 +13,7 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
+import utils.SaveUpload;
 import views.html.evidence.evidencenew;
 
 import javax.inject.Inject;
@@ -45,16 +46,11 @@ public class EvidenceController extends Controller {
             evidence.setBadge(Badge.find.byId(badgeId));
             Calendar calendar = Calendar.getInstance();
             evidence.setDate(calendar.getTime());
-           evidence.setFileName(evidenceFile.getFilename());
-            evidence.setFilePath(evidenceFile.getContentType());
-           File file = evidenceFile.getFile();
-//trasnformar file em byte[]
-            FileInputStream fileInputStream = new FileInputStream(file);
-            long byteLength = file.length(); // byte count of the file-content
-            byte[] filecontent = new byte[(int) byteLength];
-            fileInputStream.read(filecontent, 0, (int) byteLength);
+            evidence.setFileName(evidenceFile.getFilename());
 
-            Files.write(Paths.get("D:\\workspace\\"+evidenceFile.getFilename()),filecontent );
+            SaveUpload saveFile = new SaveUpload(evidenceFile.getFile(), evidence);
+            evidence.setFilePath(saveFile.trasnformFile());
+
             evidence.save();
             flash("success","Evidence Saved");
             return redirect(routes.BadgeController.show(evidence.getBadge().getId()));
