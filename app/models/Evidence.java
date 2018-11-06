@@ -24,6 +24,8 @@ public class Evidence extends Model {
     private String filePath;
     @ManyToOne
     private Badge badge;
+    @Enumerated(EnumType.STRING)
+    private EvidenceStatus status;
 
 
 
@@ -96,4 +98,26 @@ public class Evidence extends Model {
         return;
     }
 
+    public EvidenceStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EvidenceStatus status) {
+        if(status==EvidenceStatus.NEW){
+            this.status=status;
+            this.badge.setStatus(BadgeStatus.SUBMITTED);
+            return;
+        }
+        if(status==EvidenceStatus.ACCEPTED){
+            this.status=status;
+            this.badge.setStatus(BadgeStatus.EARNED);
+            return;
+        }
+        if(status==EvidenceStatus.REJECTED){
+            this.status=status;
+            this.badge.setStatus(BadgeStatus.REJECTED);
+            return;
+        }
+
+    }
 }

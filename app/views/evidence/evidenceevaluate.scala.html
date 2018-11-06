@@ -1,0 +1,72 @@
+@import views.html.helper.form
+@(evidence:Evidence)
+
+@main("Evaluation"){
+    <div class="container">
+        <div class="row">
+            <p><b>Task #@evidence.getBadge.getId</b></p>
+            <div class="col s3 m2">
+                @if(evidence.getBadge.getTier==1){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt1.png")" >
+                }
+                @if(evidence.getBadge.getTier==2){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt2.png")">
+                }
+                @if(evidence.getBadge.getTier==3){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt3.png")" >
+                    }
+
+            </div>
+            <div class="col s9 m10">
+                <p style="font-style: italic">@evidence.getBadge.getName</p>
+            </div>
+
+        </div>
+
+
+        <p><b>Description:</b> @evidence.getBadge.getDescription</p>
+        <p><b>Topic:</b> @evidence.getBadge.getTopic</p>
+        <p><b>Deadline:</b> @evidence.getBadge.getFinalDate</p>
+        <p><b>Level:</b> @evidence.getBadge.getLevel.getLevelName</p>
+    </div>
+
+    <div class="row">
+        <p><b>Evidence: </b> <a href="file:///D:\workspace\@evidence.getFileName" download="@evidence.getFileName">@evidence.getFileName</a></p>
+        <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
+    </div>
+
+    <div class="row">
+    @form(action = routes.EvidenceController.evaluationResult(evidence.getId),'enctype -> "multipart/form-data"){
+        <div class="col s12 m6">
+
+            <div class="input-field col s12">
+                <textarea id="textarea2" class="materialize-textarea" name="feedback"></textarea>
+                <label for="textarea2">Feedback</label>
+            </div>
+
+            <div class="input-field col s12 m6">
+                <select name="enumStatus">
+                    <option value="ACCEPTED"><i class="material-icons left tiny green-text">thumbs_up</i>Ok</option>
+                    <option value="REJECTED"><i class="material-icons left tiny red-text">thumbs_down</i>Not Ok</option>
+                </select>
+                <label>Evaluation</label>
+            </div>
+            <row>
+                <button class="waves-effect waves-light btn yellow darken-4" type="submit" value="New Evidence"> Submit Evidence
+                    <i class="material-icons left">save</i>
+                </button>
+            </row>
+
+
+
+        </div>
+
+}
+    </div>
+
+}
+    <script>
+            $(document).ready(function(){
+                $('select').formSelect();
+            });
+    </script>

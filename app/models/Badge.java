@@ -24,6 +24,9 @@ public class Badge extends Model{
     private Integer tier;
     @ManyToOne
     private Level level;
+    @Enumerated(EnumType.STRING)
+    private BadgeStatus status;
+
 
     public static Finder<Integer, Badge> find = new Finder<>(Badge.class);
 
@@ -82,5 +85,13 @@ public class Badge extends Model{
 
     public void setLevel(Level level) {
         this.level = level;
+    }
+
+    public BadgeStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BadgeStatus status) {
+        this.status = status;
     }
 }

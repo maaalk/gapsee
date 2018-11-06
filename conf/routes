@@ -29,10 +29,11 @@ DELETE  /badges/delete/:id          controllers.BadgeController.destroy(id : Int
 
 #Evidences
 GET     /evidences/create/:id           controllers.EvidenceController.create(id : Integer)
+GET     /evidences/evaluate/:id         controllers.EvidenceController.evaluate(id : Integer)
 + nocsrf
 POST    /evidences/save            controllers.EvidenceController.save(id : Integer)
 + nocsrf
-POST    /evidences/upload            controllers.EvidenceController.upload()
+POST    /evidences/evaluationeresult            controllers.EvidenceController.evaluationResult(id : Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path

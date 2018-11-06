@@ -3,16 +3,20 @@ package controllers;
 import io.ebean.enhance.common.SysoutMessageOutput;
 import io.ebean.migration.util.IOUtils;
 import models.Badge;
+import models.BadgeStatus;
 import models.Evidence;
 
+import models.EvidenceStatus;
 import org.h2.store.fs.FileUtils;
 import play.api.mvc.MultipartFormData;
+import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
+import views.html.evidence.evidenceevaluate;
 import views.html.evidence.evidencenew;
 
 import javax.inject.Inject;
@@ -36,6 +40,7 @@ public class EvidenceController extends Controller {
         return ok(evidencenew.render(evidenceForm,badge));
     }
 
+
     public Result save(Integer badgeId) throws IOException {
         Form<Evidence> evidenceForm = formFactory.form(Evidence.class).bindFromRequest();
         Http.MultipartFormData<File> body = request().body().asMultipartFormData();
@@ -53,31 +58,47 @@ public class EvidenceController extends Controller {
             long byteLength = file.length(); // byte count of the file-content
             byte[] filecontent = new byte[(int) byteLength];
             fileInputStream.read(filecontent, 0, (int) byteLength);
-
             Files.write(Paths.get("D:\\workspace\\"+evidenceFile.getFilename()),filecontent );
+            evidence.setStatus(EvidenceStatus.NEW);
             evidence.save();
+            evidence.getBadge().update();
             flash("success","Evidence Saved");
             return redirect(routes.BadgeController.show(evidence.getBadge().getId()));
         }else {
             flash("error", "Missing file");
             return badRequest();
         }
+
+
     }
 
+    public Result evaluate (Integer evidenceId){
+        Evidence evidence = Evidence.find.byId(evidenceId);
+        return ok(evidenceevaluate.render(evidence));
+    }
 
-    public Result upload() {
-        Form<Evidence> evidenceForm = formFactory.form(Evidence.class).bindFromRequest();
-        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
-        Http.MultipartFormData.FilePart<File> picture = body.getFile("picture");
-        if (picture != null) {
-            Evidence evidence = evidenceForm.get();
-
-            evidence.save();
-            return ok("File uploaded");
-        } else {
-            flash("error", "Missing file");
-            return badRequest();
+    public Result evaluationResult(Integer evidenceId){
+        Evidence evidence = formFactory.form(Evidence.class).bindFromRequest().get();
+        Evidence oldEvidence = Evidence.find.byId(evidenceId);
+        if (oldEvidence == null){
+            return notFound("Badge not found");
         }
+        DynamicForm requestData = formFactory.form().bindFromRequest();
+        System.out.println(requestData.get("enumStatus"));
+
+        if (requestData.get("enumStatus").equals("ACCEPTED")){
+            System.out.println("true");
+            oldEvidence.setStatus(EvidenceStatus.ACCEPTED);
+        }
+        if (requestData.get("enumStatus").equals("REJECTED")){
+            oldEvidence.setStatus(EvidenceStatus.REJECTED);
+        }
+        oldEvidence.setFeedback(evidence.getFeedback());
+        oldEvidence.getBadge().update();
+        oldEvidence.update();
+        return redirect(routes.BadgeController.show(oldEvidence.getBadge().getId()));
+
+
     }
 
 

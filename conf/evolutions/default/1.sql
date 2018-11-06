@@ -11,6 +11,8 @@ create table badge (
   final_date                    varchar(255),
   tier                          integer,
   level_id                      integer,
+  status                        varchar(9),
+  constraint ck_badge_status check ( status in ('EARNED','SUBMITTED','REJECTED','NEW')),
   constraint pk_badge primary key (id)
 );
 
@@ -28,6 +30,8 @@ create table evidence (
   file_name                     varchar(255),
   file_path                     varchar(255),
   badge_id                      integer,
+  status                        varchar(8),
+  constraint ck_evidence_status check ( status in ('NEW','REJECTED','ACCEPTED')),
   constraint pk_evidence primary key (id)
 );
 
