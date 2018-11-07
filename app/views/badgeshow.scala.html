@@ -55,7 +55,7 @@
                     <div class="card">
                         <div class="container">
                             <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@evidence.showDate()</i></b></p>
-                            <p><b>Evidence: </b> <a href="file:///D:\workspace\@evidence.getFileName" download="@evidence.getFileName">@evidence.getFileName</a></p>
+                            <p><b>Evidence: </b> <a href="@routes.EvidenceController.evidenceDownload(evidence.getId)" download="@evidence.getFileName">@evidence.getFileName</a></p>
                             <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
                             <button class="btn-small deep-orange darken-4"> <i class="material-icons left tiny white-text">edit</i></button>
                             <a class="btn-small green darken-4" href="@routes.EvidenceController.evaluate(evidence.getId)"> <i class="material-icons left tiny white-text">thumbs_up_down</i></a>

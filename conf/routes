@@ -30,6 +30,7 @@ DELETE  /badges/delete/:id          controllers.BadgeController.destroy(id : Int
 #Evidences
 GET     /evidences/create/:id           controllers.EvidenceController.create(id : Integer)
 GET     /evidences/evaluate/:id         controllers.EvidenceController.evaluate(id : Integer)
+GET     /evidences/download/:id         controllers.EvidenceController.evidenceDownload(id : Integer)
 + nocsrf
 POST    /evidences/save            controllers.EvidenceController.save(id : Integer)
 + nocsrf
