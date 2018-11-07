@@ -16,6 +16,7 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
+import utils.SaveUpload;
 import views.html.evidence.evidenceevaluate;
 import views.html.evidence.evidencenew;
 
@@ -40,7 +41,6 @@ public class EvidenceController extends Controller {
         return ok(evidencenew.render(evidenceForm,badge));
     }
 
-
     public Result save(Integer badgeId) throws IOException {
         Form<Evidence> evidenceForm = formFactory.form(Evidence.class).bindFromRequest();
         Http.MultipartFormData<File> body = request().body().asMultipartFormData();
@@ -50,15 +50,10 @@ public class EvidenceController extends Controller {
             evidence.setBadge(Badge.find.byId(badgeId));
             Calendar calendar = Calendar.getInstance();
             evidence.setDate(calendar.getTime());
-           evidence.setFileName(evidenceFile.getFilename());
-            evidence.setFilePath(evidenceFile.getContentType());
-           File file = evidenceFile.getFile();
-//trasnformar file em byte[]
-            FileInputStream fileInputStream = new FileInputStream(file);
-            long byteLength = file.length(); // byte count of the file-content
-            byte[] filecontent = new byte[(int) byteLength];
-            fileInputStream.read(filecontent, 0, (int) byteLength);
-            Files.write(Paths.get("D:\\workspace\\"+evidenceFile.getFilename()),filecontent );
+            evidence.setFileName(evidenceFile.getFilename());
+
+            SaveUpload saveFile = new SaveUpload(evidenceFile.getFile(), evidence);
+            evidence.setFilePath(saveFile.trasnformFile());
             evidence.setStatus(EvidenceStatus.NEW);
             evidence.save();
             evidence.getBadge().update();
@@ -68,8 +63,6 @@ public class EvidenceController extends Controller {
             flash("error", "Missing file");
             return badRequest();
         }
-
-
     }
 
     public Result evaluate (Integer evidenceId){

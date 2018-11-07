@@ -92,7 +92,7 @@ public class Evidence extends Model {
     public String showDate(){
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(this.date);
-    };
+    }
 
     public void saveFile(File file, String fileNameme){
         return;
