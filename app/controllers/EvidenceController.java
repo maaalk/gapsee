@@ -16,20 +16,14 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
-import utils.LoadFile;
-import utils.SaveUpload
-;
+import utils.FileManager;
 import views.html.evidence.evidenceevaluate;
 import views.html.evidence.evidencenew;
 import javax.inject.Inject;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.*;
-import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
+
 
 public class EvidenceController extends Controller {
 
@@ -53,8 +47,8 @@ public class EvidenceController extends Controller {
             evidence.setDate(calendar.getTime());
             evidence.setFileName(evidenceFile.getFilename());
 
-            SaveUpload saveFile = new SaveUpload(evidenceFile.getFile(), evidence);
-            evidence.setFilePath(saveFile.trasnformFile());
+            evidence.setFilePath(FileManager.savaFile(evidenceFile.getFile(),evidence));
+
             evidence.setStatus(EvidenceStatus.NEW);
             evidence.save();
             evidence.getBadge().update();
@@ -98,8 +92,8 @@ public class EvidenceController extends Controller {
     public Result evidenceDownload(Integer evidenceId){
 
         Evidence evidence = Evidence.find.byId(evidenceId);
-        LoadFile load = new LoadFile();
-        return ok(load.openFile(evidence.getFilePath()));
+
+        return ok(FileManager.openFile(evidence.getFilePath()));
     }
 
 

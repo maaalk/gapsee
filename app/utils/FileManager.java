@@ -7,20 +7,13 @@ import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class SaveUpload {
+public class FileManager {
 
-    private File evidenceFile;
-    private Evidence evidence;
 
-    //endereco do local de salvamento
-    private final String directoryAdress="C:\\Users\\Talita\\Desktop\\gapsee\\";
+    public static String savaFile(File evidenceFile, Evidence evidence){
+        //endereco do local de salvamento
+        final String directoryAdress="C:\\Users\\Talita\\Desktop\\gapsee\\";
 
-    public SaveUpload(File evidenceFile, Evidence evidence){
-        this.evidenceFile = evidenceFile;
-        this.evidence = evidence;
-    }
-
-    public String trasnformFile(){
         try {
             FileInputStream fileInputStream = new FileInputStream(evidenceFile);
             long byteLength = evidenceFile.length();
@@ -34,5 +27,18 @@ public class SaveUpload {
             return "error";
         }
     }
+
+    public static File openFile(String url){
+        try{
+            File htmlFile = new File(url);
+            return htmlFile;
+
+        }catch(Exception e){
+            System.out.println("ERROR! "+e.toString());
+            return null;
+        }
+
+    }
+
 
 }
