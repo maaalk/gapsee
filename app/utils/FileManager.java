@@ -12,7 +12,7 @@ public class FileManager {
 
     public static String savaFile(File evidenceFile, Evidence evidence){
         //endereco do local de salvamento
-        final String directoryAdress="C:\\Users\\Talita\\Desktop\\gapsee\\";
+        final String directoryAdress="D:\\workspace\\";
 
         try {
             FileInputStream fileInputStream = new FileInputStream(evidenceFile);

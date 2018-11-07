@@ -12,6 +12,7 @@ import play.mvc.Http;
 import play.mvc.Result;
 
 import utils.FileManager;
+import views.html.evidence.evidenceedit;
 import views.html.evidence.evidenceevaluate;
 import views.html.evidence.evidencenew;
 import javax.inject.Inject;
@@ -56,6 +57,42 @@ public class EvidenceController extends Controller {
         }
     }
 
+    public Result edit(Integer id){
+        Evidence evidence = Evidence.find.byId(id);
+        if (evidence==null){
+            return notFound("Badge not found");
+        }
+        return  ok(evidenceedit.render(evidence,evidence.getBadge()));
+    }
+
+    public Result update(Integer id){
+        Evidence evidence = formFactory.form(Evidence.class).bindFromRequest().get();
+        Evidence oldEvidence = Evidence.find.byId(id);
+
+        if (oldEvidence == null){
+            return notFound("Badge not found");
+        }
+
+        Http.MultipartFormData<File> body = request().body().asMultipartFormData();
+        Http.MultipartFormData.FilePart<File> evidenceFile = body.getFile("evidenceFile");
+
+        if (!evidenceFile.getFilename().isEmpty()) {
+            System.out.println("file not null: "+evidenceFile.getFilename());
+            oldEvidence.setFileName(evidenceFile.getFilename());
+            oldEvidence.setFilePath(FileManager.savaFile(evidenceFile.getFile(),oldEvidence));
+        }
+
+        oldEvidence.setDescription(evidence.getDescription());
+        //get current date
+        Calendar calendar = Calendar.getInstance();
+        oldEvidence.setSubmissionDate(calendar.getTime());
+        oldEvidence.update();
+
+        return redirect(routes.BadgeController.show(oldEvidence.getBadge().getId()));
+
+
+    }
+
     public Result evaluate (Integer evidenceId){
         Evidence evidence = Evidence.find.byId(evidenceId);
         return ok(evidenceevaluate.render(evidence));
@@ -89,6 +126,8 @@ public class EvidenceController extends Controller {
 
 
     }
+
+
 
     public Result evidenceDownload(Integer evidenceId){
 

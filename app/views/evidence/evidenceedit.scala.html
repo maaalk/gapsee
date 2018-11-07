@@ -1,0 +1,102 @@
+@import views.html.helper.form
+@(evidence:Evidence,badge:Badge)
+
+
+
+
+@main("New Evidence "){
+    <div class="container">
+        <div class="row">
+            <p><b>Task #@badge.getId</b></p>
+            <div class="col s3 m2">
+                @if(badge.getTier==1){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt1.png")" >
+                }
+                @if(badge.getTier==2){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt2.png")">
+                }
+                @if(badge.getTier==3){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt3.png")" >
+                    }
+
+            </div>
+            <div class="col s9 m10">
+                <p style="font-style: italic">@badge.getName</p>
+            </div>
+
+        </div>
+
+
+        <p><b>Description:</b> @badge.getDescription</p>
+        <p><b>Topic:</b> @badge.getTopic</p>
+        <p><b>Deadline:</b> @badge.getFinalDate</p>
+        <p><b>Level:</b> @badge.getLevel.getLevelName</p>
+
+    </div>
+
+
+    <div class="row">
+    @form(action = routes.EvidenceController.update(evidence.getId),'enctype -> "multipart/form-data"){
+        <div class="col s12 m6">
+            <div id="oldFile">
+                <p>
+                    <b>Current Evidence: </b>
+                    <a href="@routes.EvidenceController.evidenceDownload(evidence.getId)" download="@evidence.getFileName">
+                        @evidence.getFileName
+                    </a>
+                </p>
+                <p> Change evidence file?
+                    <a class="btn-small red" onclick="deleteFile()"><i class="material-icons">delete</i> </a>
+                </p>
+
+            </div>
+
+            @*File Attachment*@
+            <div id="newFile" class="file-field input-field" hidden>
+                <div class="btn cyan">
+                    <i class="material-icons left">attach_file</i>
+                    <span>File</span>
+                    <input type="file" name="evidenceFile">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+                <p class="red-text"><i>**If no file is submitted the current one is kept</i> </p>
+            </div>
+
+
+
+            @*Text Area Description*@
+            <div class="input-field col s12">
+                <textarea value="teste" id="textarea1" class="materialize-textarea" name="description" ></textarea>
+                <label for="textarea1">Justificativa</label>
+            </div>
+
+
+
+            <br/>
+
+
+            <button class="waves-effect waves-light btn yellow darken-4" type="submit" value="Update Evidence"> Update
+                <i class="material-icons left">send</i>
+            </button>
+
+        </div>
+    }
+    </div>
+
+    <br/>
+}
+
+    <script>
+            $(document).ready(function(){
+                $('#textarea1').val('@evidence.getDescription');
+                M.textareaAutoResize($('#textarea1'));
+            });
+            function deleteFile(){
+                $(document).ready(function(){
+
+                    $("#newFile").toggle();
+                });
+            }
+    </script>
