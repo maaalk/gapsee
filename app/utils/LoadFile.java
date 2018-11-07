@@ -6,15 +6,15 @@ import java.io.File;
 public class LoadFile {
 
 
-    public String openFile(String url){
+    public File openFile(String url){
         try{
             File htmlFile = new File(url);
-            Desktop.getDesktop().browse(htmlFile.toURI());
-            return "ok";
+            //Desktop.getDesktop().browse(htmlFile.toURI());
+            return htmlFile;
 
         }catch(Exception e){
             System.out.println("ERROR! "+e.toString());
-            return "error";
+            return null;
         }
     }
 }

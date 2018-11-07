@@ -11,10 +11,11 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
-import utils.SaveUpload;
+import utils.LoadFile;
+import utils.SaveUpload
+;
 import views.html.evidence.evidenceevaluate;
 import views.html.evidence.evidencenew;
-
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
@@ -83,6 +84,14 @@ public class EvidenceController extends Controller {
 
 
     }
+
+    public Result evidenceDownload(Integer evidenceId){
+
+        Evidence evidence = Evidence.find.byId(evidenceId);
+        LoadFile load = new LoadFile();
+        return ok(load.openFile(evidence.getFilePath()));
+    }
+
 
 
 
