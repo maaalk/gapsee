@@ -1,14 +1,9 @@
 package controllers;
 
-import io.ebean.enhance.common.SysoutMessageOutput;
-import io.ebean.migration.util.IOUtils;
 import models.Badge;
-import models.BadgeStatus;
 import models.Evidence;
 
 import models.EvidenceStatus;
-import org.h2.store.fs.FileUtils;
-import play.api.mvc.MultipartFormData;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
@@ -22,13 +17,8 @@ import views.html.evidence.evidencenew;
 
 import javax.inject.Inject;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.*;
-import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
 
 public class EvidenceController extends Controller {
 
@@ -49,7 +39,7 @@ public class EvidenceController extends Controller {
             Evidence evidence = evidenceForm.get();
             evidence.setBadge(Badge.find.byId(badgeId));
             Calendar calendar = Calendar.getInstance();
-            evidence.setDate(calendar.getTime());
+            evidence.setSubmissionDate(calendar.getTime());
             evidence.setFileName(evidenceFile.getFilename());
 
             SaveUpload saveFile = new SaveUpload(evidenceFile.getFile(), evidence);

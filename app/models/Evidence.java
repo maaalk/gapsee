@@ -19,7 +19,8 @@ public class Evidence extends Model {
     private String description;
     @Column(columnDefinition = "TEXT")
     private String feedback;
-    private Date date;
+    private Date submissionDate;
+    private Date feedbackDate;
     private String fileName;
     private String filePath;
     @ManyToOne
@@ -65,12 +66,12 @@ public class Evidence extends Model {
         this.badge = badge;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getSubmissionDate() {
+        return submissionDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setSubmissionDate(Date submissionDate) {
+        this.submissionDate = submissionDate;
     }
 
     public String getFileName() {
@@ -89,14 +90,24 @@ public class Evidence extends Model {
         this.filePath = filePath;
     }
 
-    public String showDate(){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return formatter.format(this.date);
+    public Date getFeedbackDate() {
+        return feedbackDate;
     }
 
-    public void saveFile(File file, String fileNameme){
-        return;
+    public void setFeedbackDate(Date feedbackDate) {
+        this.feedbackDate = feedbackDate;
     }
+
+    public String showSubmissionDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(this.submissionDate);
+    }
+
+    public String showFeedbackDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(this.feedbackDate);
+    }
+
 
     public EvidenceStatus getStatus() {
         return status;
