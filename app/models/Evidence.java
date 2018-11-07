@@ -99,11 +99,13 @@ public class Evidence extends Model {
     }
 
     public String showSubmissionDate(){
+
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(this.submissionDate);
     }
 
     public String showFeedbackDate(){
+
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(this.feedbackDate);
     }

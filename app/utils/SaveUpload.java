@@ -13,7 +13,7 @@ public class SaveUpload {
     private Evidence evidence;
 
     //endereco do local de salvamento
-    private final String directoryAdress="C:\\Users\\Talita\\Desktop\\gapsee\\";
+    private final String directoryAdress="D:\\workspace\\";
 
     public SaveUpload(File evidenceFile, Evidence evidence){
         this.evidenceFile = evidenceFile;

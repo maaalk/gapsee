@@ -41,6 +41,7 @@ public class EvidenceController extends Controller {
             evidence.setBadge(Badge.find.byId(badgeId));
             Calendar calendar = Calendar.getInstance();
             evidence.setSubmissionDate(calendar.getTime());
+            evidence.setFeedbackDate(calendar.getTime());
             evidence.setFileName(evidenceFile.getFilename());
 
             SaveUpload saveFile = new SaveUpload(evidenceFile.getFile(), evidence);
@@ -64,22 +65,27 @@ public class EvidenceController extends Controller {
     public Result evaluationResult(Integer evidenceId){
         Evidence evidence = formFactory.form(Evidence.class).bindFromRequest().get();
         Evidence oldEvidence = Evidence.find.byId(evidenceId);
+
         if (oldEvidence == null){
             return notFound("Badge not found");
         }
+
         DynamicForm requestData = formFactory.form().bindFromRequest();
-        System.out.println(requestData.get("enumStatus"));
 
         if (requestData.get("enumStatus").equals("ACCEPTED")){
-            System.out.println("true");
             oldEvidence.setStatus(EvidenceStatus.ACCEPTED);
         }
         if (requestData.get("enumStatus").equals("REJECTED")){
             oldEvidence.setStatus(EvidenceStatus.REJECTED);
         }
+
         oldEvidence.setFeedback(evidence.getFeedback());
         oldEvidence.getBadge().update();
+        //get current date
+        Calendar calendar = Calendar.getInstance();
+        oldEvidence.setFeedbackDate(calendar.getTime());
         oldEvidence.update();
+
         return redirect(routes.BadgeController.show(oldEvidence.getBadge().getId()));
 
 
