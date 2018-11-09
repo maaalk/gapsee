@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import play.data.validation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Entity
@@ -94,4 +95,6 @@ public class Badge extends Model{
     public void setStatus(BadgeStatus status) {
         this.status = status;
     }
+
+
 }

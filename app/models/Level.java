@@ -24,6 +24,15 @@ public class Level  extends Model {
     @ManyToOne
     private Course course;
 
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     public static Finder<Integer, Level> find = new Finder<>(Level.class);
 
     public Integer getId() {

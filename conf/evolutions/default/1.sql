@@ -45,6 +45,13 @@ create table level (
   constraint pk_level primary key (id)
 );
 
+create table user (
+  id                            integer auto_increment not null,
+  username                      varchar(255),
+  password                      varchar(255),
+  constraint pk_user primary key (id)
+);
+
 create index ix_badge_level_id on badge (level_id);
 alter table badge add constraint fk_badge_level_id foreign key (level_id) references level (id) on delete restrict on update restrict;
 
@@ -73,4 +80,6 @@ drop table if exists course;
 drop table if exists evidence;
 
 drop table if exists level;
+
+drop table if exists user;
 
