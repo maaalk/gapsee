@@ -1,7 +1,10 @@
+
+
 @(course:Course, levelList: List[Level])
 
 @import tags.trophycard
 @import tags.trophiesbydate
+
 
 @main("Badge List") {
     <!--cabeçalho do curso-->
@@ -45,7 +48,7 @@
                                 <div class="row">
                                     <div class="col s12 m1">
 
-                                        <p class="center-align right grey-text darken-3"> <i class="material-icons tiny">av_timer</i><b><i>   @submissionDate</i></b></p>
+                                        <p class="center-align right grey-text darken-3" style="font-size: x-small"> <i class="material-icons tiny">av_timer</i><b><i>@DateConverter.showDate(submissionDate)</i></b></p>
                                     </div>
                                     <div class="col s12 m10">
                                         @for(topic<-level.topicsByDate(submissionDate)){

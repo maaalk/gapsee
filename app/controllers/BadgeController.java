@@ -31,6 +31,7 @@ public class BadgeController extends Controller {
     public Result save(){
         Form<Badge> badgeForm = formFactory.form(Badge.class).bindFromRequest();
         Badge badge = badgeForm.get();
+        badge.setLevel(Level.find.byId(1));
         badge.save();
         return redirect(routes.BadgeController.index());
     }

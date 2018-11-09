@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -106,8 +107,8 @@ public class Level  extends Model {
     }*/
 
 
-    public List<String> allDates(){
-        List<String> listDates = new ArrayList<String>();
+    public List<Date> allDates(){
+        List<Date> listDates = new ArrayList<>();
         for (Badge badge:this.badgeList){
             if(!listDates.contains(badge.getFinalDate())){
                 listDates.add(badge.getFinalDate());
@@ -117,10 +118,10 @@ public class Level  extends Model {
         return listDates;
     }
 
-    public List<String> topicsByDate(String date){
+    public List<String> topicsByDate(Date date){
         List<String> listTopics = new ArrayList<>();
         for (Badge badge:this.badgeList){
-            if((date.contentEquals(badge.getFinalDate()))&&(!listTopics.contains(badge.getTopic())) ){
+            if((date.equals(badge.getFinalDate()))&&(!listTopics.contains(badge.getTopic())) ){
                 listTopics.add(badge.getTopic());
             }
         }

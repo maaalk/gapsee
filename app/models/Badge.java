@@ -7,7 +7,7 @@ import javax.persistence.*;
 import play.data.validation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.Date;
 
 @Entity
 public class Badge extends Model{
@@ -20,7 +20,7 @@ public class Badge extends Model{
     private String description;
     @Constraints.Required
     private String topic;
-    private String finalDate;
+    private Date finalDate;
     @Constraints.Required
     private Integer tier;
     @ManyToOne
@@ -72,11 +72,11 @@ public class Badge extends Model{
         this.tier = tier;
     }
 
-    public String getFinalDate() {
+    public Date getFinalDate() {
         return finalDate;
     }
 
-    public void setFinalDate(String finalDate) {
+    public void setFinalDate(Date finalDate) {
         this.finalDate = finalDate;
     }
 
@@ -94,6 +94,12 @@ public class Badge extends Model{
 
     public void setStatus(BadgeStatus status) {
         this.status = status;
+    }
+
+    public String showFinalDate(){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(this.finalDate);
     }
 
 

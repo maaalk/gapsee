@@ -8,7 +8,7 @@ create table badge (
   name                          varchar(255),
   description                   varchar(255),
   topic                         varchar(255),
-  final_date                    varchar(255),
+  final_date                    timestamp,
   tier                          integer,
   level_id                      integer,
   status                        varchar(9),
