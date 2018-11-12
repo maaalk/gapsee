@@ -50,4 +50,13 @@ public class Course extends Model {
             this.levelList.add(level);
         }
     }
+
+    public Integer countBadges(){
+        int count=0;
+        for(Level level:levelList){
+            count+= level.getBadgeList().size();
+        }
+        return count;
+    }
+
 }

@@ -15,7 +15,7 @@
                 <div class="col s6 m2">
                     <div class="card-panel">
                         <img src="@routes.Assets.versioned("images/trophy.png")" alt="trophy" style="max-width: 60px;max-height: 50px; margin-left: auto; margin-right: auto;">
-                        <p>0/@levelList.size() Troféus</p>
+                        <p id="trophyCount">/@course.countBadges() Troféus</p>
                     </div>
                 </div>
                 <div class="col s6 m6">
@@ -90,8 +90,14 @@
     <script>
             $(document).ready(function(){
                 $('.collapsible').collapsible();
+
+            });
+            $(document).ready(function(){
+                var n =$("[data-status='EARNED']").length
+                $("#trophyCount").prepend(n);
             });
 
 
     </script>
 }
+
