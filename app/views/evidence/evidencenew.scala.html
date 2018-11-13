@@ -1,4 +1,5 @@
 @import views.html.helper.form
+@import helper._
 @(evidenceForm:Form[Evidence],badge:Badge)
 
 
@@ -36,7 +37,7 @@
 
 
     <div class="row">
-    @form(action = routes.EvidenceController.save(badge.getId),'enctype -> "multipart/form-data"){
+        @form(CSRF(routes.EvidenceController.save(badge.getId)),'enctype -> "multipart/form-data"){
         <div class="col s12 m6">
             @*File Attachment*@
             <div class="file-field input-field">

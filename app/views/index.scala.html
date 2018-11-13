@@ -1,68 +1,33 @@
+@import views.html.helper.form
 @(message: String)
 
 @main("Home  Page") {
+        @if(flash.containsKey("fail")) {
+                @flash.get("fail")
+        }
+        @form(action = routes.UserController.authenticate()) {
+                <div class="row">
+                        <div class="col s12 m6">
+                                <div class="input-field col s6 m4">
+                                        <input placeholder="User Name" id="name" type="text" name="username">
+                                        <label for="name">Usuario</label>
+                                </div>
 
-    <!-- this css class is not part of bootstrap but is defined in /css/style.css -->
-    <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-            <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-            <p> for details see <a href="https://getbootstrap.com/docs/4.0/examples/">https://getbootstrap.com/docs/4.0/examples/</a></p>
-            <h4>To learn more about bootstrap 4 (including how to customise this page) see:</h4>
-            <p><a href="https://www.w3schools.com/bootstrap4/bootstrap_get_started.asp">W3Schools - Get started with Bootstrap 4</a></p>
-            <p><a href="https://www.w3schools.com/bootstrap4/default.asp">W3Schools - Bootstrap 4 Tutorial</a></p>
-            <p><a href="https://www.w3schools.com/bootstrap4/bootstrap_ref_all_classes.asp">W3Schools - Bootstrap 4 Reference</a></p>
-            <h4>For general HTML and CSS see:</h4>
-            <p><a href="https://www.w3schools.com/tags/default.asp">W3Schools - HTML 5</a></p>
-            <p><a href="https://www.w3schools.com/cssref/default.asp">W3Schools - CSS</a></p>
-    </div>
+                                <div class="input-field col s6 m4">
+                                        <input placeholder="Password" id="pswd" type="password"  name="password">
+                                        <label for="pswd">Senha</label>
+                                </div>
 
-
-
-
-        <div class="panel-group" id="accordion">
-                <div class="panel panel-default">
-                        <div class="panel-heading">
-                                <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                                                1rst Level</a>
-                                </h4>
+                                <button class="waves-effect waves-light btn yellow darken-4 col s6 m4" type="submit" value="User login"> Submit Evidence
+                                        <i class="material-icons left">save</i>
+                                </button>
                         </div>
-                        <div id="collapse1" class="panel-collapse collapse in">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo consequat.</div>
-                        </div>
+
                 </div>
-                <div class="panel panel-default">
-                        <div class="panel-heading">
-                                <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                                                Collapsible Group 2</a>
-                                </h4>
-                        </div>
-                        <div id="collapse2" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo consequat.</div>
-                        </div>
-                </div>
-                <div class="panel panel-default">
-                        <div class="panel-heading">
-                                <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
-                                                Collapsible Group 3</a>
-                                </h4>
-                        </div>
-                        <div id="collapse3" class="panel-collapse collapse">
-                                <div class="panel-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                        commodo consequat.</div>
-                        </div>
-                </div>
-        </div>
+
+        }
+
+
 
 
 

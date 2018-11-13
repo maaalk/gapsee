@@ -2,9 +2,15 @@
 @(badge: Badge, evidenceList:List[Evidence])
 
 @main("Details"){
-    <a href="@routes.CourseController.show(badge.getLevel.getCourse.getId)"><<</a>
-    <div class="container">
+      <div class="container">
         <div class="row">
+            <div class="row"></div>
+
+            <div class="chip">
+                <a href="@routes.CourseController.show(badge.getLevel.getCourse.getId)"><b><< </b>@badge.getLevel.getCourse.getName</a>
+            </div>
+
+
             <p><b>Task #@badge.getId</b></p>
             <div class="col s3 m2">
                 @if(badge.getTier==1){

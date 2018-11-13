@@ -9,6 +9,7 @@ import java.util.List;
 public class CourseController extends Controller {
 
     public Result index(){
+        System.out.println(session("connected"));
         List<Course> courseList = Course.find.all();
         return ok(courseindex.render(courseList));
     }

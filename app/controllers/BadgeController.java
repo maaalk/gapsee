@@ -4,6 +4,7 @@ import models.Level;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
+import utils.ActionAuthenticator;
 import views.html.*;
 import models.Badge;
 
@@ -12,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
+
 
 public class BadgeController extends Controller {
 
@@ -58,9 +60,9 @@ public class BadgeController extends Controller {
         oldBadge.update();
         return redirect(routes.BadgeController.index());
 
+           }
 
-    }
-
+    @Security.Authenticated(ActionAuthenticator.class)
     public Result show(Integer id){
         Badge badge = Badge.find.byId(id);
         if (badge==null){
