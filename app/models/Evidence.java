@@ -133,4 +133,12 @@ public class Evidence extends Model {
         }
 
     }
+
+    public static Evidence newestByUser(Integer userId){
+        Evidence evidence = Evidence.find.query()
+                .where().eq("USER_id",userId)
+                .orderBy().desc("SUBMISSION_DATE")
+                .findOne();
+        return evidence;
+    }
 }

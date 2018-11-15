@@ -38,7 +38,7 @@
         <p><b>Level:</b> @badge.getLevel.getLevelName</p>
 
 
-        @if(badge.getStatus.equals(BadgeStatus.SUBMITTED)||(badge.getStatus.equals(BadgeStatus.EARNED))){
+        @if(badge.getStatus.equals(BadgeStatus.SUBMITTED)||(badge.getStatus.equals(BadgeStatus.EARNED))||(role.equals("TUTOR"))){
             <div class="row">
                 <a  class="btn yellow darken-4 disabled" href="@routes.EvidenceController.create(badge.getId)"> Submit Evidence</a>
             </div>

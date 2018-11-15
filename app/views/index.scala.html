@@ -2,23 +2,22 @@
 @(message: String)
 
 @main("Home  Page") {
-        @if(flash.containsKey("fail")) {
-                @flash.get("fail")
-        }
+
         @form(action = routes.UserController.authenticate()) {
+
                 <div class="row">
                         <div class="col s12 m6">
-                                <div class="input-field col s6 m4">
+                                <div class="input-field col s12 m4">
                                         <input placeholder="User Name" id="name" type="text" name="username">
                                         <label for="name">Usuario</label>
                                 </div>
 
-                                <div class="input-field col s6 m4">
+                                <div class="input-field col s12 m4">
                                         <input placeholder="Password" id="pswd" type="password"  name="password">
                                         <label for="pswd">Senha</label>
                                 </div>
 
-                                <button class="waves-effect waves-light btn yellow darken-4 col s6 m4" type="submit" value="User login"> Submit Evidence
+                                <button class="waves-effect waves-light btn yellow darken-4 col s12 m2" type="submit" value="User login"> Login
                                         <i class="material-icons left">save</i>
                                 </button>
                         </div>

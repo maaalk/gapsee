@@ -24,5 +24,10 @@ public class HomeController extends Controller {
     
 
 
-    
+    public Result logout(){
+        session().clear();
+
+        flash("success","Sessão encerrada com sucesso! Sentiremos sua falta T___T");
+        return redirect(controllers.routes.HomeController.index()).withCookies();
+    }
 }

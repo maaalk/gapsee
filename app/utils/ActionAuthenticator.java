@@ -13,7 +13,7 @@ public class ActionAuthenticator extends Security.Authenticator {
 
     @Override
     public Result onUnauthorized(Http.Context context) {
-        flash("fail","You must login first!");
+        flash("fail","Sorry, you must be logged to access this page!");
         return redirect(controllers.routes.HomeController.index());
 
     }

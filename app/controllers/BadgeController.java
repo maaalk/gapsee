@@ -5,6 +5,8 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
 import utils.ActionAuthenticator;
+import utils.AdminActionAuthenticator;
+import utils.TutorActionAuthenticator;
 import views.html.*;
 import models.Badge;
 
@@ -25,11 +27,13 @@ public class BadgeController extends Controller {
         return ok(badgeindex.render(levelList));
     }
 
+    @Security.Authenticated(AdminActionAuthenticator.class)
     public Result create(){
         Form<Badge> badgeForm= formFactory.form(Badge.class);
         return ok(badgecreate.render(badgeForm));
     }
 
+    @Security.Authenticated(AdminActionAuthenticator.class)
     public Result save(){
         Form<Badge> badgeForm = formFactory.form(Badge.class).bindFromRequest();
         Badge badge = badgeForm.get();
@@ -38,6 +42,7 @@ public class BadgeController extends Controller {
         return redirect(routes.BadgeController.index());
     }
 
+    @Security.Authenticated(AdminActionAuthenticator.class)
     public Result edit(Integer id){
         Badge badge = Badge.find.byId(id);
         if (badge==null){
@@ -46,6 +51,7 @@ public class BadgeController extends Controller {
         Form<Badge> badgeForm = formFactory.form(Badge.class).fill(badge);
         return  ok(badgeedit.render(badgeForm));
     }
+
 
     public Result update(){
         Badge badge = formFactory.form(Badge.class).bindFromRequest().get();
@@ -79,6 +85,7 @@ public class BadgeController extends Controller {
     }
 
 
+    @Security.Authenticated(AdminActionAuthenticator.class)
     public Result destroy(Integer id){
         Badge badge = Badge.find.byId(id);
         if (badge==null){

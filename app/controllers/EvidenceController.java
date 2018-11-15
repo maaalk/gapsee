@@ -56,7 +56,7 @@ public class EvidenceController extends Controller {
             flash("success","Evidence Saved");
             return redirect(routes.BadgeController.show(evidence.getBadge().getId()));
         }else {
-            flash("error", "Missing file");
+            flash("fail", "Missing file");
             return badRequest();
         }
     }
@@ -64,6 +64,7 @@ public class EvidenceController extends Controller {
     public Result edit(Integer id){
         Evidence evidence = Evidence.find.byId(id);
         if (evidence==null){
+            flash("fail","Sorry, I can't do this =/");
             return notFound("Badge not found");
         }
         return  ok(evidenceedit.render(evidence,evidence.getBadge()));
@@ -74,6 +75,7 @@ public class EvidenceController extends Controller {
         Evidence oldEvidence = Evidence.find.byId(id);
 
         if (oldEvidence == null){
+            flash("fail","Sorry, I can't do this =/");
             return notFound("Badge not found");
         }
 
@@ -91,7 +93,7 @@ public class EvidenceController extends Controller {
         Calendar calendar = Calendar.getInstance();
         oldEvidence.setSubmissionDate(calendar.getTime());
         oldEvidence.update();
-
+        flash("success","Evidence updated =D");
         return redirect(routes.BadgeController.show(oldEvidence.getBadge().getId()));
 
 
@@ -125,6 +127,7 @@ public class EvidenceController extends Controller {
         Calendar calendar = Calendar.getInstance();
         oldEvidence.setFeedbackDate(calendar.getTime());
         oldEvidence.update();
+        flash("success","Evaluation registered!");
 
         return redirect(routes.BadgeController.show(oldEvidence.getBadge().getId()));
 
