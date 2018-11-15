@@ -49,6 +49,8 @@ create table user (
   id                            integer auto_increment not null,
   username                      varchar(255),
   password                      varchar(255),
+  role                          varchar(7),
+  constraint ck_user_role check ( role in ('STUDENT','TUTOR','ADMIN')),
   constraint pk_user primary key (id)
 );
 

@@ -12,7 +12,10 @@ import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
 
+import play.mvc.Security;
+import utils.ActionAuthenticator;
 import utils.FileManager;
+import utils.TutorActionAuthenticator;
 import views.html.evidence.evidenceedit;
 import views.html.evidence.evidenceevaluate;
 import views.html.evidence.evidencenew;
@@ -21,7 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
-
+@Security.Authenticated(ActionAuthenticator.class)
 public class EvidenceController extends Controller {
 
     @Inject
@@ -93,12 +96,12 @@ public class EvidenceController extends Controller {
 
 
     }
-
+    @Security.Authenticated(TutorActionAuthenticator.class)
     public Result evaluate (Integer evidenceId){
         Evidence evidence = Evidence.find.byId(evidenceId);
         return ok(evidenceevaluate.render(evidence));
     }
-
+    @Security.Authenticated(TutorActionAuthenticator.class)
     public Result evaluationResult(Integer evidenceId){
         Evidence evidence = formFactory.form(Evidence.class).bindFromRequest().get();
         Evidence oldEvidence = Evidence.find.byId(evidenceId);

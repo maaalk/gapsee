@@ -1,5 +1,5 @@
 
-@(badge: Badge, evidenceList:List[Evidence])
+@(badge: Badge, evidenceList:List[Evidence], role:String)
 
 @main("Details"){
       <div class="container">
@@ -10,6 +10,7 @@
                 <a href="@routes.CourseController.show(badge.getLevel.getCourse.getId)"><b><< </b>@badge.getLevel.getCourse.getName</a>
             </div>
 
+            <p>@role</p>
 
             <p><b>Task #@badge.getId</b></p>
             <div class="col s3 m2">
@@ -91,7 +92,7 @@
 
                         <br/>
                     </div>
-                        @if(evidence.getStatus.equals(EvidenceStatus.NEW)){
+                        @if(evidence.getStatus.equals(EvidenceStatus.NEW) && ((role=="STUDENT")||(role=="ADMIN"))){
                             <div class="col s3 m4">
                                 <a class=" btn-flat grey-text" href="@routes.EvidenceController.edit(evidence.getId)"><i class="material-icons left tiny green-text">edit</i><span class="hide-on-med-and-down">Edit</span></a>
                             </div>
@@ -99,9 +100,12 @@
                                 <a class=" btn-flat grey-text "><i class="material-icons left tiny red-text">close</i><span class="hide-on-med-and-down">Remove</span></a>
                             </div>
                         }
-                    <div class="col s3 m4">
-                        <a class=" btn-flat grey-text " href="@routes.EvidenceController.evaluate(evidence.getId)"><i class="material-icons left tiny light-green-text">thumbs_up_down</i> <span class="hide-on-med-and-down">Evaluate</span></a>
-                    </div>
+                    @if((role=="TUTOR")||(role=="ADMIN")){
+                        <div class="col s3 m4">
+                            <a class=" btn-flat grey-text " href="@routes.EvidenceController.evaluate(evidence.getId)"><i class="material-icons left tiny light-green-text">thumbs_up_down</i> <span class="hide-on-med-and-down">Evaluate</span></a>
+                        </div>
+                    }
+
                     <br/>
                 </div>
 

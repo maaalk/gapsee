@@ -18,17 +18,15 @@ public class UserController extends Controller {
         User login = userForm.get();
         System.out.println("attempt to login from user "+ login.getUsername());
         try{
-            User user = User.find.query()
-                    .select("username")
-                    .where().eq("PASSWORD",login.getPassword())
-                    .findOne();
+            User user = User.authenticate(login.getUsername(),login.getPassword());
             session().clear();
             session("username",user.getUsername());
-            flash("success", "Bem vindo"+user.getUsername());
+            session().put("role",user.getRole().toString());
+            flash("success", "Bem vindo, "+user.getUsername()+"! Você está logado como "+user.getRole().toString());
             return redirect(routes.CourseController.index());
         }catch(Exception e){
             System.out.println("Usuário não encontrado! "+e.toString());
-            flash("fail", "Not connected");
+            flash("fail", "Usuário não encontrado!");
             return redirect(routes.HomeController.index());
         }
 

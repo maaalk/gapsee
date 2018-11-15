@@ -14,7 +14,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-
+@Security.Authenticated(ActionAuthenticator.class)
 public class BadgeController extends Controller {
 
     @Inject
@@ -62,7 +62,7 @@ public class BadgeController extends Controller {
 
            }
 
-    @Security.Authenticated(ActionAuthenticator.class)
+
     public Result show(Integer id){
         Badge badge = Badge.find.byId(id);
         if (badge==null){
@@ -74,7 +74,8 @@ public class BadgeController extends Controller {
                 .where().eq("BADGE_ID",badge.getId())
                 .findList();
         Collections.reverse(evidenceList);
-        return ok(badgeshow.render(badge, evidenceList));
+        String role = session("role");
+        return ok(badgeshow.render(badge, evidenceList,role));
     }
 
 

@@ -2,9 +2,13 @@ package controllers;
 import models.Course;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
+import utils.ActionAuthenticator;
 import views.html.course.*;
 
 import java.util.List;
+
+@Security.Authenticated(ActionAuthenticator.class)
 
 public class CourseController extends Controller {
 
