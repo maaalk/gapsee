@@ -51,6 +51,7 @@ create table user (
   password                      varchar(255),
   role                          varchar(7),
   constraint ck_user_role check ( role in ('STUDENT','TUTOR','ADMIN')),
+  constraint uq_user_username unique (username),
   constraint pk_user primary key (id)
 );
 

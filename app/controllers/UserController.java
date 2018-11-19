@@ -41,9 +41,15 @@ public class UserController extends Controller {
     public Result save(){
         Form<User> userForm = formFactory.form(User.class).bindFromRequest();
         User user = userForm.get();
-        user.save();
-        flash("success", "Usuário criado com sucesso");
-        return ok(index.render(""));
+        try {
+            user.save();
+            flash("success", "Usuário criado com sucesso");
+            return ok(index.render(""));
+        }catch (Exception e){
+            System.out.println("Erro ao cadastrar usuário! "+e.toString());
+            flash("fail","Erro ao cadastrar usuário! =/");
+            return badRequest(usercreate.render());
+        }
 
     }
 

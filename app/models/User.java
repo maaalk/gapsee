@@ -4,10 +4,7 @@ package models;
 import io.ebean.Finder;
 import io.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.HashMap;
 
 @Entity
@@ -15,6 +12,7 @@ public class User extends Model {
 
     @Id
     private Integer id;
+    @Column(unique=true)
     private String  username;
     private String  password;
     @Enumerated(EnumType.STRING)
