@@ -44,6 +44,9 @@ POST    /evidences/edit:id              controllers.EvidenceController.update(id
 #User
 + nocsrf
 POST    /login                          controllers.UserController.authenticate()
+GET     /create                         controllers.UserController.create()
++ nocsrf
+POST    /create                         controllers.UserController.save()
 
 
 # Map static resources from the /public folder to the /assets URL path

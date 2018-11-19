@@ -5,6 +5,8 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.index;
+import views.html.user.usercreate;
 
 import javax.inject.Inject;
 
@@ -30,11 +32,20 @@ public class UserController extends Controller {
             return redirect(routes.HomeController.index());
         }
 
-
-
-
     }
 
+    public Result create(){
+        return ok(usercreate.render());
+    }
+
+    public Result save(){
+        Form<User> userForm = formFactory.form(User.class).bindFromRequest();
+        User user = userForm.get();
+        user.save();
+        flash("success", "Usuário criado com sucesso");
+        return ok(index.render(""));
+
+    }
 
 
 }
