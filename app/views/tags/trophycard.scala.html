@@ -1,5 +1,5 @@
 
-@(badge: Badge)
+@(badge: Badge, badges: Map[String,UserBadge])
 <div class="trophycard" data-status="@badge.getStatus">
     <div @if(badge.getTier == 1) {
         class="card horizontal orange lighten-4 hoverable waves-effect waves-light" data-topic="@badge.getTopic" data-finalDate="@badge.getFinalDate"
@@ -12,25 +12,32 @@
 
 
     <a href="@routes.BadgeController.show(badge.getId)" class="card-image valign-wrapper  modal-trigger ">
-        @if(badge.getStatus!=BadgeStatus.EARNED){
+
+        @if(badges.get(badge)==null) {
             <img src="@routes.Assets.versioned("images/emptytrophy.png")" style="height: 40px;
                 min-width: 30px;
                 object-fit: contain"/>
-        } else{
-            @if(badge.getTier == 1){
-                <img src="@routes.Assets.versioned("images/trophyt1.png")" style="height: 40px;
+        }else {
+            @if(badges.get(badge).getStatus != BadgeStatus.EARNED) {
+                <img src="@routes.Assets.versioned("images/emptytrophy.png")" style="height: 40px;
                     min-width: 30px;
                     object-fit: contain"/>
-            }
-            @if(badge.getTier == 2){
-                <img src="@routes.Assets.versioned("images/trophyt2.png")" style="height: 40px;
-                    min-width: 30px;
-                    object-fit: contain"/>
-            }
-            @if(badge.getTier == 3){
-                <img src="@routes.Assets.versioned("images/trophyt3.png")" style="height: 40px;
-                    min-width: 30px;
-                    object-fit: contain"/>
+            } else {
+                @if(badge.getTier == 1) {
+                    <img src="@routes.Assets.versioned("images/trophyt1.png")" style="height: 40px;
+                        min-width: 30px;
+                        object-fit: contain"/>
+                }
+                @if(badge.getTier == 2) {
+                    <img src="@routes.Assets.versioned("images/trophyt2.png")" style="height: 40px;
+                        min-width: 30px;
+                        object-fit: contain"/>
+                }
+                @if(badge.getTier == 3) {
+                    <img src="@routes.Assets.versioned("images/trophyt3.png")" style="height: 40px;
+                        min-width: 30px;
+                        object-fit: contain"/>
+                }
             }
         }
 

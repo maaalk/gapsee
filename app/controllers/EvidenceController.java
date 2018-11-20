@@ -45,8 +45,6 @@ public class EvidenceController extends Controller {
             evidence.setFeedbackDate(calendar.getTime());
             evidence.setFileName(evidenceFile.getFilename());
             evidence.setFilePath(FileManager.savaFile(evidenceFile.getFile(),evidence));
-
-
             User user = User.findByUserName(session("username"));
             Badge badge = Badge.find.byId(badgeId);
             UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
@@ -102,16 +100,18 @@ public class EvidenceController extends Controller {
         Calendar calendar = Calendar.getInstance();
         oldEvidence.setSubmissionDate(calendar.getTime());
         oldEvidence.update();
+        oldEvidence.getUserBadge().setLastUpdate(calendar.getTime());
+        oldEvidence.getUserBadge().update();
         flash("success","Evidence updated =D");
         return redirect(routes.BadgeController.show(oldEvidence.getUserBadge().getBadge().getId()));
-
-
     }
+
     @Security.Authenticated(TutorActionAuthenticator.class)
     public Result evaluate (Integer evidenceId){
         Evidence evidence = Evidence.find.byId(evidenceId);
         return ok(evidenceevaluate.render(evidence));
     }
+
     @Security.Authenticated(TutorActionAuthenticator.class)
     public Result evaluationResult(Integer evidenceId){
         Evidence evidence = formFactory.form(Evidence.class).bindFromRequest().get();

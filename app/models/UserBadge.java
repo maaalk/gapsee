@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class UserBadge extends Model {
@@ -44,6 +45,21 @@ public class UserBadge extends Model {
                     .findOne();
             System.out.println(userBadge.toString());
             return userBadge;
+        } catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public static Map<String,UserBadge> findUser(Integer userId){
+        System.out.println("FIND USER" + userId);
+        try{
+            Map<String,UserBadge> userBadges = UserBadge.find.query()
+                    .where().eq("USER_ID", userId)
+                    .setMapKey("badge")
+                    .findMap();
+            System.out.println(userBadges.toString());
+            return userBadges;
         } catch (Exception e){
             System.out.println(e);
             return null;

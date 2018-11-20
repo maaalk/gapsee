@@ -18,15 +18,12 @@ DELETE  /courses/delete/:id         controllers.CourseController.destroy(id : In
 
 
 #Badges
-GET     /badges                     controllers.BadgeController.index
-GET     /badges/create              controllers.BadgeController.create()
+#GET     /badges/create              controllers.BadgeController.create()
 GET     /badges/:id                 controllers.BadgeController.show(id : Integer)
-GET     /badges/edit/:id            controllers.BadgeController.edit(id : Integer)
-POST    /badges/edit                controllers.BadgeController.update()
-POST    /badges/create              controllers.BadgeController.save()
-
-+ nocsrf
-DELETE  /badges/delete/:id          controllers.BadgeController.destroy(id : Integer)
+#GET     /badges/edit/:id            controllers.BadgeController.edit(id : Integer)
+#POST    /badges/edit                controllers.BadgeController.update()
+#POST    /badges/create              controllers.BadgeController.save()
+#DELETE  /badges/delete/:id          controllers.BadgeController.destroy(id : Integer)
 
 #Evidences
 GET     /evidences/create/:id           controllers.EvidenceController.create(id : Integer)

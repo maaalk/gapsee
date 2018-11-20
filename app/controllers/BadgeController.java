@@ -21,27 +21,24 @@ public class BadgeController extends Controller {
     @Inject
     FormFactory formFactory;
 
-    public Result index(){
-        List<Level> levelList = Level.find.all();
-        return ok(badgeindex.render(levelList));
-    }
 
-    @Security.Authenticated(AdminActionAuthenticator.class)
+
+   /* @Security.Authenticated(AdminActionAuthenticator.class)
     public Result create(){
         Form<Badge> badgeForm= formFactory.form(Badge.class);
         return ok(badgecreate.render(badgeForm));
-    }
+    }*/
 
-    @Security.Authenticated(AdminActionAuthenticator.class)
+    /*@Security.Authenticated(AdminActionAuthenticator.class)
     public Result save(){
         Form<Badge> badgeForm = formFactory.form(Badge.class).bindFromRequest();
         Badge badge = badgeForm.get();
         badge.setLevel(Level.find.byId(1));
         badge.save();
         return redirect(routes.BadgeController.index());
-    }
+    }*/
 
-    @Security.Authenticated(AdminActionAuthenticator.class)
+   /* @Security.Authenticated(AdminActionAuthenticator.class)
     public Result edit(Integer id){
         Badge badge = Badge.find.byId(id);
         if (badge==null){
@@ -49,10 +46,10 @@ public class BadgeController extends Controller {
         }
         Form<Badge> badgeForm = formFactory.form(Badge.class).fill(badge);
         return  ok(badgeedit.render(badgeForm));
-    }
+    }*/
 
 
-    public Result update(){
+    /*public Result update(){
         Badge badge = formFactory.form(Badge.class).bindFromRequest().get();
         Badge oldBadge = Badge.find.byId(badge.getId());
         if (oldBadge == null){
@@ -65,7 +62,7 @@ public class BadgeController extends Controller {
         oldBadge.update();
         return redirect(routes.BadgeController.index());
 
-           }
+           }*/
 
 
     public Result show(Integer id){
@@ -84,11 +81,12 @@ public class BadgeController extends Controller {
 
 
         String role = session("role");
+
         return ok(badgeshow.render(badge, evidenceList,role));
     }
 
 
-    @Security.Authenticated(AdminActionAuthenticator.class)
+  /*  @Security.Authenticated(AdminActionAuthenticator.class)
     public Result destroy(Integer id){
         Badge badge = Badge.find.byId(id);
         if (badge==null){
@@ -98,7 +96,7 @@ public class BadgeController extends Controller {
         badge.delete();
         flash("success","Book deleted successfully!");
         return ok();
-    }
+    }*/
 
 
 

@@ -1,9 +1,9 @@
 
 
-@(course:Course, levelList: List[Level])
+@(course:Course, levelList: List[Level], badges: Map[String, UserBadge])
 
 @import tags.trophycard
-@import tags.trophiesbydate
+
 
 
 @main("Badge List") {
@@ -56,7 +56,7 @@
                                                 <p class="center">@topic</p>
                                                 @for(badge<-level.getBadgeList){
                                                     @if((badge.getFinalDate==submissionDate) && (badge.getTopic==topic)){
-                                                        @trophycard(badge)
+                                                        @trophycard(badge,badges)
                                                     }
                                                 }
                                             </div>
