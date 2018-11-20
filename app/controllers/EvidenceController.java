@@ -39,29 +39,31 @@ public class EvidenceController extends Controller {
         Http.MultipartFormData<File> body = request().body().asMultipartFormData();
         Http.MultipartFormData.FilePart<File> evidenceFile = body.getFile("evidenceFile");
         if (evidenceFile != null) {
-            Evidence evidence = evidenceForm.get();
-            evidence.setBadge(Badge.find.byId(badgeId));
             Calendar calendar = Calendar.getInstance();
+            Evidence evidence = evidenceForm.get();
             evidence.setSubmissionDate(calendar.getTime());
             evidence.setFeedbackDate(calendar.getTime());
             evidence.setFileName(evidenceFile.getFilename());
-
             evidence.setFilePath(FileManager.savaFile(evidenceFile.getFile(),evidence));
 
+
+            User user = User.findByUserName(session("username"));
+            Badge badge = Badge.find.byId(badgeId);
+            UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
+            if (userBadge==null){
+                userBadge = new UserBadge(user,badge);
+                userBadge.save();
+                user.addUserBadge(userBadge);
+                user.update();
+                badge.addUserBadge(userBadge);
+                badge.update();
+            }
+            evidence.setUserBadge(userBadge);
             evidence.setStatus(EvidenceStatus.NEW);
             evidence.save();
-            User user = User.find.query()
-                    .where().eq("username",session("username"))
-                    .findOne();
-
-            UserBadge userBadge = new UserBadge(user,evidence.getBadge());
-            userBadge.save();
-            user.addUserBadge(userBadge);
-            user.update();
-            evidence.getBadge().addUserBadge(userBadge);
-            evidence.getBadge().update();
+            userBadge.update();
             flash("success","Evidence Saved");
-            return redirect(routes.BadgeController.show(evidence.getBadge().getId()));
+            return redirect(routes.BadgeController.show(badge.getId()));
         }else {
             flash("fail", "Missing file");
             return badRequest();
@@ -74,7 +76,7 @@ public class EvidenceController extends Controller {
             flash("fail","Sorry, I can't do this =/");
             return notFound("Badge not found");
         }
-        return  ok(evidenceedit.render(evidence,evidence.getBadge()));
+        return  ok(evidenceedit.render(evidence,evidence.getUserBadge().getBadge()));
     }
 
     public Result update(Integer id){
@@ -101,7 +103,7 @@ public class EvidenceController extends Controller {
         oldEvidence.setSubmissionDate(calendar.getTime());
         oldEvidence.update();
         flash("success","Evidence updated =D");
-        return redirect(routes.BadgeController.show(oldEvidence.getBadge().getId()));
+        return redirect(routes.BadgeController.show(oldEvidence.getUserBadge().getBadge().getId()));
 
 
     }
@@ -129,14 +131,14 @@ public class EvidenceController extends Controller {
         }
 
         oldEvidence.setFeedback(evidence.getFeedback());
-        oldEvidence.getBadge().update();
+        oldEvidence.getUserBadge().update();
         //get current date
         Calendar calendar = Calendar.getInstance();
         oldEvidence.setFeedbackDate(calendar.getTime());
         oldEvidence.update();
         flash("success","Evaluation registered!");
 
-        return redirect(routes.BadgeController.show(oldEvidence.getBadge().getId()));
+        return redirect(routes.BadgeController.show(oldEvidence.getUserBadge().getBadge().getId()));
 
 
     }

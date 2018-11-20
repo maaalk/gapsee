@@ -26,6 +26,14 @@ public class User extends Model {
 
     public static Finder<Integer, User> find = new Finder<>(User.class);
 
+    public static User findByUserName(String username){
+        User user = User.find.query()
+                .where().eq("USERNAME",username)
+                .findOne();
+        return user;
+
+    }
+
     public static User authenticate(String username, String password) throws Exception{
         User user = User.find.query()
                 .where().eq("USERNAME", username)
@@ -78,4 +86,6 @@ public class User extends Model {
     public void addUserBadge(UserBadge userBadge) {
         userBadges.add(userBadge);
     }
+
+
 }

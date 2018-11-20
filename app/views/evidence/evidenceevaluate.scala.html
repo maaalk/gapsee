@@ -4,30 +4,30 @@
 @main("Evaluation"){
     <div class="container">
         <div class="row">
-            <p><b>Task #@evidence.getBadge.getId</b></p>
+            <p><b>Task #@evidence.getUserBadge.getBadge.getId</b></p>
             <div class="col s3 m2">
-                @if(evidence.getBadge.getTier==1){
+                @if(evidence.getUserBadge.getBadge.getTier==1){
                     <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt1.png")" >
                 }
-                @if(evidence.getBadge.getTier==2){
+                @if(evidence.getUserBadge.getBadge.getTier==2){
                     <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt2.png")">
                 }
-                @if(evidence.getBadge.getTier==3){
+                @if(evidence.getUserBadge.getBadge.getTier==3){
                     <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt3.png")" >
                     }
 
             </div>
             <div class="col s9 m10">
-                <p style="font-style: italic">@evidence.getBadge.getName</p>
+                <p style="font-style: italic">@evidence.getUserBadge.getBadge.getName</p>
             </div>
 
         </div>
 
 
-        <p><b>Description:</b> @evidence.getBadge.getDescription</p>
-        <p><b>Topic:</b> @evidence.getBadge.getTopic</p>
-        <p><b>Deadline:</b> @evidence.getBadge.getFinalDate</p>
-        <p><b>Level:</b> @evidence.getBadge.getLevel.getLevelName</p>
+        <p><b>Description:</b> @evidence.getUserBadge.getBadge.getDescription</p>
+        <p><b>Topic:</b> @evidence.getUserBadge.getBadge.getTopic</p>
+        <p><b>Deadline:</b> @evidence.getUserBadge.getBadge.getFinalDate</p>
+        <p><b>Level:</b> @evidence.getUserBadge.getBadge.getLevel.getLevelName</p>
     </div>
 
     <div class="row">

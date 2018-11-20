@@ -30,7 +30,7 @@ create table evidence (
   feedback_date                 timestamp,
   file_name                     varchar(255),
   file_path                     varchar(255),
-  badge_id                      integer,
+  user_badge_id                 integer,
   status                        varchar(8),
   constraint ck_evidence_status check ( status in ('NEW','REJECTED','ACCEPTED')),
   constraint pk_evidence primary key (id)
@@ -56,17 +56,20 @@ create table user (
 );
 
 create table user_badge (
+  id                            integer auto_increment not null,
   user_id                       integer,
   badge_id                      integer,
   status                        varchar(9),
-  constraint ck_user_badge_status check ( status in ('EARNED','SUBMITTED','REJECTED','NEW'))
+  last_update                   timestamp,
+  constraint ck_user_badge_status check ( status in ('EARNED','SUBMITTED','REJECTED','NEW')),
+  constraint pk_user_badge primary key (id)
 );
 
 create index ix_badge_level_id on badge (level_id);
 alter table badge add constraint fk_badge_level_id foreign key (level_id) references level (id) on delete restrict on update restrict;
 
-create index ix_evidence_badge_id on evidence (badge_id);
-alter table evidence add constraint fk_evidence_badge_id foreign key (badge_id) references badge (id) on delete restrict on update restrict;
+create index ix_evidence_user_badge_id on evidence (user_badge_id);
+alter table evidence add constraint fk_evidence_user_badge_id foreign key (user_badge_id) references user_badge (id) on delete restrict on update restrict;
 
 create index ix_level_course_id on level (course_id);
 alter table level add constraint fk_level_course_id foreign key (course_id) references course (id) on delete restrict on update restrict;
@@ -83,8 +86,8 @@ alter table user_badge add constraint fk_user_badge_badge_id foreign key (badge_
 alter table badge drop constraint if exists fk_badge_level_id;
 drop index if exists ix_badge_level_id;
 
-alter table evidence drop constraint if exists fk_evidence_badge_id;
-drop index if exists ix_evidence_badge_id;
+alter table evidence drop constraint if exists fk_evidence_user_badge_id;
+drop index if exists ix_evidence_user_badge_id;
 
 alter table level drop constraint if exists fk_level_course_id;
 drop index if exists ix_level_course_id;

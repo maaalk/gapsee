@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.File;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -24,12 +25,16 @@ public class Evidence extends Model {
     private String fileName;
     private String filePath;
     @ManyToOne
-    private Badge badge;
+    private UserBadge userBadge;
     @Enumerated(EnumType.STRING)
     private EvidenceStatus status;
 
 
-
+    public Evidence(UserBadge userBadge){
+        Calendar calendar = Calendar.getInstance();
+        this.submissionDate = calendar.getTime();
+        this.userBadge=userBadge;
+    }
 
     public static Finder<Integer, Evidence> find = new Finder<>(Evidence.class);
 
@@ -58,12 +63,12 @@ public class Evidence extends Model {
         this.feedback = feedback;
     }
 
-    public Badge getBadge() {
-        return badge;
+    public UserBadge getUserBadge() {
+        return userBadge;
     }
 
-    public void setBadge(Badge badge) {
-        this.badge = badge;
+    public void setUserBadge(UserBadge userBadge) {
+        this.userBadge = userBadge;
     }
 
     public Date getSubmissionDate() {
@@ -116,21 +121,24 @@ public class Evidence extends Model {
     }
 
     public void setStatus(EvidenceStatus status) {
+        Calendar calendar = Calendar.getInstance();
+        this.userBadge.setLastUpdate(calendar.getTime());
         if(status==EvidenceStatus.NEW){
             this.status=status;
-            this.badge.setStatus(BadgeStatus.SUBMITTED);
+            this.userBadge.setStatus(BadgeStatus.SUBMITTED);
             return;
         }
         if(status==EvidenceStatus.ACCEPTED){
             this.status=status;
-            this.badge.setStatus(BadgeStatus.EARNED);
+            this.userBadge.setStatus(BadgeStatus.EARNED);
             return;
         }
         if(status==EvidenceStatus.REJECTED){
             this.status=status;
-            this.badge.setStatus(BadgeStatus.REJECTED);
+            this.userBadge.setStatus(BadgeStatus.REJECTED);
             return;
         }
+
 
     }
 

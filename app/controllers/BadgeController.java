@@ -1,6 +1,5 @@
 package controllers;
-import models.Evidence;
-import models.Level;
+import models.*;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
@@ -8,9 +7,9 @@ import utils.ActionAuthenticator;
 import utils.AdminActionAuthenticator;
 import utils.TutorActionAuthenticator;
 import views.html.*;
-import models.Badge;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -74,12 +73,16 @@ public class BadgeController extends Controller {
         if (badge==null){
             return notFound("Badge not found");
         }
-        List<Evidence> evidenceList = Evidence.find.query()
-                .orderById(true)
-                .select("*")
-                .where().eq("BADGE_ID",badge.getId())
-                .findList();
-        Collections.reverse(evidenceList);
+        User user = User.findByUserName(session("username"));
+        UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
+        List<Evidence> evidenceList = new ArrayList<Evidence>();
+
+            if (userBadge!=null){
+                evidenceList = userBadge.getEvidenceList();
+                Collections.reverse(evidenceList);
+            }
+
+
         String role = session("role");
         return ok(badgeshow.render(badge, evidenceList,role));
     }
