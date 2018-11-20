@@ -49,10 +49,15 @@ create table user (
   id                            integer auto_increment not null,
   username                      varchar(255),
   password                      varchar(255),
-  role                          varchar(7),
-  constraint ck_user_role check ( role in ('STUDENT','TUTOR','ADMIN')),
   constraint uq_user_username unique (username),
   constraint pk_user primary key (id)
+);
+
+create table user_course (
+  user_id                       integer,
+  course_id                     integer,
+  role                          varchar(7),
+  constraint ck_user_course_role check ( role in ('STUDENT','TUTOR','ADMIN'))
 );
 
 create index ix_badge_level_id on badge (level_id);
@@ -63,6 +68,12 @@ alter table evidence add constraint fk_evidence_badge_id foreign key (badge_id) 
 
 create index ix_level_course_id on level (course_id);
 alter table level add constraint fk_level_course_id foreign key (course_id) references course (id) on delete restrict on update restrict;
+
+create index ix_user_course_user_id on user_course (user_id);
+alter table user_course add constraint fk_user_course_user_id foreign key (user_id) references user (id) on delete restrict on update restrict;
+
+create index ix_user_course_course_id on user_course (course_id);
+alter table user_course add constraint fk_user_course_course_id foreign key (course_id) references course (id) on delete restrict on update restrict;
 
 
 # --- !Downs
@@ -76,6 +87,12 @@ drop index if exists ix_evidence_badge_id;
 alter table level drop constraint if exists fk_level_course_id;
 drop index if exists ix_level_course_id;
 
+alter table user_course drop constraint if exists fk_user_course_user_id;
+drop index if exists ix_user_course_user_id;
+
+alter table user_course drop constraint if exists fk_user_course_course_id;
+drop index if exists ix_user_course_course_id;
+
 drop table if exists badge;
 
 drop table if exists course;
@@ -85,4 +102,6 @@ drop table if exists evidence;
 drop table if exists level;
 
 drop table if exists user;
+
+drop table if exists user_course;
 

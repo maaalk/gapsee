@@ -15,8 +15,11 @@ public class User extends Model {
     @Column(unique=true)
     private String  username;
     private String  password;
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+
+    @OneToMany
+    private UserCourse userCourse;
+   // @Enumerated(EnumType.STRING)
+    //private UserRole role;
 
 
 
@@ -59,11 +62,19 @@ public class User extends Model {
         this.password = password;
     }
 
-    public UserRole getRole() {
+  /*  public UserRole getRole() {
         return role;
     }
 
     public void setRole(UserRole role) {
         this.role = role;
+    }*/
+
+    public UserCourse getUserCourse() {
+        return userCourse;
+    }
+
+    public void setUserCourse(UserCourse userCourse) {
+        this.userCourse = userCourse;
     }
 }

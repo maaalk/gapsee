@@ -23,8 +23,8 @@ public class UserController extends Controller {
             User user = User.authenticate(login.getUsername(),login.getPassword());
             session().clear();
             session("username",user.getUsername());
-            session().put("role",user.getRole().toString());
-            flash("success", "Bem vindo, "+user.getUsername()+"! Você está logado como "+user.getRole().toString());
+           /// session().put("role",user.getRole().toString());
+            flash("success", "Bem vindo, "+user.getUsername()+"!"/*+" Você está logado como "+user.getRole().toString()*/);
             return redirect(routes.CourseController.index());
         }catch(Exception e){
             System.out.println("Usuário não encontrado! "+e.toString());

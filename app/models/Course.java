@@ -15,6 +15,8 @@ public class Course extends Model {
     private String name;
     @OneToMany
     private List<Level> levelList;
+    @OneToMany
+    private UserCourse userCourse;
 
     public static Finder<Integer, Course> find = new Finder<>(Course.class);
 
@@ -42,6 +44,14 @@ public class Course extends Model {
         this.levelList = levelList;
     }
 
+    public UserCourse getUserCourse() {
+        return userCourse;
+    }
+
+    public void setUserCourse(UserCourse userCourse) {
+        this.userCourse = userCourse;
+    }
+
     public void addLevel(Level level){
         if (this.levelList.contains(level)){
             return;
@@ -58,5 +68,6 @@ public class Course extends Model {
         }
         return count;
     }
+
 
 }
