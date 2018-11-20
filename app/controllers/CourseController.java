@@ -1,5 +1,8 @@
 package controllers;
 import models.Course;
+import models.User;
+import models.UserCourse;
+import play.api.mvc.Session;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -14,7 +17,13 @@ public class CourseController extends Controller {
 
     public Result index(){
         System.out.println(session("connected"));
-        List<Course> courseList = Course.find.all();
+
+        User user = User.findByUserName(session("username"));
+        List<Course> courseList = UserCourse.courseList(user.getId());
+
+        System.out.println(courseList.toString());
+
+
         return ok(courseindex.render(courseList));
     }
 

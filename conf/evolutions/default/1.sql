@@ -49,6 +49,7 @@ create table user (
   id                            integer auto_increment not null,
   username                      varchar(255),
   password                      varchar(255),
+  adm                           boolean default false not null,
   constraint uq_user_username unique (username),
   constraint pk_user primary key (id)
 );

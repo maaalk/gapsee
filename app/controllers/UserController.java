@@ -41,6 +41,7 @@ public class UserController extends Controller {
     public Result save(){
         Form<User> userForm = formFactory.form(User.class).bindFromRequest();
         User user = userForm.get();
+        user.setAdm(false);
         try {
             user.save();
             flash("success", "Usuário criado com sucesso");

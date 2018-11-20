@@ -15,6 +15,7 @@ public class User extends Model {
     @Column(unique=true)
     private String  username;
     private String  password;
+    private boolean adm;
 
     @OneToMany
     private UserCourse userCourse;
@@ -76,5 +77,22 @@ public class User extends Model {
 
     public void setUserCourse(UserCourse userCourse) {
         this.userCourse = userCourse;
+    }
+
+    public boolean isAdm() {
+        return adm;
+    }
+
+    public void setAdm(boolean adm) {
+        this.adm = adm;
+    }
+
+
+    public static User findByUserName(String username){
+        User user = User.find.query()
+                .where().eq("USERNAME",username)
+                .findOne();
+        return user;
+
     }
 }

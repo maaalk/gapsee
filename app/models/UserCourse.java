@@ -6,6 +6,7 @@ import io.ebean.Model;
 
 import javax.persistence.*;
 import java.util.HashMap;
+import java.util.List;
 
 @Entity
 public class UserCourse extends Model {
@@ -45,4 +46,18 @@ public class UserCourse extends Model {
     public void setRole(UserRole role) {
         this.role = role;
     }
+
+
+
+    public static List<Course> courseList(Integer id){
+
+        List<Course> listCourse = UserCourse.find.query()
+                .select("course")
+                .where().eq("user",id)
+                .findSingleAttributeList();
+
+        return listCourse;
+    }
+
+
 }
