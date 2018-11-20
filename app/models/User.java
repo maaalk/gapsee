@@ -5,7 +5,9 @@ import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.*;
-import java.util.HashMap;
+
+import java.util.List;
+
 
 @Entity
 public class User extends Model {
@@ -17,6 +19,8 @@ public class User extends Model {
     private String  password;
     @Enumerated(EnumType.STRING)
     private UserRole role;
+    @OneToMany
+    private List<UserBadge> userBadges;
 
 
 
@@ -65,5 +69,13 @@ public class User extends Model {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public List<UserBadge> getUserBadge() {
+        return userBadges;
+    }
+
+    public void addUserBadge(UserBadge userBadge) {
+        userBadges.add(userBadge);
     }
 }

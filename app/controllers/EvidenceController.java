@@ -1,9 +1,7 @@
 package controllers;
 
-import models.Badge;
-import models.Evidence;
+import models.*;
 
-import models.EvidenceStatus;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
@@ -52,6 +50,15 @@ public class EvidenceController extends Controller {
 
             evidence.setStatus(EvidenceStatus.NEW);
             evidence.save();
+            User user = User.find.query()
+                    .where().eq("username",session("username"))
+                    .findOne();
+
+            UserBadge userBadge = new UserBadge(user,evidence.getBadge());
+            userBadge.save();
+            user.addUserBadge(userBadge);
+            user.update();
+            evidence.getBadge().addUserBadge(userBadge);
             evidence.getBadge().update();
             flash("success","Evidence Saved");
             return redirect(routes.BadgeController.show(evidence.getBadge().getId()));

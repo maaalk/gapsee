@@ -8,6 +8,9 @@ import play.data.validation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Badge extends Model{
@@ -27,6 +30,8 @@ public class Badge extends Model{
     private Level level;
     @Enumerated(EnumType.STRING)
     private BadgeStatus status;
+    @OneToMany
+    private List<UserBadge> userBadges;
 
 
     public static Finder<Integer, Badge> find = new Finder<>(Badge.class);
@@ -94,6 +99,14 @@ public class Badge extends Model{
 
     public void setStatus(BadgeStatus status) {
         this.status = status;
+    }
+
+    public List<UserBadge> getUserBadge() {
+        return userBadges;
+    }
+
+    public void addUserBadge(UserBadge userBadge) {
+        userBadges.add(userBadge);
     }
 
     public String showFinalDate(){
