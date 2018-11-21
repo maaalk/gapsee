@@ -5,9 +5,7 @@ import io.ebean.Model;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 public class UserBadge extends Model {
@@ -66,6 +64,15 @@ public class UserBadge extends Model {
         }
     }
 
+    public static List<UserBadge> findByBadge(Badge badge){
+        System.out.println("UserBadge.findByBadge:");
+        List<UserBadge> userBadgeList = UserBadge.find.query()
+                .where().eq("badge",badge)
+                .findList();
+        System.out.println(userBadgeList.toString());
+        return userBadgeList;
+    }
+
     public User getUser() {
         return user;
     }
@@ -109,5 +116,16 @@ public class UserBadge extends Model {
     public String showLastUpdate(){
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(this.lastUpdate);
+    }
+
+    public Evidence getLastEvidence(){
+        System.out.println("Numero de evidencias: "+evidenceList.size());
+        if(evidenceList.isEmpty()){
+            return null;
+        }
+        List<Evidence> evidences = new ArrayList<Evidence>();
+        evidences=evidenceList;
+        evidences.sort(Comparator.comparing(Evidence::getSubmissionDate).reversed());
+        return evidences.get(0);
     }
 }

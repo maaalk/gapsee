@@ -34,6 +34,16 @@ public class User extends Model {
 
     }
 
+    public static List<User> listByBadgeSubmission(Badge badge){
+        System.out.println("User.listByBadgeSubmission: ");
+        List<User> userList = User.find.query()
+                .fetch("userBadges")
+                .where().eq("userBadges.badge",badge)
+                .findList();
+        System.out.println(userList.toString());
+        return userList;
+    }
+
     public static User authenticate(String username, String password) throws Exception{
         User user = User.find.query()
                 .where().eq("USERNAME", username)

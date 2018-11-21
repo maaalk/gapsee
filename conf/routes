@@ -18,8 +18,9 @@ DELETE  /courses/delete/:id         controllers.CourseController.destroy(id : In
 
 
 #Badges
-#GET     /badges/create              controllers.BadgeController.create()
 GET     /badges/:id                 controllers.BadgeController.show(id : Integer)
+GET     /badges/overview/:id        controllers.BadgeController.tutorShow(id : Integer)
+#GET     /badges/create              controllers.BadgeController.create()
 #GET     /badges/edit/:id            controllers.BadgeController.edit(id : Integer)
 #POST    /badges/edit                controllers.BadgeController.update()
 #POST    /badges/create              controllers.BadgeController.save()

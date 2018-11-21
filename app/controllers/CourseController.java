@@ -19,6 +19,16 @@ public class CourseController extends Controller {
     public Result index(){
         System.out.println(session("connected"));
         List<Course> courseList = Course.find.all();
+        User user = User.findByUserName(session("username"));
+        User user2 = User.findByUserName("aluno");
+        List<Badge> earnedBadges = Badge.listEarnedBadges(user);
+        List<Badge> submittedBadges = Badge.listBadgeSubmissions(user);
+        List<Badge> allBadges = Badge.find.all();
+        allBadges.removeAll(submittedBadges);
+        submittedBadges.removeAll(earnedBadges);
+        System.out.println("Earned: "+earnedBadges.toString());
+        System.out.println("Submitted: "+submittedBadges.toString());
+        System.out.println("Remaining: "+allBadges.toString());
         return ok(courseindex.render(courseList));
     }
 

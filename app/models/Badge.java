@@ -36,6 +36,28 @@ public class Badge extends Model{
 
     public static Finder<Integer, Badge> find = new Finder<>(Badge.class);
 
+    public static List<Badge> listEarnedBadges(User user){
+        List<Badge> badges= Badge.find.query()
+                .fetch("userBadges")
+                .where().eq("userBadges.status",BadgeStatus.EARNED)
+                .where().eq("userBadges.user",user)
+                .findList();
+        System.out.println("***************Lista [EARNED]: ");
+        System.out.println(badges.toString());
+        return badges;
+    }
+
+    public static List<Badge> listBadgeSubmissions(User user){
+        List<Badge> badges= Badge.find.query()
+                .fetch("userBadges")
+                .where().eq("userBadges.user",user)
+                .findList();
+        System.out.println("***************Lista [ALL SUBMISSIONS]: ");
+        System.out.println(badges.toString());
+        return badges;
+    }
+
+
 
     public Integer getId() {
         return this.id;
@@ -110,7 +132,6 @@ public class Badge extends Model{
     }
 
     public String showFinalDate(){
-
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(this.finalDate);
     }

@@ -7,6 +7,7 @@ import utils.ActionAuthenticator;
 import utils.AdminActionAuthenticator;
 import utils.TutorActionAuthenticator;
 import views.html.*;
+import views.html.user.badge.badgetutorshow;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -73,16 +74,21 @@ public class BadgeController extends Controller {
         User user = User.findByUserName(session("username"));
         UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
         List<Evidence> evidenceList = new ArrayList<Evidence>();
-
             if (userBadge!=null){
                 evidenceList = userBadge.getEvidenceList();
                 Collections.reverse(evidenceList);
             }
-
-
         String role = session("role");
-
         return ok(badgeshow.render(badge, evidenceList,role));
+    }
+
+    public Result tutorShow(Integer id){
+        Badge badge = Badge.find.byId(id);
+        if (badge==null){
+            return notFound("Badge not found");
+        }
+        List<UserBadge> submissionList = UserBadge.findByBadge(badge);
+        return ok(badgetutorshow.render(badge, submissionList));
     }
 
 
