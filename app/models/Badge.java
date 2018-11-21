@@ -36,23 +36,23 @@ public class Badge extends Model{
 
     public static Finder<Integer, Badge> find = new Finder<>(Badge.class);
 
-    public static List<Badge> listEarnedBadges(User user){
+    public static List<Badge> findUserBadgesByStatus(User user, BadgeStatus status){
+        System.out.println("Badge.findUserBadgesByStatus");
         List<Badge> badges= Badge.find.query()
                 .fetch("userBadges")
-                .where().eq("userBadges.status",BadgeStatus.EARNED)
+                .where().eq("userBadges.status",status)
                 .where().eq("userBadges.user",user)
                 .findList();
-        System.out.println("***************Lista [EARNED]: ");
         System.out.println(badges.toString());
         return badges;
     }
 
-    public static List<Badge> listBadgeSubmissions(User user){
+    public static List<Badge> findUserBadgesBySubmission(User user){
+        System.out.println("Badge.findUserBadgesBySubmission");
         List<Badge> badges= Badge.find.query()
                 .fetch("userBadges")
                 .where().eq("userBadges.user",user)
                 .findList();
-        System.out.println("***************Lista [ALL SUBMISSIONS]: ");
         System.out.println(badges.toString());
         return badges;
     }

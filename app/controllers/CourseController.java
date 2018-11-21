@@ -1,8 +1,5 @@
 package controllers;
-import models.Badge;
-import models.Course;
-import models.User;
-import models.UserBadge;
+import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
@@ -21,8 +18,8 @@ public class CourseController extends Controller {
         List<Course> courseList = Course.find.all();
         User user = User.findByUserName(session("username"));
         User user2 = User.findByUserName("aluno");
-        List<Badge> earnedBadges = Badge.listEarnedBadges(user);
-        List<Badge> submittedBadges = Badge.listBadgeSubmissions(user);
+        List<Badge> earnedBadges = Badge.findUserBadgesByStatus(user, BadgeStatus.EARNED);
+        List<Badge> submittedBadges = Badge.findUserBadgesBySubmission(user);
         List<Badge> allBadges = Badge.find.all();
         allBadges.removeAll(submittedBadges);
         submittedBadges.removeAll(earnedBadges);
@@ -55,7 +52,7 @@ public class CourseController extends Controller {
         }
         User user = User.findByUserName(session("username"));
         System.out.println(user.getId()+" "+user.getUsername());
-        Map<String,UserBadge> badges = UserBadge.findUser(user.getId());
+        Map<String,UserBadge> badges = UserBadge.findByUser(user.getId());
         System.out.println(badges.toString());
         try{
             System.out.println(badges.get(Badge.find.byId(3)).getStatus());

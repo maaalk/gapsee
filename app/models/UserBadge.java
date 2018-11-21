@@ -35,7 +35,7 @@ public class UserBadge extends Model {
     public static Finder<Integer, UserBadge> find = new Finder<>(UserBadge.class);
 
     public static UserBadge findUserBadge(Integer userId, Integer badgeId){
-        System.out.println("FIND USER BADGE");
+        System.out.println("UserBadge.findUserBadge: "+userId+" "+badgeId);
         try{
             UserBadge userBadge= UserBadge.find.query()
                     .where().eq("USER_ID",userId)
@@ -49,8 +49,8 @@ public class UserBadge extends Model {
         }
     }
 
-    public static Map<String,UserBadge> findUser(Integer userId){
-        System.out.println("FIND USER" + userId);
+    public static Map<String,UserBadge> findByUser(Integer userId){
+        System.out.println("UserBadge.findByUser: "+userId);
         try{
             Map<String,UserBadge> userBadges = UserBadge.find.query()
                     .where().eq("USER_ID", userId)
@@ -65,12 +65,23 @@ public class UserBadge extends Model {
     }
 
     public static List<UserBadge> findByBadge(Badge badge){
-        System.out.println("UserBadge.findByBadge:");
+        System.out.println("UserBadge.findByBadge: "+badge.toString());
         List<UserBadge> userBadgeList = UserBadge.find.query()
                 .where().eq("badge",badge)
                 .findList();
         System.out.println(userBadgeList.toString());
         return userBadgeList;
+    }
+
+    public Evidence getLastEvidence(){
+        System.out.println("Numero de evidencias: "+evidenceList.size());
+        if(evidenceList.isEmpty()){
+            return null;
+        }
+        List<Evidence> evidences = new ArrayList<Evidence>();
+        evidences=evidenceList;
+        evidences.sort(Comparator.comparing(Evidence::getSubmissionDate).reversed());
+        return evidences.get(0);
     }
 
     public User getUser() {
@@ -118,14 +129,5 @@ public class UserBadge extends Model {
         return formatter.format(this.lastUpdate);
     }
 
-    public Evidence getLastEvidence(){
-        System.out.println("Numero de evidencias: "+evidenceList.size());
-        if(evidenceList.isEmpty()){
-            return null;
-        }
-        List<Evidence> evidences = new ArrayList<Evidence>();
-        evidences=evidenceList;
-        evidences.sort(Comparator.comparing(Evidence::getSubmissionDate).reversed());
-        return evidences.get(0);
-    }
+
 }
