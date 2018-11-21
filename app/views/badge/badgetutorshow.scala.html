@@ -1,0 +1,57 @@
+@(badge:Badge,  submissionList:List[UserBadge])
+@main("Task "+ badge.getId){
+    <div class="container">
+        <div class="row">
+            <div class="row"></div>
+
+            <div class="chip">
+                <a href="@routes.CourseController.show(badge.getLevel.getCourse.getId)"><b><< </b>@badge.getLevel.getCourse.getName</a>
+            </div>
+            <p><b>Task #@badge.getId</b></p>
+            <div class="col s3 m2">
+                @if(badge.getTier==1){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt1.png")" >
+                }
+                @if(badge.getTier==2){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt2.png")">
+                }
+                @if(badge.getTier==3){
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt3.png")" >
+                    }
+            </div>
+
+            <div class="col s9 m10">
+                <p style="font-style: italic">@badge.getName</p>
+            </div>
+
+        </div>
+
+
+        <p><b>Description:</b> @badge.getDescription</p>
+        <p><b>Topic:</b> @badge.getTopic</p>
+        <p><b>Deadline:</b> @badge.showFinalDate</p>
+        <p><b>Level:</b> @badge.getLevel.getLevelName</p>
+
+
+        <ul class="collection with-header">
+            <li class="collection-header"><h4>Latest Submissions</h4></li>
+            @for(submission<-submissionList){
+                <li class="collection-item avatar">
+                    <img src="@routes.Assets.versioned("images/emptytrophy.png")" alt="" class="circle">
+                    <span class="title">@submission.getUser.getUsername</span>
+                    <p> @submission.getLastEvidence.getStatus.toString<br/>
+                        Description: @submission.getLastEvidence.getDescription <br/>
+                        File: @submission.getLastEvidence.getFileName <br/>
+                        Last update: @submission.showLastUpdate()
+                    </p>
+                    <a href="#!" class="secondary-content"><i class="material-icons">thumbs_up_down</i></a>
+                </li>
+            }
+
+        </ul>
+    </div>
+
+
+
+
+}

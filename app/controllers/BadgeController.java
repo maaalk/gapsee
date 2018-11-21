@@ -7,7 +7,7 @@ import utils.ActionAuthenticator;
 import utils.AdminActionAuthenticator;
 import utils.TutorActionAuthenticator;
 import views.html.*;
-import views.html.user.badge.badgetutorshow;
+import views.html.badge.badgetutorshow;
 
 import java.io.File;
 import java.util.ArrayList;
