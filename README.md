@@ -1,2 +1,2 @@
 # gapsee
-A tool to support Gamification of Project-based Software Engineering Education
+A tool to support the Gamification of Project-based Software Engineering Education
