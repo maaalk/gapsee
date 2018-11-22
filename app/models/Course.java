@@ -15,8 +15,20 @@ public class Course extends Model {
     private String name;
     @OneToMany
     private List<Level> levelList;
+    @OneToMany
+    private List<UserCourse> userCourses;
 
     public static Finder<Integer, Course> find = new Finder<>(Course.class);
+
+    public static List<Course> findByUser(User user){
+        System.out.println("Course.findByUser:");
+        List<Course> courseList = Course.find.query()
+                .fetch("userCourses")
+                .where().eq("userCourses.user", user)
+                .findList();
+        System.out.println(courseList.toString());
+        return courseList;
+    }
 
     public Integer getId() {
         return this.id;

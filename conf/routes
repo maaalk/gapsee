@@ -8,8 +8,10 @@ GET    /logout                           controllers.HomeController.logout
 
 #Courses
 GET     /courses                    controllers.CourseController.index
-#GET     /courses/create             controllers.CourseController.create()
 GET     /courses/:id                controllers.CourseController.show(id : Integer)
+GET     /courses/join/:id           controllers.CourseController.join(id : Integer)
+GET     /courses/quit/:id           controllers.CourseController.quit(id : Integer)
+#GET     /courses/create             controllers.CourseController.create()
 #GET     /courses/edit/:id           controllers.CourseController.edit(id : Integer)
 #POST    /courses/edit               controllers.CourseController.update()
 #POST    /courses/create             controllers.CourseController.save()

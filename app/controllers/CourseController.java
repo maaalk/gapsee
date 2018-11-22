@@ -17,16 +17,29 @@ public class CourseController extends Controller {
         System.out.println(session("connected"));
         List<Course> courseList = Course.find.all();
         User user = User.findByUserName(session("username"));
-        User user2 = User.findByUserName("aluno");
-        List<Badge> earnedBadges = Badge.findUserBadgesByStatus(user, BadgeStatus.EARNED);
-        List<Badge> submittedBadges = Badge.findUserBadgesBySubmission(user);
-        List<Badge> allBadges = Badge.find.all();
-        allBadges.removeAll(submittedBadges);
-        submittedBadges.removeAll(earnedBadges);
-        System.out.println("Earned: "+earnedBadges.toString());
-        System.out.println("Submitted: "+submittedBadges.toString());
-        System.out.println("Remaining: "+allBadges.toString());
-        return ok(courseindex.render(courseList));
+        List<Course> userCourses = Course.findByUser(user);
+        courseList.removeAll(userCourses);
+        return ok(courseindex.render(courseList, userCourses));
+    }
+
+    public Result join(Integer courseId){
+        User user = User.findByUserName(session("username"));
+        Course course = Course.find.byId(courseId);
+        UserCourse userCourse = new UserCourse(user,course);
+        userCourse.save();
+        flash("success","You joined the course ' "+course.getName()+"'");
+        return redirect(routes.CourseController.index());
+
+    }
+
+    public Result quit(Integer courseId){
+        User user = User.findByUserName(session("username"));
+        Course course = Course.find.byId(courseId);
+        UserCourse userCourse = UserCourse.findUserCourse(user, course);
+        userCourse.delete();
+        flash("success","You left the course ' "+course.getName()+"'");
+        return redirect(routes.CourseController.index());
+
     }
 
     public Result create(){

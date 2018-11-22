@@ -21,6 +21,8 @@ public class User extends Model {
     private UserRole role;
     @OneToMany
     private List<UserBadge> userBadges;
+    @OneToMany
+    private List<UserCourse > userCourses;
 
 
 
@@ -55,6 +57,22 @@ public class User extends Model {
             return user;
 //        }
 
+    }
+
+    public List<UserBadge> getUserBadges() {
+        return userBadges;
+    }
+
+    public void setUserBadges(List<UserBadge> userBadges) {
+        this.userBadges = userBadges;
+    }
+
+    public List<UserCourse> getUserCourses() {
+        return userCourses;
+    }
+
+    public void setUserCourses(List<UserCourse> userCourses) {
+        this.userCourses = userCourses;
     }
 
     public Integer getId() {
