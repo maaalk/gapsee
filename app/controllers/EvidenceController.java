@@ -16,11 +16,13 @@ import utils.FileManager;
 import utils.TutorActionAuthenticator;
 import views.html.evidence.evidenceedit;
 import views.html.evidence.evidenceevaluate;
+import views.html.evidence.evidencelog;
 import views.html.evidence.evidencenew;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.List;
 
 @Security.Authenticated(ActionAuthenticator.class)
 public class EvidenceController extends Controller {
@@ -138,7 +140,7 @@ public class EvidenceController extends Controller {
         oldEvidence.update();
         flash("success","Evaluation registered!");
 
-        return redirect(routes.BadgeController.show(oldEvidence.getUserBadge().getBadge().getId()));
+        return redirect(routes.BadgeController.tutorShow(oldEvidence.getUserBadge().getBadge().getId()));
 
 
     }
@@ -153,6 +155,10 @@ public class EvidenceController extends Controller {
     }
 
 
+    public Result evidenceLog(Integer userBadgeId){
+        UserBadge userBadge = UserBadge.find.byId(userBadgeId);
+        return ok(evidencelog.render(userBadge.getBadge(), userBadge.getPreviousEvidences(),userBadge.getLastEvidence()));
+    }
 
 
 }

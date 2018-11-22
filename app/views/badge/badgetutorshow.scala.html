@@ -1,50 +1,38 @@
+@import views.html.tags.tagbadge
 @(badge:Badge,  submissionList:List[UserBadge])
 @main("Task "+ badge.getId){
     <div class="container">
-        <div class="row">
-            <div class="row"></div>
 
-            <div class="chip">
-                <a href="@routes.CourseController.show(badge.getLevel.getCourse.getId)"><b><< </b>@badge.getLevel.getCourse.getName</a>
-            </div>
-            <p><b>Task #@badge.getId</b></p>
-            <div class="col s3 m2">
-                @if(badge.getTier==1){
-                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt1.png")" >
-                }
-                @if(badge.getTier==2){
-                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt2.png")">
-                }
-                @if(badge.getTier==3){
-                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt3.png")" >
-                    }
-            </div>
-
-            <div class="col s9 m10">
-                <p style="font-style: italic">@badge.getName</p>
-            </div>
-
-        </div>
-
-
-        <p><b>Description:</b> @badge.getDescription</p>
-        <p><b>Topic:</b> @badge.getTopic</p>
-        <p><b>Deadline:</b> @badge.showFinalDate</p>
-        <p><b>Level:</b> @badge.getLevel.getLevelName</p>
-
+        @tagbadge(badge)
 
         <ul class="collection with-header">
-            <li class="collection-header"><h4>Latest Submissions</h4></li>
+            <li class="collection-header"><h5>Latest Submissions</h5></li>
             @for(submission<-submissionList){
                 <li class="collection-item avatar">
-                    <img src="@routes.Assets.versioned("images/emptytrophy.png")" alt="" class="circle">
-                    <span class="title">@submission.getUser.getUsername</span>
-                    <p> @submission.getLastEvidence.getStatus.toString<br/>
-                        Description: @submission.getLastEvidence.getDescription <br/>
-                        File: @submission.getLastEvidence.getFileName <br/>
-                        Last update: @submission.showLastUpdate()
-                    </p>
-                    <a href="#!" class="secondary-content"><i class="material-icons">thumbs_up_down</i></a>
+                    @if(!submission.getLastEvidence.getStatus.equals(EvidenceStatus.ACCEPTED)){
+                        <img src="@routes.Assets.versioned("images/emptytrophy.png")" alt="" class="circle">
+                    }else{
+                        @submission.getBadge.getTier.toString match{
+                            case "1"=>{<img src="@routes.Assets.versioned("images/trophyt1.png")" alt="" class="circle">}
+                            case "2"=>{<img src="@routes.Assets.versioned("images/trophyt2.png")" alt="" class="circle">}
+                            case "3"=>{<img src="@routes.Assets.versioned("images/trophyt3.png")" alt="" class="circle">}
+                        }
+                    }
+                    <span class="title"> <i class="material-icons light-green-text tiny">face</i> <i>@submission.getUser.getUsername</i></span>
+                    <div class="row">
+                        <p class="col s10"> @submission.getLastEvidence.getStatus.toString<br/>
+                            <b>Description:</b> @submission.getLastEvidence.getDescription <br/>
+                            <b>File:</b> @submission.getLastEvidence.getFileName <br/>
+                            <b>Submission Date:</b> @submission.getLastEvidence.showSubmissionDate()
+                        </p>
+                        <div class="secondary-content">
+                            <a href="@routes.EvidenceController.evaluate(submission.getLastEvidence.getId)"><i class="material-icons light-green-text">thumbs_up_down</i></a><br>
+                            <a href="@routes.EvidenceController.evidenceLog(submission.getId)"><i class="material-icons orange-text darken-4">remove_red_eye</i></a><br>
+                        </div>
+                    </div>
+
+
+
                 </li>
             }
 

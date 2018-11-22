@@ -74,14 +74,37 @@ public class UserBadge extends Model {
     }
 
     public Evidence getLastEvidence(){
-        System.out.println("Numero de evidencias: "+evidenceList.size());
+        System.out.println("UserBadge.getLastEvidence: ");
         if(evidenceList.isEmpty()){
             return null;
         }
         List<Evidence> evidences = new ArrayList<Evidence>();
-        evidences=evidenceList;
+        evidences.addAll(evidenceList);
         evidences.sort(Comparator.comparing(Evidence::getSubmissionDate).reversed());
+        System.out.println(evidences.get(0).toString());
         return evidences.get(0);
+    }
+
+    public List<Evidence> getPreviousEvidences(){
+        System.out.println("UserBadge.getPreviousEvidences: ");
+        if(evidenceList.size()<=1){
+            return new ArrayList<Evidence>();
+        }
+        List<Evidence> evidences = new ArrayList<Evidence>();
+        evidences.addAll(evidenceList);
+        evidences.sort(Comparator.comparing(Evidence::getSubmissionDate).reversed());
+        evidences.remove(0);
+        System.out.println(evidences.toString());
+        return evidences;
+
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -125,7 +148,7 @@ public class UserBadge extends Model {
     }
 
     public String showLastUpdate(){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
         return formatter.format(this.lastUpdate);
     }
 

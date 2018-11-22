@@ -82,6 +82,7 @@ public class BadgeController extends Controller {
         return ok(badgeshow.render(badge, evidenceList,role));
     }
 
+    @Security.Authenticated(ActionAuthenticator.class)
     public Result tutorShow(Integer id){
         Badge badge = Badge.find.byId(id);
         if (badge==null){

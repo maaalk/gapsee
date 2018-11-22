@@ -105,7 +105,7 @@ public class Evidence extends Model {
 
     public String showSubmissionDate(){
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
         return formatter.format(this.submissionDate);
     }
 

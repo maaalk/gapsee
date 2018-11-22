@@ -1,42 +1,14 @@
 
+@import views.html.tags.tagbadge
 @(badge: Badge, evidenceList:List[Evidence], role:String)
 
 @main("Details"){
       <div class="container">
-        <div class="row">
-            <div class="row"></div>
 
-            <div class="chip">
-                <a href="@routes.CourseController.show(badge.getLevel.getCourse.getId)"><b><< </b>@badge.getLevel.getCourse.getName</a>
-            </div>
-
-            <p>@role</p>
-
-            <p><b>Task #@badge.getId</b></p>
-            <div class="col s3 m2">
-                @if(badge.getTier==1){
-                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt1.png")" >
-                }
-                @if(badge.getTier==2){
-                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt2.png")">
-                    }
-                @if(badge.getTier==3){
-                    <img class="responsive-img" src="@routes.Assets.versioned("images/trophyt3.png")" >
-                    }
-
-            </div>
-            <div class="col s9 m10">
-                <p style="font-style: italic">@badge.getName</p>
-            </div>
-
-        </div>
-
-
-        <p><b>Description:</b> @badge.getDescription</p>
-        <p><b>Topic:</b> @badge.getTopic</p>
-        <p><b>Deadline:</b> @badge.showFinalDate</p>
-        <p><b>Level:</b> @badge.getLevel.getLevelName</p>
-
+          <div class="chip">
+              <a href="@routes.CourseController.show(badge.getLevel.getCourse.getId)"><b><< </b>@badge.getLevel.getCourse.getName</a>
+          </div>
+          @tagbadge(badge)
 
         @if(badge.getStatus.equals(BadgeStatus.SUBMITTED)||(badge.getStatus.equals(BadgeStatus.EARNED))||(role.equals("TUTOR"))){
             <div class="row">

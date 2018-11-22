@@ -31,7 +31,7 @@ GET     /evidences/create/:id           controllers.EvidenceController.create(id
 GET     /evidences/evaluate/:id         controllers.EvidenceController.evaluate(id : Integer)
 GET     /evidences/download/:id         controllers.EvidenceController.evidenceDownload(id : Integer)
 GET     /evidences/edit/:id             controllers.EvidenceController.edit(id : Integer)
-
+GET     /evidences/log/:id              controllers.EvidenceController.evidenceLog(id : Integer)
 POST    /evidences/save                 controllers.EvidenceController.save(id : Integer)
 + nocsrf
 POST    /evidences/evaluationeresult    controllers.EvidenceController.evaluationResult(id : Integer)
