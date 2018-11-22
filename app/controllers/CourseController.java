@@ -39,7 +39,13 @@ public class CourseController extends Controller {
         userCourse.delete();
         flash("success","You left the course ' "+course.getName()+"'");
         return redirect(routes.CourseController.index());
+    }
 
+    public Result tutorShow(Integer courseId){
+        Course course = Course.find.byId(courseId);
+        List<User> userList = User.findByCourse(course);
+        List<Badge> pendingBadgeList = Badge.findByStatus(BadgeStatus.SUBMITTED);
+        return ok(coursemanager.render(course,userList,course.getLevelList(),pendingBadgeList));
     }
 
     public Result create(){
@@ -59,6 +65,9 @@ public class CourseController extends Controller {
     }
 
     public Result show(Integer id){
+        if(session("role").equals(UserRole.TUTOR.toString())){
+            return redirect(routes.CourseController.tutorShow(id));
+        }
         Course course = Course.find.byId(id);
         if (course==null){
             return notFound("Course not found");

@@ -1,27 +1,27 @@
 
 @import views.html.tags.tagbadge
-@(badge: Badge, evidenceList:List[Evidence], role:String)
+@(userBadge: UserBadge)
 
 @main("Details"){
       <div class="container">
 
           <div class="chip">
-              <a href="@routes.CourseController.show(badge.getLevel.getCourse.getId)"><b><< </b>@badge.getLevel.getCourse.getName</a>
+              <a href="@routes.CourseController.show(userBadge.getBadge.getLevel.getCourse.getId)"><b><< </b>@userBadge.getBadge.getLevel.getCourse.getName</a>
           </div>
-          @tagbadge(badge)
+          @tagbadge(userBadge.getBadge)
 
-        @if(badge.getStatus.equals(BadgeStatus.SUBMITTED)||(badge.getStatus.equals(BadgeStatus.EARNED))||(role.equals("TUTOR"))){
+        @if(userBadge.getStatus.equals(BadgeStatus.SUBMITTED)||(userBadge.getStatus.equals(BadgeStatus.EARNED))){
             <div class="row">
-                <a  class="btn yellow darken-4 disabled" href="@routes.EvidenceController.create(badge.getId)"> Submit Evidence</a>
+                <a  class="btn yellow darken-4 disabled" href="@routes.EvidenceController.create(userBadge.getBadge.getId)"> Submit Evidence</a>
             </div>
         } else {
             <div class="row">
-                <a  class="btn waves-effect waves-light yellow darken-4" href="@routes.EvidenceController.create(badge.getId)">Submit Evidence</a>
+                <a  class="btn waves-effect waves-light yellow darken-4" href="@routes.EvidenceController.create(userBadge.getBadge.getId)">Submit Evidence</a>
             </div>
         }
 
 
-        @for(evidence<-evidenceList) {
+        @for(evidence<-userBadge.getEvidenceList) {
             <div class="divider"></div>
             <br/>
 
@@ -54,6 +54,7 @@
             @*Evidence*@
             <div class="row">
                 <div class="col s10 l8 ">
+
                     <div class="card yellow lighten-5">
                         <div class="card-content">
                             <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@evidence.showSubmissionDate()</i></b></p>
@@ -61,10 +62,10 @@
                             <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
                             <p></p>
                         </div>
-
-                        <br/>
+                        <br>
                     </div>
-                        @if(evidence.getStatus.equals(EvidenceStatus.NEW) && ((role=="STUDENT")||(role=="ADMIN"))){
+
+                        @if(evidence.getStatus.equals(EvidenceStatus.NEW)){
                             <div class="col s3 m4">
                                 <a class=" btn-flat grey-text" href="@routes.EvidenceController.edit(evidence.getId)"><i class="material-icons left tiny green-text">edit</i><span class="hide-on-med-and-down">Edit</span></a>
                             </div>
@@ -72,13 +73,10 @@
                                 <a class=" btn-flat grey-text "><i class="material-icons left tiny red-text">close</i><span class="hide-on-med-and-down">Remove</span></a>
                             </div>
                         }
-                    @if((role=="TUTOR")||(role=="ADMIN")){
-                        <div class="col s3 m4">
-                            <a class=" btn-flat grey-text " href="@routes.EvidenceController.evaluate(evidence.getId)"><i class="material-icons left tiny light-green-text">thumbs_up_down</i> <span class="hide-on-med-and-down">Evaluate</span></a>
-                        </div>
-                    }
 
-                    <br/>
+
+
+                    <br>
                 </div>
 
             </div>

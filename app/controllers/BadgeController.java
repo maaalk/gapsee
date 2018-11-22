@@ -22,6 +22,26 @@ public class BadgeController extends Controller {
     @Inject
     FormFactory formFactory;
 
+    public Result show(Integer id){
+        Badge badge = Badge.find.byId(id);
+        if (badge==null){
+            return notFound("Badge not found");
+        }
+        User user = User.findByUserName(session("username"));
+        UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
+
+        return ok(badgeshow.render(userBadge));
+    }
+
+    @Security.Authenticated(ActionAuthenticator.class)
+    public Result tutorShow(Integer id){
+        Badge badge = Badge.find.byId(id);
+        if (badge==null){
+            return notFound("Badge not found");
+        }
+        List<UserBadge> submissionList = UserBadge.findByBadge(badge);
+        return ok(badgetutorshow.render(badge, submissionList));
+    }
 
 
    /* @Security.Authenticated(AdminActionAuthenticator.class)
@@ -64,34 +84,6 @@ public class BadgeController extends Controller {
         return redirect(routes.BadgeController.index());
 
            }*/
-
-
-    public Result show(Integer id){
-        Badge badge = Badge.find.byId(id);
-        if (badge==null){
-            return notFound("Badge not found");
-        }
-        User user = User.findByUserName(session("username"));
-        UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
-        List<Evidence> evidenceList = new ArrayList<Evidence>();
-            if (userBadge!=null){
-                evidenceList = userBadge.getEvidenceList();
-                Collections.reverse(evidenceList);
-            }
-        String role = session("role");
-        return ok(badgeshow.render(badge, evidenceList,role));
-    }
-
-    @Security.Authenticated(ActionAuthenticator.class)
-    public Result tutorShow(Integer id){
-        Badge badge = Badge.find.byId(id);
-        if (badge==null){
-            return notFound("Badge not found");
-        }
-        List<UserBadge> submissionList = UserBadge.findByBadge(badge);
-        return ok(badgetutorshow.render(badge, submissionList));
-    }
-
 
   /*  @Security.Authenticated(AdminActionAuthenticator.class)
     public Result destroy(Integer id){

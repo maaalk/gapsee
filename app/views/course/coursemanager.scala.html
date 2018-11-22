@@ -1,0 +1,26 @@
+@(course:Course, userList:List[User], levelList:List[Level],badgeList:List[Badge])
+@main("GaPSEE - "+course.getName){
+
+    <p><b>Pending Actions</b></p>
+@if(badgeList.size==0){
+    <i class="material-icons light-green-text left">done_all</i>
+    <p><i>Nothing new</i></p>
+} else{
+    <i class="material-icons orange-text darken-4 left">warning</i>
+    <p><b>@badgeList.size() item(s) to evaluate</b></p>
+    <ul class="collection">
+    @for(badge<-badgeList) {
+        <li class="collection-item">
+            <span class="title"> @badge.getName</span>
+            <div class="row">
+                <span class="col s4">@badge.showFinalDate()</span>
+                <span class="col s4"><a href="@routes.BadgeController.tutorShow(badge.getId)"><i class="material-icons orange-text darken-4">remove_red_eye</i></a></span>
+            </div>
+        </li>
+    }
+    </ul>
+}
+
+}
+
+

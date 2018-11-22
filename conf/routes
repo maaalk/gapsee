@@ -9,6 +9,7 @@ GET    /logout                           controllers.HomeController.logout
 #Courses
 GET     /courses                    controllers.CourseController.index
 GET     /courses/:id                controllers.CourseController.show(id : Integer)
+GET     /courses/tutor/:id           controllers.CourseController.tutorShow(id : Integer)
 GET     /courses/join/:id           controllers.CourseController.join(id : Integer)
 GET     /courses/quit/:id           controllers.CourseController.quit(id : Integer)
 #GET     /courses/create             controllers.CourseController.create()

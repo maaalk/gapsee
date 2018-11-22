@@ -6,6 +6,7 @@ import io.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,14 @@ public class Course extends Model {
                 .findList();
         System.out.println(courseList.toString());
         return courseList;
+    }
+
+    public List<Badge> getBadgeList(){
+        List<Badge> badgeList= new ArrayList<Badge>();
+        for(Level level:levelList){
+            badgeList.addAll(level.getBadgeList());
+        }
+        return badgeList;
     }
 
     public Integer getId() {

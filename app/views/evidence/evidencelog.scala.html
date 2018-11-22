@@ -2,88 +2,33 @@
 @(badge:Badge, evidenceList:List[Evidence], currentEvidence:Evidence)
 
 @main("Log"){
-    <div class="chip">
-        <a href="@routes.BadgeController.tutorShow(badge.getId)"><b><< </b>Task #@badge.getId</a>
-    </div>
-
-    @tagbadge(badge)
-
-    @*Current*@
-
-    @*Feedback*@
-    <div id="feedback@currentEvidence.getId" class="row ">
-        @if(currentEvidence.getStatus.equals(EvidenceStatus.ACCEPTED)){
-            <div class="col s10 l8 offset-s2 offset-l4">
-                <div class="card green lighten-5">
-                    <div class="card-content">
-                        <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_up</i> Accepted in <b><i>@currentEvidence.showFeedbackDate()</i></b></p>
-                        <p><b>Feedback: </b> <i>@currentEvidence.getFeedback</i> </p>
-                    </div>
-                </div>
-            </div>
-        }
-        @if(currentEvidence.getStatus.equals(EvidenceStatus.REJECTED)){
-            <div class="col s10 l8 offset-s2 offset-l4">
-                <div class="card deep-orange lighten-5">
-                    <div class="card-content">
-                        <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_down</i> Declined in <b><i>@currentEvidence.showFeedbackDate()</i></b></p>
-                        <p><b>Feedback: </b> <i>@currentEvidence.getFeedback</i> </p>
-                    </div>
-
-                </div>
-            </div>
-        }
-
-    </div>
-
-    @*Evidence*@
-    <div class="row">
-        <div class="col s10 l8 ">
-            <div class="card yellow lighten-5">
-                <div class="card-content">
-                    <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@currentEvidence.showSubmissionDate()</i></b></p>
-                    <p><b>Evidence: </b> <a href="@routes.EvidenceController.evidenceDownload(currentEvidence.getId)" download="@currentEvidence.getFileName">@currentEvidence.getFileName</a></p>
-                    <p><b>Description: </b> <i>@currentEvidence.getDescription</i> </p>
-                    <p></p>
-                </div>
-
-                <br/>
-            </div>
-
-
-             <div class="col s3 m4">
-                <a class=" btn-flat grey-text " href="@routes.EvidenceController.evaluate(currentEvidence.getId)"><i class="material-icons left tiny light-green-text">thumbs_up_down</i> <span class="hide-on-med-and-down">Evaluate</span></a>
-             </div>
-
-
-            <br/>
+    <div class="container">
+        <div class="chip">
+            <a href="@routes.BadgeController.tutorShow(badge.getId)"><b><< </b>Task #@badge.getId</a>
         </div>
 
-    </div>
+        @tagbadge(badge)
 
+        @*Current*@
 
-
-    @*Log*@
-
-    @*Feedback*@
-    @for(evidence<-evidenceList){
-        <div id="feedback@evidence.getId" class="row ">
-            @if(evidence.getStatus.equals(EvidenceStatus.ACCEPTED)){
+        @*Feedback*@
+        <div id="feedback@currentEvidence.getId" class="row ">
+            @if(currentEvidence.getStatus.equals(EvidenceStatus.ACCEPTED)){
                 <div class="col s10 l8 offset-s2 offset-l4">
                     <div class="card green lighten-5">
                         <div class="card-content">
-                            <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_up</i> Accepted in <b><i>@evidence.showFeedbackDate()</i></b></p>
-                            <p><b>Feedback: </b> <i>@evidence.getFeedback</i> </p>
+                            <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_up</i> Accepted in <b><i>@currentEvidence.showFeedbackDate()</i></b></p>
+                            <p><b>Feedback: </b> <i>@currentEvidence.getFeedback</i> </p>
                         </div>
                     </div>
                 </div>
             }
-            @if(evidence.getStatus.equals(EvidenceStatus.REJECTED)){
+            @if(currentEvidence.getStatus.equals(EvidenceStatus.REJECTED)){
                 <div class="col s10 l8 offset-s2 offset-l4">
                     <div class="card deep-orange lighten-5">
                         <div class="card-content">
-                            <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_down</i> Declined in <b><i>@evidence.showFeedbackDate()</i></b></p>
-                            <p><b>Feedback: </b> <i>@evidence.getFeedback</i> </p>
+                            <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_down</i> Declined in <b><i>@currentEvidence.showFeedbackDate()</i></b></p>
+                            <p><b>Feedback: </b> <i>@currentEvidence.getFeedback</i> </p>
                         </div>
 
                     </div>
@@ -97,21 +42,80 @@
             <div class="col s10 l8 ">
                 <div class="card yellow lighten-5">
                     <div class="card-content">
-                        <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@evidence.showSubmissionDate()</i></b></p>
-                        <p><b>Evidence: </b> <a href="@routes.EvidenceController.evidenceDownload(evidence.getId)" download="@evidence.getFileName">@evidence.getFileName</a></p>
-                        <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
+                        <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@currentEvidence.showSubmissionDate()</i></b></p>
+                        <p><b>Evidence: </b> <a href="@routes.EvidenceController.evidenceDownload(currentEvidence.getId)" download="@currentEvidence.getFileName">@currentEvidence.getFileName</a></p>
+                        <p><b>Description: </b> <i>@currentEvidence.getDescription</i> </p>
                         <p></p>
                     </div>
 
                     <br/>
                 </div>
 
+
+                <div class="col s3 m4">
+                    <a class=" btn-flat grey-text " href="@routes.EvidenceController.evaluate(currentEvidence.getId)"><i class="material-icons left tiny light-green-text">thumbs_up_down</i> <span class="hide-on-med-and-down">Evaluate</span></a>
+                </div>
+
+
                 <br/>
             </div>
 
         </div>
-    }
 
+
+
+        @*Log*@
+
+        @*Feedback*@
+        @for(evidence<-evidenceList){
+            <div id="feedback@evidence.getId" class="row ">
+                @if(evidence.getStatus.equals(EvidenceStatus.ACCEPTED)){
+                    <div class="col s10 l8 offset-s2 offset-l4">
+                        <div class="card green lighten-5">
+                            <div class="card-content">
+                                <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_up</i> Accepted in <b><i>@evidence.showFeedbackDate()</i></b></p>
+                                <p><b>Feedback: </b> <i>@evidence.getFeedback</i> </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if(evidence.getStatus.equals(EvidenceStatus.REJECTED)){
+                    <div class="col s10 l8 offset-s2 offset-l4">
+                        <div class="card deep-orange lighten-5">
+                            <div class="card-content">
+                                <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_down</i> Declined in <b><i>@evidence.showFeedbackDate()</i></b></p>
+                                <p><b>Feedback: </b> <i>@evidence.getFeedback</i> </p>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            @*Evidence*@
+            <div class="row">
+                <div class="col s10 l8 ">
+                    <div class="card yellow lighten-5">
+                        <div class="card-content">
+                            <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@evidence.showSubmissionDate()</i></b></p>
+                            <p><b>Evidence: </b> <a href="@routes.EvidenceController.evidenceDownload(evidence.getId)" download="@evidence.getFileName">@evidence.getFileName</a></p>
+                            <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
+                            <p></p>
+                        </div>
+
+                        <br/>
+                    </div>
+
+                    <br/>
+                </div>
+
+            </div>
+        }
+
+
+
+    </div>
 
 
 

@@ -47,6 +47,16 @@ public class Badge extends Model{
         return badges;
     }
 
+    public static List<Badge> findByStatus(BadgeStatus status){
+        System.out.println("Badge.findUserBadgesByStatus");
+        List<Badge> badges= Badge.find.query()
+                .fetch("userBadges")
+                .where().eq("userBadges.status",status)
+                .findList();
+        System.out.println(badges.toString());
+        return badges;
+    }
+
     public static List<Badge> findUserBadgesBySubmission(User user){
         System.out.println("Badge.findUserBadgesBySubmission");
         List<Badge> badges= Badge.find.query()

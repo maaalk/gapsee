@@ -36,6 +36,28 @@ public class User extends Model {
 
     }
 
+    public static List<User> findStudentsByCourse(Course course){
+        System.out.println("User.findStudentsByCourse");
+        List<User> userList = User.find.query()
+                .fetch("userCourses")
+                .where().eq("userCourses.course",course)
+                .where().eq("userCourses.role",UserRole.STUDENT)
+                .findList();
+        System.out.println(userList);
+        return userList;
+    }
+
+    public static List<User> findByCourse(Course course){
+        System.out.println("User.findStudentsByCourse");
+        List<User> userList = User.find.query()
+                .fetch("userCourses")
+                .where().eq("userCourses.course",course)
+                .findList();
+        System.out.println(userList);
+        return userList;
+    }
+
+
     public static List<User> listByBadgeSubmission(Badge badge){
         System.out.println("User.listByBadgeSubmission: ");
         List<User> userList = User.find.query()
