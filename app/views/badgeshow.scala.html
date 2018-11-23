@@ -28,7 +28,7 @@
             @*Feedback*@
             <div id="feedback@evidence.getId" class="row ">
                 @if(evidence.getStatus.equals(EvidenceStatus.ACCEPTED)){
-                    <div class="col s10 l8 offset-s2 offset-l4">
+                    <div class="col s11 l8 offset-s1 offset-l4">
                         <div class="card green lighten-5">
                             <div class="card-content">
                                 <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_up</i> Accepted in <b><i>@evidence.showFeedbackDate()</i></b></p>
@@ -38,7 +38,7 @@
                     </div>
                 }
                 @if(evidence.getStatus.equals(EvidenceStatus.REJECTED)){
-                    <div class="col s10 l8 offset-s2 offset-l4">
+                    <div class="col s11 l8 offset-s1 offset-l4">
                         <div class="card deep-orange lighten-5">
                             <div class="card-content">
                                 <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">thumb_down</i> Declined in <b><i>@evidence.showFeedbackDate()</i></b></p>
@@ -53,26 +53,29 @@
 
             @*Evidence*@
             <div class="row">
-                <div class="col s10 l8 ">
+                <div class="col s11 l8 ">
 
                     <div class="card yellow lighten-5">
                         <div class="card-content">
                             <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@evidence.showSubmissionDate()</i></b></p>
+                            <i class="material-icons left tiny">attach_file</i>
                             <p><b>Evidence: </b> <a href="@routes.EvidenceController.evidenceDownload(evidence.getId)" download="@evidence.getFileName">@evidence.getFileName</a></p>
                             <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
-                            <p></p>
+                            <br>
+                            @if(evidence.getStatus.equals(EvidenceStatus.NEW)){
+                                <div class="col s6 m5 offset-m1">
+                                    <a class=" btn-flat grey-text" href="@routes.EvidenceController.edit(evidence.getId)"><i class="material-icons left tiny green-text">edit</i><span class="hide-on-med-and-down">Edit</span></a>
+                                </div>
+                                <div class="col s6 m6 ">
+                                    <a class=" btn-flat grey-text "><i class="material-icons left tiny red-text">close</i><span class="hide-on-med-and-down">Remove</span></a>
+                                </div>
+                            }
+                            <br>
                         </div>
                         <br>
                     </div>
 
-                        @if(evidence.getStatus.equals(EvidenceStatus.NEW)){
-                            <div class="col s3 m4">
-                                <a class=" btn-flat grey-text" href="@routes.EvidenceController.edit(evidence.getId)"><i class="material-icons left tiny green-text">edit</i><span class="hide-on-med-and-down">Edit</span></a>
-                            </div>
-                            <div class="col s3 m4">
-                                <a class=" btn-flat grey-text "><i class="material-icons left tiny red-text">close</i><span class="hide-on-med-and-down">Remove</span></a>
-                            </div>
-                        }
+
 
 
 
