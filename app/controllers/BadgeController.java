@@ -12,6 +12,7 @@ import views.html.badge.badgetutorshow;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,6 +30,7 @@ public class BadgeController extends Controller {
         }
         User user = User.findByUserName(session("username"));
         UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
+        userBadge.getEvidenceList().sort(Comparator.comparing(Evidence::getSubmissionDate).reversed());
 
         return ok(badgeshow.render(userBadge));
     }

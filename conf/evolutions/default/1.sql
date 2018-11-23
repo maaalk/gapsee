@@ -38,7 +38,7 @@ create table evidence (
 
 create table level (
   id                            integer auto_increment not null,
-  final_date                    varchar(255),
+  final_date                    timestamp,
   level_name                    varchar(255),
   boss_fight_name               varchar(255),
   course_id                     integer,

@@ -1,0 +1,36 @@
+@(courseList:List[Course])
+
+@main("Course Index"){
+    <div class="row"></div>
+    <div class="row">
+        <p> My Courses</p>
+        <div class="col s12 m12 xl8">
+            @for(course<-courseList){
+                <div class="row yellow lighten-4 z-depth-2">
+                    <div class="col s12 m8">
+                        <h4>@course.getName</h4>
+                    </div>
+                    <div class="col s5 m2">
+                        <p class="valign-wrapper"></p><a class="btn-flat waves-effect waves-light " href="@routes.CourseController.tutorShow(course.getId)">View<i class="material-icons left green-text darken-4">remove_red_eye</i></a>
+                    </div>
+                    @*<div class="col s4 m1">
+                    <p class="valign-wrapper"></p><button class="btn-flat  waves-effect waves-light" onclick="sendDeleteRequest(
+                    '@routes.CourseController.destroy(course.getId)',
+                    '@routes.CourseController.index()'
+                    )">Remove</button>
+                    </div>*@
+                </div>
+                <div class="divider"></div>
+            }
+            <div class="row"></div>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row">
+        <div class="col s6 m2">
+            <a class="btn-small waves-effect waves-light yellow darken-4" href="#">New Course</a>
+        </div>
+    </div>
+
+
+}

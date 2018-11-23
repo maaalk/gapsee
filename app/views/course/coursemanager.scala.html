@@ -1,25 +1,96 @@
 @(course:Course, userList:List[User], levelList:List[Level],badgeList:List[Badge])
 @main("GaPSEE - "+course.getName){
+<div class="row">
+    <div  class="col s12 m4">
 
-    <p><b>Pending Actions</b></p>
-@if(badgeList.size==0){
-    <i class="material-icons light-green-text left">done_all</i>
-    <p><i>Nothing new</i></p>
-} else{
-    <i class="material-icons orange-text darken-4 left">warning</i>
-    <p><b>@badgeList.size() item(s) to evaluate</b></p>
-    <ul class="collection">
-    @for(badge<-badgeList) {
-        <li class="collection-item">
-            <span class="title"> @badge.getName</span>
-            <div class="row">
-                <span class="col s4">@badge.showFinalDate()</span>
-                <span class="col s4"><a href="@routes.BadgeController.tutorShow(badge.getId)"><i class="material-icons orange-text darken-4">remove_red_eye</i></a></span>
-            </div>
-        </li>
-    }
-    </ul>
-}
+        <div id="courseDescription">
+            <p></p>
+            <i class="material-icons left">assignment</i>
+            <p><b>@course.getName</b></p>
+            <ul class="collection">
+                <div class="container">
+                    <br>
+                    <span><b class="grey-text darken-4">Description: </b> Lorem Ipsum</span><br>
+                    <span><b class="grey-text darken-4"># Tasks: </b> @course.getBadgeList.size() </span><br>
+                    <span><b class="grey-text darken-4"># Members: </b> @userList.size() </span><br>
+                    <span><b class="grey-text darken-4">End of Course: </b> 20/07/2018</span><br>
+                    <br>
+
+                </div>
+
+            </ul>
+
+        </div>
+        <div id="users">
+            <p></p>
+            <i class="material-icons left">school</i>
+            <p><b>Course Members</b></p>
+            <ul class="collection">
+                <div class="container">
+                    <br>
+                    @for(user<-userList){
+                        <i class="material-icons light-green-text tiny">face</i><span>  @user.getUsername</span> @if(user.getRole.equals(UserRole.TUTOR)){ (Professor)}  <br>
+                    }
+                    <br>
+                </div>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
+    <div id="main-panel"  class="col s12 m8">
+        <div id="pendingActions">
+            <p></p>
+            <i class="material-icons left">notifications</i>
+            <p><b>Pending Actions</b></p>
+            @if(badgeList.size==0){
+                <i class="material-icons light-green-text left">done_all</i>
+                <p><i>Nothing new</i></p>
+            } else{
+                <i class="material-icons orange-text darken-4 left">warning</i>
+                <p><b>@badgeList.size() item(s) to evaluate</b></p>
+
+                <ul class="collection">
+                @for(badge<-badgeList) {
+                    <li class="collection-item">
+                        <div class="row">
+                            <span class="col s1 m1"><a href="@routes.BadgeController.tutorShow(badge.getId)"><i class="material-icons orange-text darken-4">content_paste</i></a></span>
+                            <span class="col s9 offset-s1 m2" style="font-size: small"><i class="material-icons  tiny">event</i>@badge.showFinalDate()</span>
+                            <span class="col s10 offset-s2 m9"> @badge.getName</span>
+                        </div>
+                    </li>
+                }
+                </ul>
+            }
+        </div>
+
+        <div id="schedule">
+            <i class="material-icons left">event</i>
+            <p><b>Course Schedule</b></p>
+            <ul class="collection">
+            @for(level<-levelList){
+                <li class="collection-item">
+                    <div class="row">
+                        <span class="col s1 ">
+                            <a href="#"><i class="material-icons light-green-text">remove_red_eye</i></a> <br>
+                            <a href="#"><i class="material-icons orange-text darken-4">build</i></a>
+                        </span>
+                        <span class="col s9 offset-s1 m9 ">@level.getLevelName<br><br>
+                        <i class="material-icons  tiny">event</i>   <span style="font-size: small">@level.showFinalDate()</span></span>
+                    </div>
+                </li>
+            }
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>
+
 
 }
 

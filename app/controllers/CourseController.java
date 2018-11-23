@@ -4,22 +4,37 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import utils.ActionAuthenticator;
+import utils.TutorActionAuthenticator;
 import views.html.course.*;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 @Security.Authenticated(ActionAuthenticator.class)
-
 public class CourseController extends Controller {
 
     public Result index(){
-        System.out.println(session("connected"));
+        if(session("role").equals(UserRole.TUTOR.toString())|| session("role").equals(UserRole.ADMIN.toString())){
+            return redirect(routes.CourseController.tutorIndex());
+        }
         List<Course> courseList = Course.find.all();
         User user = User.findByUserName(session("username"));
         List<Course> userCourses = Course.findByUser(user);
         courseList.removeAll(userCourses);
         return ok(courseindex.render(courseList, userCourses));
+    }
+
+    @Security.Authenticated(TutorActionAuthenticator.class)
+    public Result tutorIndex(){
+        User user = User.findByUserName(session("username"));
+        List<Course> courseList;
+        if(session("role").equals(UserRole.ADMIN.toString())){
+            courseList = Course.find.all();
+        } else {
+            courseList = Course.findByUserRole(user,UserRole.TUTOR);
+        }
+        return ok(tutorcourseindex.render(courseList));
     }
 
     public Result join(Integer courseId){
@@ -41,10 +56,12 @@ public class CourseController extends Controller {
         return redirect(routes.CourseController.index());
     }
 
+    @Security.Authenticated(TutorActionAuthenticator.class)
     public Result tutorShow(Integer courseId){
         Course course = Course.find.byId(courseId);
         List<User> userList = User.findByCourse(course);
         List<Badge> pendingBadgeList = Badge.findByStatus(BadgeStatus.SUBMITTED);
+        userList.sort(Comparator.comparing(User::getRole).reversed());
         return ok(coursemanager.render(course,userList,course.getLevelList(),pendingBadgeList));
     }
 

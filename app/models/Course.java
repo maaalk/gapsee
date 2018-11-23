@@ -31,6 +31,18 @@ public class Course extends Model {
         return courseList;
     }
 
+    public static List<Course> findByUserRole(User user, UserRole role){
+        System.out.println("Course.findByUser:");
+        List<Course> courseList = Course.find.query()
+                .fetch("userCourses")
+                .where().eq("userCourses.user", user)
+                .where().eq("userCourses.role",role)
+                .findList();
+        System.out.println(courseList.toString());
+        return courseList;
+    }
+
+
     public List<Badge> getBadgeList(){
         List<Badge> badgeList= new ArrayList<Badge>();
         for(Level level:levelList){

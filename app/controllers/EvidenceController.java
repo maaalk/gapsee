@@ -1,5 +1,6 @@
 package controllers;
 
+import akka.http.scaladsl.model.HttpRequest;
 import models.*;
 
 import play.data.DynamicForm;
@@ -23,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 @Security.Authenticated(ActionAuthenticator.class)
 public class EvidenceController extends Controller {
@@ -50,7 +52,7 @@ public class EvidenceController extends Controller {
             User user = User.findByUserName(session("username"));
             Badge badge = Badge.find.byId(badgeId);
             UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
-            if (userBadge==null){
+            if (userBadge==null||(userBadge.getStatus().equals(BadgeStatus.NEW))){
                 userBadge = new UserBadge(user,badge);
                 userBadge.save();
                 user.addUserBadge(userBadge);
@@ -72,6 +74,10 @@ public class EvidenceController extends Controller {
 
     public Result edit(Integer id){
         Evidence evidence = Evidence.find.byId(id);
+        if (!evidence.getStatus().equals(EvidenceStatus.NEW)){
+            flash("fail","Sorry! This evidence has been evaluated and cannot be edited anymore");
+            return redirect(routes.BadgeController.show(evidence.getUserBadge().getBadge().getId()));
+        }
         if (evidence==null){
             flash("fail","Sorry, I can't do this =/");
             return notFound("Badge not found");

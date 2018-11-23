@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -17,7 +18,7 @@ public class Level  extends Model {
 
     @Id
     private Integer id;
-    private String finalDate;
+    private Date finalDate;
     private String levelName;
     private String bossFightName;
     @OneToMany
@@ -44,11 +45,11 @@ public class Level  extends Model {
         this.id = id;
     }
 
-    public String getFinalDate() {
+    public Date getFinalDate() {
         return finalDate;
     }
 
-    public void setFinalDate(String finalDate) {
+    public void setFinalDate(Date finalDate) {
         this.finalDate = finalDate;
     }
 
@@ -128,6 +129,10 @@ public class Level  extends Model {
         return listTopics;
     }
 
+    public String showFinalDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.format(this.finalDate);
+    }
 
 
 

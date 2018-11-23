@@ -30,7 +30,11 @@ public class UserBadge extends Model {
 
     }
 
-
+    public UserBadge(User user, Badge badge, BadgeStatus status){
+        this.setUser(user);
+        this.setBadge(badge);
+        this.setStatus(status);
+    }
 
     public static Finder<Integer, UserBadge> find = new Finder<>(UserBadge.class);
 
@@ -45,7 +49,7 @@ public class UserBadge extends Model {
             return userBadge;
         } catch (Exception e){
             System.out.println(e);
-            return null;
+            return new UserBadge(User.find.byId(userId),Badge.find.byId(badgeId),BadgeStatus.NEW);
         }
     }
 
