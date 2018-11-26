@@ -6,7 +6,9 @@ import io.ebean.Model;
 
 import javax.persistence.*;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 
 @Entity
@@ -81,6 +83,25 @@ public class User extends Model {
 
     }
 
+    public Integer calculateScore(Course course){
+        Integer score=0;
+        System.out.println("User.courseScore ("+course+"):");
+        Optional<UserCourse> userCourseFound = findUserCourse(this.userCourses,course);
+
+        if (userCourseFound.isPresent()){
+            for (UserBadge userBadge: this.userBadges ){
+                if (userBadge.getStatus().equals(BadgeStatus.EARNED) && userBadge.getBadge().getCourse().equals(course)){
+                    score+=userBadge.getBadge().getTier();
+                }
+            }
+            System.out.println(score+":  pontos");
+            return score;
+        } else {
+            System.out.println("Aluno não matriculado neste curso! Return 0");
+            return score;
+        }
+    }
+
     public List<UserBadge> getUserBadges() {
         return userBadges;
     }
@@ -137,5 +158,16 @@ public class User extends Model {
         userBadges.add(userBadge);
     }
 
+    private final Optional<UserCourse> findUserCourse(Collection<UserCourse> yourList, Course course){
+        // This stream will simply return any carnet that matches the filter. It will be wrapped in a Optional object.
+        // If no carnets are matched, an "Optional.empty" item will be returned
+        return yourList.stream().filter(c -> c.getCourse().equals(course)).findAny();
+    }
+
+    private final Optional<UserBadge> findUserBadge(Collection<UserBadge> yourList, Badge badge){
+        // This stream will simply return any carnet that matches the filter. It will be wrapped in a Optional object.
+        // If no carnets are matched, an "Optional.empty" item will be returned
+        return yourList.stream().filter(c -> c.getBadge().equals(badge)).findAny();
+    }
 
 }

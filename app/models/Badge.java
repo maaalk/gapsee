@@ -141,6 +141,10 @@ public class Badge extends Model{
         userBadges.add(userBadge);
     }
 
+    public Course getCourse(){
+        return this.getLevel().getCourse();
+    }
+
     public String showFinalDate(){
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.format(this.finalDate);
