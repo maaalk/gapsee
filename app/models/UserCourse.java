@@ -4,6 +4,8 @@ import io.ebean.Finder;
 import io.ebean.Model;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Optional;
 
 @Entity
 public class UserCourse extends Model {
@@ -35,6 +37,8 @@ public class UserCourse extends Model {
         System.out.println(userCourse.toString());
         return userCourse;
     }
+
+
 
     public Integer getId() {
         return id;

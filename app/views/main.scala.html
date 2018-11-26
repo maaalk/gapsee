@@ -29,7 +29,7 @@
 
     <!--Navigation Bar-->
     <nav class="nav-wraper cyan" >
-        <div class="container">
+        @*<div class="container">*@
             <a href="@routes.HomeController.index()" class="brand-logo"><img src="@routes.Assets.versioned("images/gapseelogotrans.png")" style="max-height: 56px"></a>
             @*<img src="@routes.Assets.versioned("images/gapseelogotrans.png")" style="max-height: 56px">*@
             <a href="#" class="sidenav-trigger" data-target="mobile-links">
@@ -45,7 +45,7 @@
                 </li>
                 <li><span class="badge white-text pink new">5</span></li>
             </ul>
-        </div>
+        @*</div>*@
     </nav>
     <ul class="sidenav" id="mobile-links">
         <li><a href="@routes.CourseController.index()">Courses</a></li>
@@ -92,7 +92,7 @@
 
 
 
-    <main role="main" class="container">
+    <main role="main"@* class="container"*@>
         @content
     </main><!-- /.container -->
 
@@ -101,7 +101,9 @@
             src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous"></script>
+
     <script src="@routes.Assets.versioned("materialize/js/materialize.js")"></script>
+    <script src="@routes.Assets.versioned("/js/jquery.tablesorter.js")"></script>
     <script src="@routes.Assets.versioned("/js/custom.js")"></script>
     <script>
         $(document).ready(function(){

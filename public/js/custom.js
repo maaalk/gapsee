@@ -12,3 +12,4 @@ function sendDeleteRequest(url, rUrl) {
     })
 
 }
+

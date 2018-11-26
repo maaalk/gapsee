@@ -29,7 +29,12 @@
                 <div class="container">
                     <br>
                     @for(user<-userList){
-                        <i class="material-icons light-green-text tiny">face</i><span>  @user.getUsername</span> @if(user.getRole.equals(UserRole.TUTOR)){ (Professor)}  <br>
+                        <i class="material-icons light-green-text tiny">face</i><span>  @user.getUsername</span>
+                        @if(user.getRole.equals(UserRole.TUTOR)){
+                            (Professor)
+                        }else{
+                            (@user.calculateScore(course))
+                        }<br>
                     }
                     <br>
                 </div>

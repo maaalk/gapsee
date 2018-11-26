@@ -102,6 +102,42 @@ public class User extends Model {
         }
     }
 
+    public Integer getNumberTrophy(Course course){
+        Integer trohphyCount=0;
+        System.out.println("User.courseScore ("+course+"):");
+        Optional<UserCourse> userCourseFound = findUserCourse(this.userCourses,course);
+
+        if (userCourseFound.isPresent()){
+            for (UserBadge userBadge: this.userBadges ){
+                if(userBadge.getStatus().equals(BadgeStatus.EARNED) && userBadge.getBadge().getCourse().equals(course)){
+                    trohphyCount++;
+                }
+            }
+            return trohphyCount;
+        } else {
+            System.out.println("Aluno não matriculado neste curso! Return 0");
+            return trohphyCount;
+        }
+    }
+
+    public Integer getNumberTrophy(Course course, Integer tier){
+        Integer trohphyCount=0;
+        System.out.println("User.courseScore ("+course+"):");
+        Optional<UserCourse> userCourseFound = findUserCourse(this.userCourses,course);
+
+        if (userCourseFound.isPresent()){
+            for (UserBadge userBadge: this.userBadges ){
+                if(userBadge.getStatus().equals(BadgeStatus.EARNED) && userBadge.getBadge().getCourse().equals(course) && userBadge.getBadge().getTier().equals(tier)){
+                    trohphyCount++;
+                }
+            }
+            return trohphyCount;
+        } else {
+            System.out.println("Aluno não matriculado neste curso! Return 0");
+            return trohphyCount;
+        }
+    }
+
     public List<UserBadge> getUserBadges() {
         return userBadges;
     }

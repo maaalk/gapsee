@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="col s12 m10">
                                         @for(topic<-level.topicsByDate(submissionDate)){
-                                            <div class="col s12 m6 l4 xl3">
+                                            <div class="col s12 m6 l4">
                                                 <p class="center">@topic</p>
                                                 @for(badge<-level.getBadgeList){
                                                     @if((badge.getFinalDate==submissionDate) && (badge.getTopic==topic)){

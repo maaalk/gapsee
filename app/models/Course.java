@@ -71,6 +71,14 @@ public class Course extends Model {
         return levelList;
     }
 
+    public List<UserCourse> getUserCourses() {
+        return userCourses;
+    }
+
+    public void setUserCourses(List<UserCourse> userCourses) {
+        this.userCourses = userCourses;
+    }
+
     public void setLevelList(List<Level> levelList) {
         this.levelList = levelList;
     }
@@ -90,6 +98,24 @@ public class Course extends Model {
             count+= level.getBadgeList().size();
         }
         return count;
+    }
+
+    public List<User> getUsers(){
+        List<User> userList =new ArrayList<User>();
+        for(UserCourse userCourse : this.getUserCourses()){
+            userList.add(userCourse.getUser());
+        }
+        return userList;
+    }
+
+    public List<User> getUsers(UserRole userRole){
+        List<User> userList =new ArrayList<User>();
+        for(UserCourse userCourse : this.getUserCourses()){
+            if(userCourse.getRole().equals(userRole)){
+                userList.add(userCourse.getUser());
+            }
+        }
+        return userList;
     }
 
 }

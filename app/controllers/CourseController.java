@@ -7,9 +7,11 @@ import utils.ActionAuthenticator;
 import utils.TutorActionAuthenticator;
 import views.html.course.*;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Security.Authenticated(ActionAuthenticator.class)
 public class CourseController extends Controller {
@@ -63,6 +65,12 @@ public class CourseController extends Controller {
         List<Badge> pendingBadgeList = Badge.findByStatus(BadgeStatus.SUBMITTED);
         userList.sort(Comparator.comparing(User::getRole).reversed());
         return ok(coursemanager.render(course,userList,course.getLevelList(),pendingBadgeList));
+    }
+
+    public Result leaderboard(Integer courseId){
+        Course course = Course.find.byId(courseId);
+        List<User> userList = course.getUsers(UserRole.STUDENT);
+        return ok(leaderboard.render(course,userList));
     }
 
     public Result create(){
