@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static models.UserCourse.findUserCourse;
+
 
 @Entity
 public class UserBadge extends Model {
