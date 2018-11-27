@@ -89,16 +89,8 @@ public class UserCourse extends Model {
 
 
     public void updateScore(){
-
-        // melhorar depois sem consulta
-        //UserCourse userCourse = findUserCourse(user,course);
-
         this.setScore(this.user.calculateScore(this.course));
-
-        System.out.println("ERROR!!!!!! "+this.user.calculateScore(this.course));
         this.update();
-        System.out.println();
-
     }
 
 
