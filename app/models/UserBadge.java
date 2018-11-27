@@ -7,6 +7,8 @@ import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static models.UserCourse.findUserCourse;
+
 @Entity
 public class UserBadge extends Model {
     @Id
@@ -132,7 +134,20 @@ public class UserBadge extends Model {
     }
 
     public void setStatus(BadgeStatus status) {
+
+        BadgeStatus oldStatus = this.status;
         this.status = status;
+
+        System.out.println("----------------------ANTIGO STATUS "+oldStatus.toString());
+        System.out.println("----------------------NOVO STATUS "+status.toString());
+
+        if(status==BadgeStatus.EARNED || oldStatus==BadgeStatus.EARNED){
+            UserCourse userCourse = findUserCourse(this.user,this.badge.getCourse());
+            System.out.println("Entrou aki no set "+userCourse.getScore());
+            userCourse.updateScore();
+        }
+
+
     }
 
     public List<Evidence> getEvidenceList() {
@@ -155,6 +170,8 @@ public class UserBadge extends Model {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy - HH:mm");
         return formatter.format(this.lastUpdate);
     }
+
+
 
 
 }

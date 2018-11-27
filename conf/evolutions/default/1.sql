@@ -70,6 +70,7 @@ create table user_course (
   course_id                     integer,
   user_id                       integer,
   role                          varchar(7),
+  score                         integer,
   constraint ck_user_course_role check ( role in ('STUDENT','TUTOR','ADMIN')),
   constraint pk_user_course primary key (id)
 );

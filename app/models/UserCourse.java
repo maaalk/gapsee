@@ -19,6 +19,10 @@ public class UserCourse extends Model {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    private Integer score;
+
+
+
     public UserCourse(User user, Course course){
         this.course=course;
         this.user=user;
@@ -71,4 +75,32 @@ public class UserCourse extends Model {
     public void setRole(UserRole role) {
         this.role = role;
     }
+
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
+
+    //updateScore(user,course)
+    //similar ao evidence setStatus chamando o calcularScore
+
+
+    public void updateScore(){
+
+        // melhorar depois sem consulta
+        //UserCourse userCourse = findUserCourse(user,course);
+
+        this.setScore(this.user.calculateScore(this.course));
+
+        System.out.println("ERROR!!!!!! "+this.user.calculateScore(this.course));
+        this.update();
+        System.out.println("*********************************************\n NOVO SCORE "+this.getScore()+"\n******************************");
+
+    }
+
+
 }

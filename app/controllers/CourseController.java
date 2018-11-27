@@ -24,6 +24,7 @@ public class CourseController extends Controller {
         User user = User.findByUserName(session("username"));
         List<Course> userCourses = Course.findByUser(user);
         courseList.removeAll(userCourses);
+
         return ok(courseindex.render(courseList, userCourses));
     }
 
@@ -43,6 +44,7 @@ public class CourseController extends Controller {
         User user = User.findByUserName(session("username"));
         Course course = Course.find.byId(courseId);
         UserCourse userCourse = new UserCourse(user,course);
+        userCourse.setScore(0);
         userCourse.save();
         flash("success","You joined the course ' "+course.getName()+"'");
         return redirect(routes.CourseController.index());
