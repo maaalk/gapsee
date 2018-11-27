@@ -14,6 +14,7 @@ GET     /courses/tutor/:id          controllers.CourseController.tutorShow(id : 
 GET     /courses/join/:id           controllers.CourseController.join(id : Integer)
 GET     /courses/quit/:id           controllers.CourseController.quit(id : Integer)
 GET     /courses/leaderboard/:id    controllers.CourseController.leaderboard(id : Integer)
+GET     /courses/myleaderboard/:id  controllers.CourseController.userLeaderboard(id : Integer)
 #GET     /courses/create             controllers.CourseController.create()
 #GET     /courses/edit/:id           controllers.CourseController.edit(id : Integer)
 #POST    /courses/edit               controllers.CourseController.update()

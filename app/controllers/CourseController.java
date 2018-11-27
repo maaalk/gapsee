@@ -73,6 +73,13 @@ public class CourseController extends Controller {
         return ok(leaderboard.render(course,userList));
     }
 
+    public Result userLeaderboard(Integer courseId){
+        Course course = Course.find.byId(courseId);
+        List<User> userList = course.getUsers(UserRole.STUDENT);
+        User user = User.findByUserName(session("username"));
+        return ok(userleaderboard.render(course,userList,user));
+    }
+
     public Result create(){
         return ok();
     }

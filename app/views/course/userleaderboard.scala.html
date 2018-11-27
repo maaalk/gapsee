@@ -1,0 +1,124 @@
+@(course:Course, userList:List[User], myUser:User)
+
+@main("Leaderboard - "+course.getName){
+
+    <div class="row">
+        <div id="rank-table" class="container">
+            <div class="chip">
+                <a href="@routes.CourseController.show(course.getId)"><b><< </b>course.getName</a>
+            </div>
+            <div class="row">
+                <p></p>
+                <i class="material-icons left">grade</i>
+                <p><b>My Ranking</b></p>
+                <table id="myrank" class="col s10 offset-s1 centered striped">
+                    <thead>
+                        <tr>
+                            <th>Score</th>
+                            <th># Gold Trophies</th>
+                            <th># Silver Trophies</th>
+                            <th># Bronze Trophies</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>@myUser.calculateScore(course)</td>
+                            <td>@myUser.getNumberTrophy(course,3)</td>
+                            <td>@myUser.getNumberTrophy(course,2)</td>
+                            <td>@myUser.getNumberTrophy(course,1)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row">
+            </div>
+
+            <div class="row">
+                <p></p>
+                <i class="material-icons left">poll</i>
+                <p><b>Course Leaderboard</b></p>
+                <table id="rank" class=" col s12 striped centered">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Score</th>
+                            <th># Gold Trophies</th>
+                            <th># Silver Trophies</th>
+                            <th># Bronze Trophies</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for(user<-userList){
+                        @if(user.equals(myUser)){
+                            <tr>
+                                <td><b>@user.getUsername</b></td>
+                                <td><b>@user.calculateScore(course)</b></td>
+                                <td><b>@user.getNumberTrophy(course,3)</b></td>
+                                <td><b>@user.getNumberTrophy(course,2)</b></td>
+                                <td><b>@user.getNumberTrophy(course,1)</b></td>
+                            </tr>
+                        }else{
+                            <tr>
+                                <td>@user.getUsername</td>
+                                <td>@user.calculateScore(course)</td>
+                                <td>@user.getNumberTrophy(course,3)</td>
+                                <td>@user.getNumberTrophy(course,2)</td>
+                                <td>@user.getNumberTrophy(course,1)</td>
+                            </tr>
+                        }
+
+                    }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+<script src="js/jquery.tablesorter.js"></script>
+<script src="@routes.Assets.versioned("/js/custom.js")"></script>
+
+<script>
+
+        $(document).ready(function(){
+
+            $("table").tablesorter({
+                theme : "blue",
+
+                widthFixed: true,
+                // widget code contained in the jquery.tablesorter.widgets.js file
+                // use the zebra stripe widget if you plan on hiding any rows (filter widget)
+                widgets : [ "filter", "zebra", "columns" ],
+                sortList : [[1,1],[2,1]], // initial sort columns (2nd and 3rd)
+
+                widgetOptions : {
+                    // using the default zebra striping class name, so it actually isn't included in the theme variable above
+                    // this is ONLY needed for materialize theming if you are using the filter widget, because rows are hidden
+                    zebra : ["even", "odd"],
+
+                    // reset filters button
+                    filter_reset : ".reset",
+
+                    // extra css class name (string or array) added to the filter element (input or select)
+                    // select needs a "browser-default" class or it gets hidden
+                    filter_cssFilter: ["", "", "browser-default"]
+                },
+                headers: {
+                    1 : { lockedOrder: 'desc' },
+                    2 : { lockedOrder: 'desc' },
+                    3 : { lockedOrder: 'desc' },
+                    4 : { lockedOrder: 'desc' },
+                }
+
+
+
+            })
+
+
+        })
+
+</script>
+

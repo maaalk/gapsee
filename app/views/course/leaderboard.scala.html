@@ -2,7 +2,13 @@
 
 @main("Leaderboard - "+course.getName){
 
+    <div class="chip">
+        <a href="@routes.CourseController.tutorShow(course.getId)"><b><< </b>@course.getName</a>
+    </div>
     <div class="row">
+        <p></p>
+        <i class="material-icons left">poll</i>
+        <p><b>Course Leaderboard</b></p>
         <div id="rank-table" class="container">
             <div class="row">
                 <table id="rank" class=" col s12 striped centered">
