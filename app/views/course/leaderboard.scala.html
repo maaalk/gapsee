@@ -1,4 +1,4 @@
-@(course:Course, userList:List[User])
+@(course:Course, userCourseList:List[UserCourse])
 
 @main("Leaderboard - "+course.getName){
 
@@ -16,6 +16,7 @@
                 <table id="rank" class=" col s12 striped centered">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Student</th>
                             <th>Score</th>
                             <th># Gold Trophies</th>
@@ -25,6 +26,7 @@
                     </thead>
                     <tfoot class="hide-on-small-and-down">
                         <tr>
+                            <th>#</th>
                             <th>Student</th>
                             <th>Score</th>
                             <th># Gold Trophies</th>
@@ -33,13 +35,14 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                    @for(user<-userList){
+                    @for(userCourse<-userCourseList){
                         <tr>
-                            <td>@user.getUsername</td>
-                            <td>@user.calculateScore(course)</td>
-                            <td>@user.getNumberTrophy(course,3)</td>
-                            <td>@user.getNumberTrophy(course,2)</td>
-                            <td>@user.getNumberTrophy(course,1)</td>
+                            <td>@{userCourseList.indexOf(userCourse)+1}</td>
+                            <td>@userCourse.getUser.getUsername</td>
+                            <td>@userCourse.getUser.calculateScore(course)</td>
+                            <td>@userCourse.getUser.getNumberTrophy(course,3)</td>
+                            <td>@userCourse.getUser.getNumberTrophy(course,2)</td>
+                            <td>@userCourse.getUser.getNumberTrophy(course,1)</td>
                         </tr>
                     }
                     </tbody>
@@ -65,7 +68,7 @@
                         // widget code contained in the jquery.tablesorter.widgets.js file
                         // use the zebra stripe widget if you plan on hiding any rows (filter widget)
                         widgets : [ "filter", "zebra", "columns" ],
-                        sortList : [[1,1],[2,1]], // initial sort columns (2nd and 3rd)
+                        sortList : [[0,0],[3,1]], // initial sort columns (2nd and 3rd)
 
                         widgetOptions : {
                             // using the default zebra striping class name, so it actually isn't included in the theme variable above
@@ -80,10 +83,10 @@
                             filter_cssFilter: ["", "", "browser-default"]
                         },
                         headers: {
-                            1 : { lockedOrder: 'desc' },
                             2 : { lockedOrder: 'desc' },
                             3 : { lockedOrder: 'desc' },
                             4 : { lockedOrder: 'desc' },
+                            5 : { lockedOrder: 'desc' },
                         }
 
 

@@ -68,8 +68,10 @@ public class CourseController extends Controller {
 
     public Result leaderboard(Integer courseId){
         Course course = Course.find.byId(courseId);
-        List<User> userList = course.getUsers(UserRole.STUDENT);
-        return ok(leaderboard.render(course,userList));
+        List<UserCourse> userCourseList = course.getUserCourses();
+        userCourseList.sort(Comparator.comparing(UserCourse::getScore).reversed());
+
+        return ok(leaderboard.render(course,userCourseList));
     }
 
     public Result userLeaderboard(Integer courseId){
