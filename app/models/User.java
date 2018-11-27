@@ -206,4 +206,8 @@ public class User extends Model {
         return yourList.stream().filter(c -> c.getBadge().equals(badge)).findAny();
     }
 
+
+
+    //findUserByScore?
+
 }
