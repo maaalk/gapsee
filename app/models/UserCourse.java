@@ -85,8 +85,7 @@ public class UserCourse extends Model {
     }
 
 
-    //updateScore(user,course)
-    //similar ao evidence setStatus chamando o calcularScore
+
 
 
     public void updateScore(){
