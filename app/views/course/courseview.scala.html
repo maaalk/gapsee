@@ -1,0 +1,120 @@
+@import views.html.tags.trophycard
+@(course:Course,badges: Map[String, UserBadge],user:User)
+
+@main(course.getName){
+
+    <div class="container">
+        @*Título*@
+        <div class="row" id="course-title">
+            <div class="col s12">
+                <p></p>
+                <h4><i class="material-icons">assignment</i>   @course.getName</h4>
+            </div>
+        </div>
+
+        @*Cabeçalho*@
+        <div class="row z-depth-1" >
+            <div class="col s12 m8" id="course-header">
+                <div class="row">
+                    <div class="col s5 offset-s1 m9">
+                        <h5>Tasks: @user.getNumberTrophy(course)/@course.getBadgeList.size()</h5>
+                        <div class="progress">
+                            <div class="determinate" style="width: @{100*user.getNumberTrophy(course)/course.getBadgeList.size()}%">Progresso</div>
+                        </div>
+                        <p> @{100*user.getNumberTrophy(course)/course.getBadgeList.size()}%</p>
+                    </div>
+                    <div class="col s5 offset-s1 m3">
+                        <p><img src="@routes.Assets.versioned("images/trophyt3.png")" style="max-width: 20px;max-height: 20px;"> Gold: @user.getNumberTrophy(course,3)</p>
+                        <p><img src="@routes.Assets.versioned("images/trophyt2.png")" style="max-width: 20px;max-height: 20px;"> Silver: @user.getNumberTrophy(course,2)</p>
+                        <p><img src="@routes.Assets.versioned("images/trophyt1.png")" style="max-width: 20px;max-height: 20px;"> Bronze: @user.getNumberTrophy(course,1)</p>
+                    </div>
+                </div>
+            </div>
+            @*Score*@
+            <div class=" col s6 m2" id="score">
+                <h5 class="center-align">Score</h5>
+                <h4 class="center-align">@user.calculateScore(course)</h4>
+            </div>
+            @*Score*@
+            <div class=" col s6 m2" id="rank">
+                <h5 class="center-align">Rank</h5>
+                <h4 class="center-align"># @user.calculateScore(course)</h4>
+            </div>
+
+        </div>
+
+        @*Botão Leaderboard*@
+        <div class="row">
+            <div id="leaderboard">
+                <a class="waves-effect waves-light btn" href="@routes.CourseController.userLeaderboard(course.getId)" >
+                    <i class="material-icons left">poll</i>
+                    Leaderboard
+                </a>
+            </div>
+        </div>
+
+        @*Níveis*@
+        <div class="row">
+            <ul class="collapsible accordion">
+            @for(level<-course.getLevelList){
+                <li class="">
+                    <div class="collapsible-header">
+                        <i class="material-icons">expand_more</i>@level.getLevelName
+                    </div>
+                    <div class="collapsible-body">
+
+                        <div class="row">
+                        @for(submissionDate<-level.allDates){
+                            <div class="row">
+                                <div class="col s12 m1">
+
+                                    <p class="center-align right grey-text darken-3" style="font-size: x-small"> <i class="material-icons tiny">av_timer</i><b><i>@DateConverter.showDate(submissionDate)</i></b></p>
+                                </div>
+                                <div class="col s12 m10">
+                                @for(topic<-level.topicsByDate(submissionDate)){
+                                    <div class="col s12 m6 l4">
+                                        <p class="center">@topic</p>
+                                        @for(badge<-level.getBadgeList){
+                                            @if((badge.getFinalDate==submissionDate) && (badge.getTopic==topic)){
+                                                @trophycard(badge,badges)
+                                            }
+                                        }
+                                    </div>
+                                }
+
+
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                        }
+                        </div>
+
+                    </div>
+                </li>
+            }
+
+
+
+            </ul>
+
+
+
+        </div>
+
+
+    </div>
+
+}
+
+<script>
+        $(document).ready(function(){
+            $('.collapsible').collapsible();
+
+        });
+        $(document).ready(function(){
+            var n =$("[data-status='EARNED']").length
+            $("#trophyCount").prepend(n);
+        });
+
+
+</script>

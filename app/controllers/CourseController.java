@@ -7,10 +7,7 @@ import utils.ActionAuthenticator;
 import utils.TutorActionAuthenticator;
 import views.html.course.*;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Security.Authenticated(ActionAuthenticator.class)
@@ -116,6 +113,24 @@ public class CourseController extends Controller {
 
         System.out.println("OK");
         return ok(courseshow.render(course,course.getLevelList(),badges));
+    }
+
+    public Result studentShow(Integer courseId){
+        if(session("role").equals(UserRole.TUTOR.toString())){
+            return redirect(routes.CourseController.tutorShow(courseId));
+        }
+        Course course = Course.find.byId(courseId);
+        if (course==null){
+            return notFound("Course not found");
+        }
+        User user = User.findByUserName(session("username"));
+        List<UserBadge> userBadgeList = user.getUserBadges();
+        final Map userBadgeMap = new HashMap<>();
+        for (final UserBadge userBadge : userBadgeList) {
+            userBadgeMap.put(userBadge.getBadge(), userBadge);
+        }
+        List<Level> levelList = course.getLevelList();
+        return ok(courseview.render(course,userBadgeMap,user));
     }
 
     public Result destroy(Integer id){
