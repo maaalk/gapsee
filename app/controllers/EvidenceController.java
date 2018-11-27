@@ -1,16 +1,12 @@
 package controllers;
 
-import akka.http.scaladsl.model.HttpRequest;
 import models.*;
-
 import play.data.DynamicForm;
 import play.data.Form;
 import play.data.FormFactory;
-import play.filters.csrf.RequireCSRFCheck;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-
 import play.mvc.Security;
 import utils.ActionAuthenticator;
 import utils.FileManager;
