@@ -98,7 +98,7 @@ public class UserCourse extends Model {
 
         System.out.println("ERROR!!!!!! "+this.user.calculateScore(this.course));
         this.update();
-        System.out.println("*********************************************\n NOVO SCORE "+this.getScore()+"\n******************************");
+        System.out.println();
 
     }
 

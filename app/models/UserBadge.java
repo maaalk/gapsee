@@ -26,16 +26,16 @@ public class UserBadge extends Model {
     private Date lastUpdate;
 
     public UserBadge(User user, Badge badge){
-        this.setUser(user);
-        this.setBadge(badge);
-        this.setStatus(BadgeStatus.SUBMITTED);
+        this.user=user;
+        this.badge=badge;
+        this.status=BadgeStatus.SUBMITTED;
 
     }
 
     public UserBadge(User user, Badge badge, BadgeStatus status){
-        this.setUser(user);
-        this.setBadge(badge);
-        this.setStatus(status);
+        this.user=user;
+        this.badge=badge;
+        this.status=status;
     }
 
     public static Finder<Integer, UserBadge> find = new Finder<>(UserBadge.class);
@@ -134,20 +134,7 @@ public class UserBadge extends Model {
     }
 
     public void setStatus(BadgeStatus status) {
-
-        BadgeStatus oldStatus = this.status;
         this.status = status;
-
-        System.out.println("----------------------ANTIGO STATUS "+oldStatus.toString());
-        System.out.println("----------------------NOVO STATUS "+status.toString());
-
-        if(status==BadgeStatus.EARNED || oldStatus==BadgeStatus.EARNED){
-            UserCourse userCourse = findUserCourse(this.user,this.badge.getCourse());
-            System.out.println("Entrou aki no set "+userCourse.getScore());
-            userCourse.updateScore();
-        }
-
-
     }
 
     public List<Evidence> getEvidenceList() {

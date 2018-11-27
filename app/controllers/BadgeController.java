@@ -29,7 +29,9 @@ public class BadgeController extends Controller {
             return notFound("Badge not found");
         }
         User user = User.findByUserName(session("username"));
+        System.out.println("*************************************************Até aqui");
         UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
+        System.out.println("*************************************************Passou!");
         userBadge.getEvidenceList().sort(Comparator.comparing(Evidence::getSubmissionDate).reversed());
 
         return ok(badgeshow.render(userBadge));

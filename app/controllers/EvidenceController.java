@@ -23,8 +23,9 @@ import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+
+
+import static models.UserCourse.findUserCourse;
 
 @Security.Authenticated(ActionAuthenticator.class)
 public class EvidenceController extends Controller {
@@ -124,10 +125,11 @@ public class EvidenceController extends Controller {
     public Result evaluationResult(Integer evidenceId){
         Evidence evidence = formFactory.form(Evidence.class).bindFromRequest().get();
         Evidence oldEvidence = Evidence.find.byId(evidenceId);
-
         if (oldEvidence == null){
             return notFound("Badge not found");
         }
+
+        BadgeStatus oldBadgeStatus= oldEvidence.getUserBadge().getStatus();
 
         DynamicForm requestData = formFactory.form().bindFromRequest();
 
@@ -140,6 +142,12 @@ public class EvidenceController extends Controller {
 
         oldEvidence.setFeedback(evidence.getFeedback());
         oldEvidence.getUserBadge().update();
+
+        if(oldEvidence.getUserBadge().getStatus()==BadgeStatus.EARNED || oldBadgeStatus==BadgeStatus.EARNED) {
+            UserCourse userCourse = findUserCourse(oldEvidence.getUserBadge().getUser(),oldEvidence.getUserBadge().getBadge().getCourse() );
+            userCourse.updateScore();
+
+        }
         //get current date
         Calendar calendar = Calendar.getInstance();
         oldEvidence.setFeedbackDate(calendar.getTime());
