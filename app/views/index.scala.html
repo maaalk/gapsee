@@ -118,9 +118,23 @@
 
 
             <!--  Scripts-->
-        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <script src="js/materialize.js"></script>
-        <script src="js/init.js"></script>
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+        <script src="@routes.Assets.versioned("materialize/js/materialize.js")"></script>
+        <script src="@routes.Assets.versioned("/js/custom.js")"></script>
+        <script>
+                        $(document).ready(function(){
+                            $('.sidenav').sidenav();
+                            $('select').formSelect();
+                        })
+
+                        $('#alert_close').click(function(){
+                            $( "#alert_box" ).fadeOut( "slow", function() {
+                            });
+                        });
+                </script>
 
     </body>
 
