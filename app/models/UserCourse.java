@@ -84,10 +84,6 @@ public class UserCourse extends Model {
         this.score = score;
     }
 
-
-
-
-
     public void updateScore(){
         this.setScore(this.user.calculateScore(this.course));
         this.update();

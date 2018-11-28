@@ -1,4 +1,4 @@
-@(course:Course, userList:List[User], myUser:User)
+@(course:Course, leaderboard:Map[Integer,List[UserCourse]], myUser:User)
 
 @main("Leaderboard - "+course.getName){
 
@@ -7,6 +7,7 @@
             <div class="chip">
                 <a href="@routes.CourseController.studentShow(course.getId)"><b><< </b>@course.getName</a>
             </div>
+            @*My Rank*@
             <div class="row">
                 <p></p>
                 <i class="material-icons left">grade</i>
@@ -22,7 +23,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>@myUser.calculateScore(course)</td>
+                            <td>@myUser.getScore(course)</td>
                             <td>@myUser.getNumberTrophy(course,3)</td>
                             <td>@myUser.getNumberTrophy(course,2)</td>
                             <td>@myUser.getNumberTrophy(course,1)</td>
@@ -34,6 +35,7 @@
             <div class="row">
             </div>
 
+            @*Leaderboard*@
             <div class="row">
                 <p></p>
                 <i class="material-icons left">poll</i>
@@ -41,34 +43,49 @@
                 <table id="rank" class=" col s12 striped centered">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Student</th>
                             <th>Score</th>
-                            <th># Gold Trophies</th>
-                            <th># Silver Trophies</th>
-                            <th># Bronze Trophies</th>
+                            <th>Gold Trophies</th>
+                            <th>Silver Trophies</th>
+                            <th>Bronze Trophies</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @for(user<-userList){
-                        @if(user.equals(myUser)){
-                            <tr>
-                                <td><b>@user.getUsername</b></td>
-                                <td><b>@user.calculateScore(course)</b></td>
-                                <td><b>@user.getNumberTrophy(course,3)</b></td>
-                                <td><b>@user.getNumberTrophy(course,2)</b></td>
-                                <td><b>@user.getNumberTrophy(course,1)</b></td>
-                            </tr>
-                        }else{
-                            <tr>
-                                <td>@user.getUsername</td>
-                                <td>@user.calculateScore(course)</td>
-                                <td>@user.getNumberTrophy(course,3)</td>
-                                <td>@user.getNumberTrophy(course,2)</td>
-                                <td>@user.getNumberTrophy(course,1)</td>
-                            </tr>
-                        }
-
+                    @for((rank,userCourses) <- leaderboard) {
+                            @for(userCourse<-userCourses) {
+                                @if(userCourse.getUser.equals(myUser)){
+                                    <tr>
+                                        <td><b id="myRank">@rank.toInt match {
+                                                case 1 => {1<i class="material-icons yellow-text lighten-4 tiny left">grade</i>}
+                                                case 2 => {2<i class="material-icons grey-text lighten-4 tiny left">grade</i>}
+                                                case 3 => {3<i class="material-icons orange-text lighten-4 tiny left">grade</i>}
+                                                case _ => {@rank}
+                                            }</b></td>
+                                        <td><b>@userCourse.getUser.getUsername</b></td>
+                                        <td><b id="myScore">@userCourse.getScore</b></td>
+                                        <td><b>@userCourse.getUser.getNumberTrophy(course,3)</b></td>
+                                        <td><b>@userCourse.getUser.getNumberTrophy(course,2)</b></td>
+                                        <td><b>@userCourse.getUser.getNumberTrophy(course,1)</b></td>
+                                    </tr>
+                                }else{
+                                    <tr>
+                                        <td>@rank.toInt match {
+                                            case 1 => {1<i class="material-icons yellow-text lighten-4 tiny left">grade</i>}
+                                            case 2 => {2<i class="material-icons grey-text lighten-4 tiny left">grade</i>}
+                                            case 3 => {3<i class="material-icons orange-text lighten-4 tiny left">grade</i>}
+                                            case _ => {@rank}
+                                        }</td>
+                                        <td>@userCourse.getUser.getUsername</td>
+                                        <td>@userCourse.getScore</td>
+                                        <td>@userCourse.getUser.getNumberTrophy(course,3)</td>
+                                        <td>@userCourse.getUser.getNumberTrophy(course,2)</td>
+                                        <td>@userCourse.getUser.getNumberTrophy(course,1)</td>
+                                    </tr>
+                                }
+                            }
                     }
+
                     </tbody>
                 </table>
             </div>
@@ -92,7 +109,7 @@
                 // widget code contained in the jquery.tablesorter.widgets.js file
                 // use the zebra stripe widget if you plan on hiding any rows (filter widget)
                 widgets : [ "filter", "zebra", "columns" ],
-                sortList : [[1,1],[2,1]], // initial sort columns (2nd and 3rd)
+                sortList : [[0,0],[3,1]], // initial sort columns (2nd and 3rd)
 
                 widgetOptions : {
                     // using the default zebra striping class name, so it actually isn't included in the theme variable above

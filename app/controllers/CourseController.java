@@ -68,17 +68,13 @@ public class CourseController extends Controller {
 
     public Result leaderboard(Integer courseId){
         Course course = Course.find.byId(courseId);
-        List<UserCourse> userCourseList = course.getUserCourses();
-        userCourseList.sort(Comparator.comparing(UserCourse::getScore).reversed());
-
-        return ok(leaderboard.render(course,userCourseList));
+        return ok(leaderboard.render(course,course.getRanking()));
     }
 
     public Result userLeaderboard(Integer courseId){
         Course course = Course.find.byId(courseId);
-        List<User> userList = course.getUsers(UserRole.STUDENT);
         User user = User.findByUserName(session("username"));
-        return ok(userleaderboard.render(course,userList,user));
+        return ok(userleaderboard.render(course,course.getRanking(),user));
     }
 
     public Result create(){

@@ -8,6 +8,7 @@ import javax.persistence.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -58,6 +59,33 @@ public class User extends Model {
         System.out.println(userList);
         return userList;
     }
+
+    public Integer getScore(Course course){
+        Optional<UserCourse> userCourse = this.userCourses.stream()
+                .filter(p->p.getCourse().equals(course))
+                .findAny();
+        if(userCourse.isPresent()){
+            return userCourse.get().getScore();
+        }
+        return 0;
+    }
+
+    public Integer getRank(Course course){
+        Optional<UserCourse> userCourse = this.userCourses.stream()
+                .filter(p->p.getCourse().equals(course))
+                .findAny();
+        if(userCourse.isPresent()){
+            Map<Integer,List<UserCourse>> leaderboard = course.getRanking();
+            for(Map.Entry<Integer,List<UserCourse>> entry:leaderboard.entrySet()){
+                if(entry.getValue().contains(userCourse.get())){
+                    return entry.getKey();
+                }
+            }
+        }
+
+        return 0;
+    }
+
 
 
     public static List<User> listByBadgeSubmission(Badge badge){

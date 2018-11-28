@@ -1,0 +1,130 @@
+@import views.html.helper.form
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GaPSEE - Home</title>
+        <link rel="icon" href="@routes.Assets.versioned("images/iconegapsee.png")">
+        <link rel="shortcut icon" href="@routes.Assets.versioned("images/iconegapsee.png")" />
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="@routes.Assets.versioned("materialize/css/materialize.css")" rel="stylesheet" media="screen,projection">
+    </head>
+
+    <body>
+        <nav class="cyan" role="navigation">
+            <div class="nav-wrapper container z"><a id="logo-container" href="@routes.HomeController.index()" class="brand-logo"><img src="@routes.Assets.versioned("images/gapseelogotrans.png")" style="max-height: 56px"></a>
+
+            </div>
+        </nav>
+            <!--Alert-->
+        <div class="row" id="alert_box">
+
+            @if(flash.containsKey("fail")) {
+                <div class="col s12 m12">
+                    <div class="card red lighten-4 z-depth-0">
+                        <div class="card-content">
+                            <span>  <i class="material-icons left">warning</i> @flash.get("fail") </span>
+                            <div class="btn-flat right" id="alert_close"><i class="material-icons left">close</i></div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if(flash.containsKey("alert")) {
+                <div class="col s12 m12">
+                    <div class="card yellow lighten-4 z-depth-0">
+                        <div class="card-content">
+                            <span>  <i class="material-icons left">priority_high</i> @flash.get("alert") </span>
+                            <div class="btn-flat right" id="alert_close"><i class="material-icons left">close</i></div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @if(flash.containsKey("success")) {
+                <div class="col s12 m12">
+                    <div class="card green lighten-4 z-depth-0">
+                        <div class="card-content">
+                            <span>  <i class="material-icons left">thumb_up</i> @flash.get("success") </span>
+                            <div class="btn-flat right" id="alert_close"><i class="material-icons left">close</i></div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    <div class="container">
+        <div class="row center">
+            <br><br>
+            <div id="form">
+            @form(action = routes.HomeController.authenticate()) {
+
+                <div class="row align-wrapper">
+                    <div class="col s12 m6 offset-m3 valign">
+                        <div class="card yellow lighten-4">
+                            <div class="card-content">
+                                <h4>Login</h4>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">account_circle</i>
+                                    <input placeholder="User Name" id="name" type="text" name="username">
+                                    <label for="name">Usuario</label>
+                                </div>
+
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">lock</i>
+                                    <input placeholder="Password" id="pswd" type="password"  name="password">
+                                    <label for="pswd">Senha</label>
+                                </div>
+
+
+                                <button class="btn waves-effect waves-light" type="submit" name="action" value="User login">Login
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row center">
+                    <br>
+                    <a href="@routes.UserController.create()" id="download-button" class="btn waves-effect waves-light orange">New User
+                        <i class="material-icons right white-text ">add_circle_outline</i>
+                    </a>
+                </div>
+
+
+
+
+            }
+            </div>
+        </div>
+    </div>
+        <script src="@routes.Assets.versioned("materialize/js/materialize.js")"></script>
+        <script src="@routes.Assets.versioned("/js/jquery.tablesorter.js")"></script>
+        <script src="@routes.Assets.versioned("/js/custom.js")"></script>
+        <script>
+        $(document).ready(function(){
+            $('.sidenav').sidenav();
+        })
+        $(document).ready(function(){
+            $('.modal').modal();
+
+        })
+        $('#alert_close').click(function(){
+            $( "#alert_box" ).fadeOut( "slow", function() {
+            });
+        });
+
+    </script>
+    </body>
+</html>

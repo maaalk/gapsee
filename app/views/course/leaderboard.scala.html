@@ -1,4 +1,4 @@
-@(course:Course, userCourseList:List[UserCourse])
+@(course:Course, leaderboard:Map[Integer,List[UserCourse]])
 
 @main("Leaderboard - "+course.getName){
 
@@ -8,49 +8,46 @@
             <div class="chip">
                 <a href="@routes.CourseController.tutorShow(course.getId)"><b><< </b>@course.getName</a>
             </div>
+
+            @*Leaderboard*@
             <div class="row">
-            <p></p>
-            <i class="material-icons left">poll</i>
-            <p><b>Course Leaderboard</b></p>
-            <div class="row">
+                <p></p>
+                <i class="material-icons left">poll</i>
+                <p><b>Course Leaderboard</b></p>
                 <table id="rank" class=" col s12 striped centered">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Student</th>
                             <th>Score</th>
-                            <th># Gold Trophies</th>
-                            <th># Silver Trophies</th>
-                            <th># Bronze Trophies</th>
+                            <th>Gold Trophies</th>
+                            <th>Silver Trophies</th>
+                            <th>Bronze Trophies</th>
                         </tr>
                     </thead>
-                    <tfoot class="hide-on-small-and-down">
-                        <tr>
-                            <th>#</th>
-                            <th>Student</th>
-                            <th>Score</th>
-                            <th># Gold Trophies</th>
-                            <th># Silver Trophies</th>
-                            <th># Bronze Trophies</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
-                    @for(userCourse<-userCourseList){
-                        <tr>
-                            <td>@{userCourseList.indexOf(userCourse)+1}</td>
-                            <td>@userCourse.getUser.getUsername</td>
-                            <td>@userCourse.getUser.calculateScore(course)</td>
-                            <td>@userCourse.getUser.getNumberTrophy(course,3)</td>
-                            <td>@userCourse.getUser.getNumberTrophy(course,2)</td>
-                            <td>@userCourse.getUser.getNumberTrophy(course,1)</td>
-                        </tr>
-                    }
+                        @for((rank,userCourses) <- leaderboard) {
+                            @for(userCourse<-userCourses) {
+                                <tr>
+                                    <td>@rank.toInt match {
+                                            case 1 => {1<i class="material-icons yellow-text lighten-4 tiny left">grade</i>}
+                                            case 2 => {2<i class="material-icons grey-text lighten-4 tiny left">grade</i>}
+                                            case 3 => {3<i class="material-icons orange-text lighten-4 tiny left">grade</i>}
+                                            case _ => {@rank}
+                                        }</td>
+                                    <td>@userCourse.getUser.getUsername</td>
+                                    <td>@userCourse.getScore</td>
+                                    <td>@userCourse.getUser.getNumberTrophy(course,1)</td>
+                                    <td>@userCourse.getUser.getNumberTrophy(course,2)</td>
+                                    <td>@userCourse.getUser.getNumberTrophy(course,3)</td>
+                                </tr>
+
+                            }
+                        }
                     </tbody>
                 </table>
             </div>
-
         </div>
-    </div>
 }
 
 

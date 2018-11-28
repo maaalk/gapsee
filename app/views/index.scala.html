@@ -1,42 +1,127 @@
-@import views.html.helper.form
-@(message: String)
+<!DOCTYPE html>
+<html lang="en">
 
-@main("Home  Page") {
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>GaPSEE - Home</title>
+        <link rel="icon" href="@routes.Assets.versioned("images/iconegapsee.png")">
+        <link rel="shortcut icon" href="@routes.Assets.versioned("images/iconegapsee.png")" />
 
-        @form(action = routes.UserController.authenticate()) {
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="@routes.Assets.versioned("materialize/css/materialize.css")" rel="stylesheet" media="screen,projection">
+    </head>
 
+    <body>
+        <nav class="cyan" role="navigation">
+            <div class="nav-wrapper container z"><a id="logo-container" href="#" class="brand-logo"></a>
+                <ul class="right hide-on-med-and-down">
+                   <li><a href="@routes.HomeController.login()">Login<i class="material-icons left tiny">person</i> </a></li>
+                </ul>
+
+                <ul id="nav-mobile" class="sidenav">
+                    <li><a href="@routes.HomeController.login()">Login<i class="material-icons left tiny">person</i> </a></li>
+                </ul>
+                <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            </div>
+        </nav>
+        <div class="section no-pad-bot cyan" id="home-banner">
+            <div class="container">
+                <div class="row center">
+                    <br><br>
+                    <img class="responsive-img" src="@routes.Assets.versioned("images/gapseelogotrans.png")">
+                    <br><br>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="section">
+                <h3 class="header center orange-text right hide-on-small-and-down">Gamified Process in Software Engineering Education</h3>
+                <h4 class="header center orange-text right hide-on-med-and-up">Gamified Process in Software Engineering Education</h4>
+                <div class="row center">
+                    <h5 class="header col s12 light">A web application to support project-based approaches is SE education</h5>
+                </div>
+                <div class="row center">
+                    <a href="@routes.UserController.create()" id="download-button" class="btn-large waves-effect waves-light orange">Get Started</a>
+                </div>
+                <br><br>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                    <!--   Icon Section   -->
                 <div class="row">
-                        <div class="col s12 m6">
-                                <div class="input-field col s12 m4">
-                                        <input placeholder="User Name" id="name" type="text" name="username">
-                                        <label for="name">Usuario</label>
-                                </div>
-
-                                <div class="input-field col s12 m4">
-                                        <input placeholder="Password" id="pswd" type="password"  name="password">
-                                        <label for="pswd">Senha</label>
-                                </div>
-
-                                <button class="waves-effect waves-light btn yellow darken-4 col s12 m2" type="submit" value="User login"> Login
-                                        <i class="material-icons left">save</i>
-                                </button>
-
+                    <div class="col s12 m4">
+                        <div class="icon-block">
+                            <h2 class="center light-blue-text"><i class="material-icons medium">school</i></h2>
+                            <h5 class="center">Educational Project Roadmap</h5>
+                            <p class="light">Discover goals, descriptions and deadlines for your project assignment, and receive feedback from the project tutor for each task you complete.</p>
                         </div>
+                    </div>
+                    <div class="col s12 m4">
+                        <div class="icon-block">
+                            <h2 class="center light-blue-text"><i class="material-icons medium">gamepad</i></h2>
+                            <h5 class="center">Gamification</h5>
+                            <p class="light">Earn trophies,track your progress, and compare your team score to other teamns in leaderboards. </p>
+                        </div>
+                    </div>
 
+                    <div class="col s12 m4">
+                        <div class="icon-block">
+                            <h2 class="center light-blue-text"><i class="material-icons medium">build</i></h2>
+                            <h5 class="center">Software Engineering</h5>
+                            <p class="light">Provide evidences of applying Software Engineering concepts in practical projects </p>
+                        </div>
+                    </div>
                 </div>
+
+            </div>
+            <br><br>
+        </div>
+
+        <footer class="page-footer orange">
+            <div class="container">
                 <div class="row">
-                        <a href="@routes.UserController.create()"> Novo Usuário</a>
+                    <div class="col l6 s12">
+                        <h5 class="white-text">Company Bio</h5>
+                        <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+                    </div>
+                    <div class="col l3 s12">
+                        <h5 class="white-text">Settings</h5>
+                        <ul>
+                            <li><a class="white-text" href="#!">Link 1</a></li>
+                            <li><a class="white-text" href="#!">Link 2</a></li>
+                            <li><a class="white-text" href="#!">Link 3</a></li>
+                            <li><a class="white-text" href="#!">Link 4</a></li>
+                        </ul>
+                    </div>
+                    <div class="col l3 s12">
+                        <h5 class="white-text">Connect</h5>
+                        <ul>
+                            <li><a class="white-text" href="#!">Link 1</a></li>
+                            <li><a class="white-text" href="#!">Link 2</a></li>
+                            <li><a class="white-text" href="#!">Link 3</a></li>
+                            <li><a class="white-text" href="#!">Link 4</a></li>
+                        </ul>
+                    </div>
                 </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+      Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+            </div>
+        </footer>
 
 
+            <!--  Scripts-->
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="js/materialize.js"></script>
+        <script src="js/init.js"></script>
 
-        }
+    </body>
 
-
-
-
-
-
-
-}
-    
+</html>

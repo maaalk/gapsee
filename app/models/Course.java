@@ -6,8 +6,8 @@ import io.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Course extends Model {
@@ -116,6 +116,40 @@ public class Course extends Model {
             }
         }
         return userList;
+    }
+
+    public List<UserCourse> getUserCourses(UserRole userRole){
+        List<UserCourse> students = this.userCourses
+                .stream()
+                .filter(p->p.getRole().equals(userRole))
+                .collect(Collectors.toList());
+
+        return students;
+    }
+
+    public Map<Integer, List<UserCourse>> getRanking(){
+        SortedMap<Integer,List<UserCourse>> ranking=new TreeMap<>(Collections.reverseOrder());
+        this.userCourses.stream()
+                .filter(p->p.getRole().equals(UserRole.STUDENT))
+                .sorted(Comparator.comparing(UserCourse::getScore).reversed())
+                .forEach(userCourse -> {
+            if(ranking.containsKey(userCourse.getScore())){
+                ranking.get(userCourse.getScore()).add(userCourse);
+            }else{
+                List<UserCourse> userCourses = new ArrayList<UserCourse>();
+                userCourses.add(userCourse);
+                ranking.put(userCourse.getScore(),userCourses);
+            }
+                    System.out.println(userCourse.getScore().toString()+ranking.get(userCourse.getScore()).toString());
+        });
+        SortedMap<Integer,List<UserCourse>> leaderboard=new TreeMap<>();
+        int rank=1;
+        for(Map.Entry<Integer, List<UserCourse>> entry : ranking.entrySet()){
+            leaderboard.put(rank,entry.getValue());
+            rank=rank+entry.getValue().size();
+        }
+        System.out.println(leaderboard.toString());
+        return leaderboard;
     }
 
 

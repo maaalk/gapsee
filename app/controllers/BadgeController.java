@@ -29,11 +29,8 @@ public class BadgeController extends Controller {
             return notFound("Badge not found");
         }
         User user = User.findByUserName(session("username"));
-        System.out.println("*************************************************Até aqui");
         UserBadge userBadge = UserBadge.findUserBadge(user.getId(),badge.getId());
-        System.out.println("*************************************************Passou!");
         userBadge.getEvidenceList().sort(Comparator.comparing(Evidence::getSubmissionDate).reversed());
-
         return ok(badgeshow.render(userBadge));
     }
 
@@ -60,7 +57,7 @@ public class BadgeController extends Controller {
         Badge badge = badgeForm.get();
         badge.setLevel(Level.find.byId(1));
         badge.save();
-        return redirect(routes.BadgeController.index());
+        return redirect(routes.BadgeController.home());
     }*/
 
    /* @Security.Authenticated(AdminActionAuthenticator.class)
@@ -85,7 +82,7 @@ public class BadgeController extends Controller {
         oldBadge.setName(badge.getName());
         oldBadge.setDescription(badge.getDescription());
         oldBadge.update();
-        return redirect(routes.BadgeController.index());
+        return redirect(routes.BadgeController.home());
 
            }*/
 

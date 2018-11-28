@@ -3,8 +3,12 @@
 # ~~~~
 
 #Home
-GET     /                           controllers.HomeController.index
-GET    /logout                           controllers.HomeController.logout
+GET    /                            controllers.HomeController.index
+GET    /home                        controllers.HomeController.home
+GET    /logout                      controllers.HomeController.logout
+GET    /login                       controllers.HomeController.login
++ nocsrf
+POST   /login                       controllers.HomeController.authenticate()
 
 #Courses
 GET     /courses                    controllers.CourseController.index

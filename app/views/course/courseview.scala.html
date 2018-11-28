@@ -33,12 +33,12 @@
             @*Score*@
             <div class=" col s6 m2" id="score">
                 <h5 class="center-align">Score</h5>
-                <h4 class="center-align">@user.calculateScore(course)</h4>
+                <h4 class="center-align">@user.getScore(course)</h4>
             </div>
             @*Score*@
             <div class=" col s6 m2" id="rank">
                 <h5 class="center-align">Rank</h5>
-                <h4 class="center-align"># @user.calculateScore(course)</h4>
+                <h4 class="center-align"># @user.getRank(course)</h4>
             </div>
 
         </div>

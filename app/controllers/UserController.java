@@ -6,7 +6,9 @@ import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
+import views.html.home;
 import views.html.index;
+import views.html.login;
 import views.html.user.usercreate;
 
 import javax.inject.Inject;
@@ -48,7 +50,7 @@ public class UserController extends Controller {
         try {
             user.save();
             flash("success", "Usuário criado com sucesso");
-            return ok(index.render(""));
+            return ok(login.render());
         }catch (Exception e){
             System.out.println("Erro ao cadastrar usuário! "+e.toString());
             flash("fail","Erro ao cadastrar usuário! =/");
