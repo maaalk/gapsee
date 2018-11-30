@@ -13,6 +13,7 @@ import java.util.Optional;
 
 
 @Entity
+@Table(name="PEOPLE")
 public class User extends Model {
 
     @Id
