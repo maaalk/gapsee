@@ -45,14 +45,14 @@ create table level (
   constraint pk_level primary key (id)
 );
 
-create table user (
+create table usuario (
   id                            integer auto_increment not null,
   username                      varchar(255),
   password                      varchar(255),
   role                          varchar(7),
-  constraint ck_user_role check ( role in ('STUDENT','TUTOR','ADMIN')),
-  constraint uq_user_username unique (username),
-  constraint pk_user primary key (id)
+  constraint ck_usuario_role check ( role in ('STUDENT','TUTOR','ADMIN')),
+  constraint uq_usuario_username unique (username),
+  constraint pk_usuario primary key (id)
 );
 
 create table user_badge (
@@ -85,7 +85,7 @@ create index ix_level_course_id on level (course_id);
 alter table level add constraint fk_level_course_id foreign key (course_id) references course (id) on delete restrict on update restrict;
 
 create index ix_user_badge_user_id on user_badge (user_id);
-alter table user_badge add constraint fk_user_badge_user_id foreign key (user_id) references user (id) on delete restrict on update restrict;
+alter table user_badge add constraint fk_user_badge_user_id foreign key (user_id) references usuario (id) on delete restrict on update restrict;
 
 create index ix_user_badge_badge_id on user_badge (badge_id);
 alter table user_badge add constraint fk_user_badge_badge_id foreign key (badge_id) references badge (id) on delete restrict on update restrict;
@@ -94,7 +94,7 @@ create index ix_user_course_course_id on user_course (course_id);
 alter table user_course add constraint fk_user_course_course_id foreign key (course_id) references course (id) on delete restrict on update restrict;
 
 create index ix_user_course_user_id on user_course (user_id);
-alter table user_course add constraint fk_user_course_user_id foreign key (user_id) references user (id) on delete restrict on update restrict;
+alter table user_course add constraint fk_user_course_user_id foreign key (user_id) references usuario (id) on delete restrict on update restrict;
 
 
 # --- !Downs
@@ -128,7 +128,7 @@ drop table if exists evidence;
 
 drop table if exists level;
 
-drop table if exists user;
+drop table if exists usuario;
 
 drop table if exists user_badge;
 
