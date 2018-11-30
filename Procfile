@@ -1,1 +1,0 @@
-web:target/universal/stage/bin/evening-castle-67769 -Dhttp.port=${PORT} -Dplay.evolutions.db.default.autoApply=true -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${postgres://vbmbalzdvppuve:dcbc8a3674cdec684d8e7ccb075446a9c53a775ce796e422bcd8ae4519607635@ec2-54-204-36-249.compute-1.amazonaws.com:5432/de6tf3hjetoo4u}
