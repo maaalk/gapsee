@@ -13,7 +13,7 @@ libraryDependencies += guice
 libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1201-jdbc41"
 
 // Test Database
-libraryDependencies += "com.h2database" % "h2" % "1.4.197"
+//libraryDependencies += "com.h2database" % "h2" % "1.4.197"
 
 // Testing libraries for dealing with CompletionStage...
 libraryDependencies += "org.assertj" % "assertj-core" % "3.6.2" % Test
