@@ -26,8 +26,6 @@ public class UserCourse extends Model {
     public UserCourse(User user, Course course){
         this.course=course;
         this.user=user;
-        this.role=UserRole.STUDENT;
-        this.score=0;
     }
 
     public static Finder<Integer, UserCourse> find = new Finder<>(UserCourse.class);
