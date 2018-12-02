@@ -17,7 +17,7 @@
             <div class="col s12 m8" id="course-header">
                 <div class="row">
                     <div class="col s5 offset-s1 m9">
-                        @if(@course.getBadgeList.size()==0){
+                        @if(course.getBadgeList.size()==0){
                             <h5>Tasks: 0</h5>
                             <div class="progress">
                                 <div class="determinate" style="width: 0%">Progresso</div>
@@ -30,8 +30,6 @@
                             </div>
                             <p> @{100*user.getNumberTrophy(course)/course.getBadgeList.size()}%</p>
                         }
-
-
 
                     </div>
                     <div class="col s5 offset-s1 m3">
