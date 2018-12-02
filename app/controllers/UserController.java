@@ -53,7 +53,7 @@ public class UserController extends Controller {
             return ok(login.render());
         }catch (Exception e){
             System.out.println("Erro ao cadastrar usuário! "+e.toString());
-            flash("fail","Erro ao cadastrar usuário! =/");
+            flash("fail","Erro ao cadastrar usuário! =/+");
             return badRequest(usercreate.render());
         }
 
