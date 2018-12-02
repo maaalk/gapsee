@@ -41,6 +41,7 @@ public class CourseController extends Controller {
         User user = User.findByUserName(session("username"));
         Course course = Course.find.byId(courseId);
         UserCourse userCourse = new UserCourse(user,course);
+        userCourse.setRole(UserRole.STUDENT);
         userCourse.setScore(0);
         userCourse.save();
         flash("success","You joined the course ' "+course.getName()+"'");
