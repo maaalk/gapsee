@@ -123,13 +123,13 @@ public class CourseController extends Controller {
         if (course==null){
             return notFound("Course not found");
         }
+        course.getLevelList().stream().sorted(Comparator.comparing(Level::getFinalDate));
         User user = User.findByUserName(session("username"));
         List<UserBadge> userBadgeList = user.getUserBadges();
         final Map userBadgeMap = new HashMap<>();
         for (final UserBadge userBadge : userBadgeList) {
             userBadgeMap.put(userBadge.getBadge(), userBadge);
         }
-        List<Level> levelList = course.getLevelList();
         return ok(courseview.render(course,userBadgeMap,user));
     }
 
