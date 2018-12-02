@@ -17,11 +17,22 @@
             <div class="col s12 m8" id="course-header">
                 <div class="row">
                     <div class="col s5 offset-s1 m9">
-                        <h5>Tasks: @user.getNumberTrophy(course)/@course.getBadgeList.size()</h5>
-                        <div class="progress">
-                            <div class="determinate" style="width: @{100*user.getNumberTrophy(course)/course.getBadgeList.size()}%">Progresso</div>
-                        </div>
-                        <p> @{100*user.getNumberTrophy(course)/course.getBadgeList.size()}%</p>
+                        @if(@course.getBadgeList.size()==0){
+                            <h5>Tasks: 0</h5>
+                            <div class="progress">
+                                <div class="determinate" style="width: 0%">Progresso</div>
+                            </div>
+                            <p> @0%</p>
+                        } else{
+                            <h5>Tasks: @user.getNumberTrophy(course)/@course.getBadgeList.size()</h5>
+                            <div class="progress">
+                                <div class="determinate" style="width: @{100*user.getNumberTrophy(course)/course.getBadgeList.size()}%">Progresso</div>
+                            </div>
+                            <p> @{100*user.getNumberTrophy(course)/course.getBadgeList.size()}%</p>
+                        }
+
+
+
                     </div>
                     <div class="col s5 offset-s1 m3">
                         <p><img src="@routes.Assets.versioned("images/trophyt3.png")" style="max-width: 20px;max-height: 20px;"> Gold: @user.getNumberTrophy(course,3)</p>
