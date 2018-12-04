@@ -5,62 +5,65 @@
 
 
 
-@main("New Evidence "){
+@main("Edit Evidence "){
     <div class="container">
-    @tagbadge(badge)
 
-    </div>
+        @tagbadge(badge)
 
-
-    <div class="row">
-    @form(action = routes.EvidenceController.update(evidence.getId),'enctype -> "multipart/form-data"){
-        <div class="col s12 m6">
-            <div id="oldFile">
-                <p>
-                    <b>Current Evidence: </b>
-                    <a href="@routes.EvidenceController.evidenceDownload(evidence.getId)" download="@evidence.getFileName">
+        <div class="row">
+        @form(action = routes.EvidenceController.update(evidence.getId),'enctype -> "multipart/form-data"){
+            <div class="col s12 m6">
+                <div id="oldFile">
+                    <p>
+                        <b>Current Evidence: </b>
+                        <a href="@routes.EvidenceController.evidenceDownload(evidence.getId)" download="@evidence.getFileName">
                         @evidence.getFileName
-                    </a>
-                </p>
-                <p> Change evidence file?
-                    <a class="btn-flat" onclick="deleteFile()"><i class="material-icons red-text">cached</i> </a>
-                </p>
+                        </a>
+                    </p>
+                    <p> Change evidence file?
+                        <a class="btn-flat" onclick="deleteFile()"><i class="material-icons red-text">cached</i> </a>
+                    </p>
 
-            </div>
-
-            @*File Attachment*@
-            <div id="newFile" class="file-field input-field" hidden>
-                <div class="btn cyan">
-                    <i class="material-icons left">attach_file</i>
-                    <span>File</span>
-                    <input type="file" name="evidenceFile">
                 </div>
-                <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text">
+
+                @*File Attachment*@
+                <div id="newFile" class="file-field input-field" hidden>
+                    <div class="btn cyan">
+                        <i class="material-icons left">attach_file</i>
+                        <span>File</span>
+                        <input type="file" name="evidenceFile">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" type="text">
+                    </div>
+                    <p class="red-text"><i>**If no file is submitted the current one is kept</i> </p>
                 </div>
-                <p class="red-text"><i>**If no file is submitted the current one is kept</i> </p>
+
+
+
+                @*Text Area Description*@
+                <div class="input-field col s12">
+                    <textarea value="teste" id="textarea1" class="materialize-textarea" name="description" ></textarea>
+                    <label for="textarea1">Justificativa</label>
+                </div>
+
+
+
+                <br/>
+
+
+                <button class="waves-effect waves-light btn yellow darken-4" type="submit" value="Update Evidence"> Update
+                    <i class="material-icons left">send</i>
+                </button>
+
             </div>
-
-
-
-            @*Text Area Description*@
-            <div class="input-field col s12">
-                <textarea value="teste" id="textarea1" class="materialize-textarea" name="description" ></textarea>
-                <label for="textarea1">Justificativa</label>
-            </div>
-
-
-
-            <br/>
-
-
-            <button class="waves-effect waves-light btn yellow darken-4" type="submit" value="Update Evidence"> Update
-                <i class="material-icons left">send</i>
-            </button>
-
+        }
         </div>
-    }
+
     </div>
+
+
+
 
     <br/>
 }

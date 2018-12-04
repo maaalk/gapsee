@@ -5,42 +5,43 @@
 @main("Evaluation"){
     <div class="container">
         @tagbadge(evidence.getUserBadge.getBadge)
-
-    </div>
-
-    <div class="row">
-        <p><b>Evidence: </b> <a href="file:///D:\workspace\@evidence.getFileName" download="@evidence.getFileName">@evidence.getFileName</a></p>
-        <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
-    </div>
-
-    <div class="row">
-    @form(action = routes.EvidenceController.evaluationResult(evidence.getId),'enctype -> "multipart/form-data"){
-        <div class="col s12 m6">
-
-            <div class="input-field col s12">
-                <textarea id="textarea2" class="materialize-textarea" name="feedback"></textarea>
-                <label for="textarea2">Feedback</label>
-            </div>
-
-            <div class="input-field col s12 m6">
-                <select name="enumStatus">
-                    <option value="ACCEPTED">Ok</option>
-                    <option value="REJECTED">Not Ok</option>
-                </select>
-                <label>Evaluation</label>
-            </div>
-            <row>
-                <button class="waves-effect waves-light btn yellow darken-4" type="submit" value="New Evidence"> Submit Evaluation
-                    <i class="material-icons left">thumbs_up_down</i>
-                </button>
-            </row>
-
-
-
+        <div class="row">
+            <p><b>Evidence: </b> <a href="file:///D:\workspace\@evidence.getFileName" download="@evidence.getFileName">@evidence.getFileName</a></p>
+            <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
         </div>
 
-}
+        <div class="row">
+        @form(action = routes.EvidenceController.evaluationResult(evidence.getId),'enctype -> "multipart/form-data"){
+            <div class="col s12 m6">
+
+                <div class="input-field col s12">
+                    <textarea id="textarea2" class="materialize-textarea" name="feedback"></textarea>
+                    <label for="textarea2">Feedback</label>
+                </div>
+
+                <div class="input-field col s12 m6">
+                    <select name="enumStatus">
+                        <option value="ACCEPTED">Ok</option>
+                        <option value="REJECTED">Not Ok</option>
+                    </select>
+                    <label>Evaluation</label>
+                </div>
+                <row>
+                    <button class="waves-effect waves-light btn yellow darken-4" type="submit" value="New Evidence"> Submit Evaluation
+                        <i class="material-icons left">thumbs_up_down</i>
+                    </button>
+                </row>
+
+
+
+            </div>
+
+        }
+        </div>
+
     </div>
+
+
 
 }
     <script>
