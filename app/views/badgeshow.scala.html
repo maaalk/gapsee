@@ -60,7 +60,7 @@
                             <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@evidence.showSubmissionDate()</i></b></p>
                             <i class="material-icons left tiny">attach_file</i>
                             <p><b>Evidence: </b> <a href="@routes.EvidenceController.evidenceDownload(evidence.getId)" download="@evidence.getFileName">@evidence.getFileName</a></p>
-                            <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
+                            <p><b>Description: </b> <i>@Html(evidence.getHtmlDescription)</i> </p>
                             <br>
                             @if(evidence.getStatus.equals(EvidenceStatus.NEW)){
                                 <div class="col s6 m5 offset-m1">

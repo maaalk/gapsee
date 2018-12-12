@@ -18,6 +18,7 @@ import views.html.evidence.evidencenew;
 import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
+import java.text.Normalizer;
 import java.util.Calendar;
 
 
@@ -79,7 +80,13 @@ public class EvidenceController extends Controller {
             flash("fail","Sorry, I can't do this =/");
             return notFound("Badge not found");
         }
-        return  ok(evidenceedit.render(evidence,evidence.getUserBadge().getBadge()));
+
+        Evidence evidenceTeste = evidence;
+        evidenceTeste.setDescription(evidence.getScalaEdit());
+
+        System.out.println("EVIDENCE TESTE: "+evidenceTeste.getDescription());
+
+        return  ok(evidenceedit.render(evidenceTeste,evidence.getUserBadge().getBadge()));
     }
 
     public Result update(Integer id){
@@ -108,6 +115,7 @@ public class EvidenceController extends Controller {
         oldEvidence.getUserBadge().setLastUpdate(calendar.getTime());
         oldEvidence.getUserBadge().update();
         flash("success","Evidence updated =D");
+
         return redirect(routes.BadgeController.show(oldEvidence.getUserBadge().getBadge().getId()));
     }
 

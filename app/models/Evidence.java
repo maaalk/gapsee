@@ -149,4 +149,30 @@ public class Evidence extends Model {
                 .findOne();
         return evidence;
     }
+
+    public String getHtmlDescription(){
+
+        String[] line;
+        String formatado="";
+
+        line=this.getDescription().split("\n");
+
+        for(int i = 0;i<line.length;i++)
+            formatado = formatado+"<p>" +line[i]+"</p>";
+
+        return formatado;
+    }
+
+    public String getScalaEdit(){
+        String[] line;
+        String formatado="";
+
+        line=this.getDescription().split("\n");
+
+        for(int i = 0;i<line.length;i++)
+            formatado = formatado+"\\n" +line[i];
+
+        return formatado;
+
+    }
 }
