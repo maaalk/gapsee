@@ -15,86 +15,85 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
     <link href="@routes.Assets.versioned("materialize/css/materialize.css")" rel="stylesheet" media="screen,projection">
-
     <style>
-        nav .badge{
-            position: relative;
-            top: 20px;
-            right: 20px;
-        }
+            body {
+                padding-top: 0rem;
 
+            }
     </style>
+
 </head>
 <body>
 
     <!--Navigation Bar-->
-    <nav class="nav-wraper cyan" >
-        @*<div class="container">*@
+    <nav class="cyan" role="navigation">
+        <div class="nav-wrapper container z">
             <a href="@routes.HomeController.home()" class="brand-logo"><img src="@routes.Assets.versioned("images/gapseelogotrans.png")" style="max-height: 56px"></a>
-            @*<img src="@routes.Assets.versioned("images/gapseelogotrans.png")" style="max-height: 56px">*@
-            <a href="#" class="sidenav-trigger" data-target="mobile-links">
-                <i class="material-icons">menu</i>
-            </a>
+
+
             <ul class="right hide-on-med-and-down">
                 <li><a href="@routes.CourseController.index()">Courses</a></li>
-
-                <li>
-                    <a href="@routes.HomeController.logout()" class="btn-floating cyan z-depth-0">
-                        <i class="material-icons">exit_to_app</i>
-                    </a>
-                </li>
-                <li><span class="badge white-text pink new">5</span></li>
+                <li><a href="@routes.HomeController.logout()"><i class="material-icons">exit_to_app</i> Logout</a></li>
+                <li><a href="#"><i class="material-icons">account_circle</i> User</a></li>
             </ul>
-        @*</div>*@
+
+            <ul id="nav-mobile" class="sidenav">
+                <li><a href="@routes.CourseController.index()">Courses</a></li>
+                <li><a href="@routes.HomeController.logout()"><i class="material-icons">exit_to_app</i> Logout</a></li>
+            </ul>
+            <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        </div>
     </nav>
-    <ul class="sidenav" id="mobile-links">
-        <li><a href="@routes.CourseController.index()">Courses</a></li>
-
-        <li><a href="@routes.HomeController.logout()">Logouot</a></li>
-    </ul>
         <!--Alert-->
-    <div class="row" id="alert_box">
+    <div class="row" id="alert_box" style="
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        z-index: 10;">
 
-        @if(flash.containsKey("fail")) {
-            <div class="col s12 m12">
-                <div class="card red lighten-4 z-depth-0">
-                    <div class="card-content">
-                        <span>  <i class="material-icons left">warning</i> @flash.get("fail") </span>
-                        <div class="btn-flat right" id="alert_close"><i class="material-icons left">close</i></div>
+            @if(flash.containsKey("fail")) {
+                <div class="col s12 m12">
+                    <div class="card red lighten-4 z-depth-0">
+                        <div class="card-content">
+                            <span>  <i class="material-icons left">warning</i> @flash.get("fail") </span>
+                            <div class="btn-flat right" id="alert_close"><i class="material-icons">close</i></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
 
-        @if(flash.containsKey("alert")) {
-            <div class="col s12 m12">
-                <div class="card yellow lighten-4 z-depth-0">
-                    <div class="card-content">
-                        <span>  <i class="material-icons left">priority_high</i> @flash.get("alert") </span>
-                        <div class="btn-flat right" id="alert_close"><i class="material-icons left">close</i></div>
+            @if(flash.containsKey("alert")) {
+                <div class="col s12 m12">
+                    <div class="card yellow lighten-4 z-depth-0">
+                        <div class="card-content">
+                            <span>  <i class="material-icons left">priority_high</i> @flash.get("alert") </span>
+                            <div class="btn-flat right" id="alert_close"><i class="material-icons">close</i></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        }
+            }
 
-        @if(flash.containsKey("success")) {
-            <div class="col s12 m12">
+            @if(flash.containsKey("success")) {
                 <div class="card green lighten-4 z-depth-0">
                     <div class="card-content">
-                        <span>  <i class="material-icons left">thumb_up</i> @flash.get("success") </span>
-                        <div class="btn-flat right" id="alert_close"><i class="material-icons left">close</i></div>
+                        <div class="btn-flat right" id="alert_close"><i class="material-icons">close</i></div>
+                        <i class="material-icons left">thumb_up</i>
+                        <span>   @flash.get("success") </span>
                     </div>
                 </div>
-            </div>
-        }
 
+            }
+    </div>
+    <div class="row">
+        <br>
     </div>
 
-
-
-    <main role="main"@* class="container"*@>
+    <div class="row">
+        <main role="main"@* class="container"*@>
         @content
-    </main><!-- /.container -->
+        </main><!-- /.container -->
+    </div>
+
 
     <!--Scripts-->
     <script

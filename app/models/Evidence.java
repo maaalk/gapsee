@@ -167,10 +167,10 @@ public class Evidence extends Model {
         String[] line;
         String formatado="";
 
-        line=this.getDescription().split("\n");
+        line=this.getDescription().split("\r\n");
 
         for(int i = 0;i<line.length;i++)
-            formatado = formatado+"\\n" +line[i];
+            formatado = formatado+ "\\"+"n"+line[i];
 
         return formatado;
 
