@@ -169,8 +169,15 @@ public class Evidence extends Model {
 
         line=this.getDescription().split("\r\n");
 
-        for(int i = 0;i<line.length;i++)
-            formatado = formatado+ "\\"+"n"+line[i];
+        for(int i = 0;i<line.length;i++){
+            if (i==0){
+                formatado = formatado+line[i];
+            } else {
+                formatado = formatado+ "\\"+"n"+line[i];
+            }
+        }
+
+
 
         return formatado;
 

@@ -44,7 +44,7 @@
                     <div class="card-content">
                         <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@currentEvidence.showSubmissionDate()</i></b></p>
                         <p><b>Evidence: </b> <a href="@routes.EvidenceController.evidenceDownload(currentEvidence.getId)" download="@currentEvidence.getFileName">@currentEvidence.getFileName</a></p>
-                        <p><b>Description: </b> <i>@currentEvidence.getDescription</i> </p>
+                        <p><b>Description: </b> <i>@Html(currentEvidence.getHtmlDescription)</i> </p>
                         <p></p>
                     </div>
 
@@ -100,7 +100,7 @@
                         <div class="card-content">
                             <p class="grey-text darken-3 right-align" style="font-size: x-small"> <i class="material-icons tiny">date_range</i><b><i>@evidence.showSubmissionDate()</i></b></p>
                             <p><b>Evidence: </b> <a href="@routes.EvidenceController.evidenceDownload(evidence.getId)" download="@evidence.getFileName">@evidence.getFileName</a></p>
-                            <p><b>Description: </b> <i>@evidence.getDescription</i> </p>
+                            <p><b>Description: </b> <i>@Html(currentEvidence.getHtmlDescription)</i> </p>
                             <p></p>
                         </div>
 
