@@ -10,6 +10,8 @@ crossScalaVersions := Seq("2.11.12", "2.12.4")
 
 libraryDependencies += guice
 
+libraryDependencies += javaJdbc
+
 libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1201-jdbc41"
 
 // Test Database
