@@ -14,8 +14,10 @@ public class Course extends Model {
     @Id
     private Integer id;
     private String name;
+    private String insituicao;
+    private Date dataPrevistaTermino;
     @OneToMany
-    private List<Level> levelList;
+    private List<Level> levelList;	
     @OneToMany
     private List<UserCourse> userCourses;
 

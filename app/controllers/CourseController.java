@@ -36,6 +36,8 @@ public class CourseController extends Controller {
         }
         return ok(tutorcourseindex.render(courseList));
     }
+    
+    
 
     public Result join(Integer courseId){
         User user = User.findByUserName(session("username"));
@@ -81,9 +83,16 @@ public class CourseController extends Controller {
     public Result create(){
         return ok();
     }
+    
+    public Result newCourse() {
+    	return ok(newcourse.render());
+    }
 
     public Result save(){
-        return ok();
+    	//User user = User.findByUserName(session("username"));
+    	
+    	
+       return ok(newcourse.render());
     }
 
     public Result edit(){

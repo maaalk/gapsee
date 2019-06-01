@@ -1,0 +1,43 @@
+
+@main("New  Course"){
+
+	@helper.form(routes.CourseController.save()) {
+		<div class="container">
+			<form method='post' action='@routes.CourseController.save()'>
+			  <div class="form-group">
+			    <label for="nome">Nome Curso</label>
+			    <input type="text" class="form-control" id="nome" aria-describedby="nome" placeholder="Nome do curso">
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="data-termino">Data Término</label>
+			    <input type="text" class="form-control" id="data-termino" placeholder="Data Término">
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="Insituicao">Instituição</label>
+			    <input type="text" class="form-control" id="instituicao" placeholder="Instituicao">
+			  </div>
+			  
+			  <div class="form-group form-check">
+			  </div>
+			  
+			  <button type="submit" class="btn-small waves-effect waves-light yellow darken-4">Ok</button>
+			  
+			</form>
+		</div>
+	}
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+<script src="@routes.Assets.versioned("/js/custom.js")"></script>
+
+	<script>
+	
+		$(document).ready(function(){
+		  $('#data-termino').mask('00/00/0000');
+		});
+	</script>
+
+
+

@@ -19,6 +19,8 @@ create table badge (
 create table course (
   id                            serial not null,
   name                          varchar(255),
+  insituicao                    varchar(255),
+  data_prevista_termino         timestamptz,
   constraint pk_course primary key (id)
 );
 
